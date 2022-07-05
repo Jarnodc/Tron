@@ -92,7 +92,6 @@ void dae::Minigin::Run()
 				sceneManager.FixedUpdate();
 				lag -= MsPerFrame;
 			}
-			input.Update();
 			sceneManager.Update();
 			renderer.Render();
 		}

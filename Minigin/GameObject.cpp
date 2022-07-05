@@ -84,9 +84,16 @@ void dae::GameObject::SetParent(dae::GameObject* parent, bool keepWorldPosition)
 		if (keepWorldPosition)
 			m_Transform.SetLocalPosition(m_Transform.GetLocalPosition() - parent->GetWorldPosition());
 		m_Transform.SetDirty();
+
+		if (m_pParent != parent)
+		{
+			if (parent)
+			{
+				m_pParent->AddChild(this);
+			}
+		}
 	}
-	
-	m_pParent = parent;				
+	m_pParent = parent;
 }
 
 dae::GameObject* dae::GameObject::GetParent() const
@@ -111,7 +118,7 @@ void dae::GameObject::RemoveChild(int index)
 {
 	if (static_cast<unsigned>(index) > m_pChildren.size())
 		return;
-	
+	m_pChildren[index]->SetParent(nullptr);
 	m_pChildren.erase(m_pChildren.begin() + index);
 }
 

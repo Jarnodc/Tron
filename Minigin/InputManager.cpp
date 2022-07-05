@@ -56,7 +56,8 @@ bool dae::InputManager::ProcessInput()
 		ImGui_ImplSDL2_ProcessEvent(&m_Event);
 	}
 
-	for (auto val : m_ConsoleCommands)
+	Update();
+	for (const auto& val : m_ConsoleCommands)
 	{
 			switch (val.state)
 			{

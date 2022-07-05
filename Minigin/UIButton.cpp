@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include "UIButton.h"
 
+#include "Renderer.h"
+#include "ResourceManager.h"
 #include "UIManager.h"
 
 UIButton::UIButton(dae::GameObject* pGO, const SDL_Rect& srcRect, const SDL_Rect& dstRect, const std::string& path, bool hasPressedImage)

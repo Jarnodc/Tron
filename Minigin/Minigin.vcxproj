@@ -259,7 +259,6 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="ServiceLocator.h" />
     <ClInclude Include="Sound_System.h" />
-    <ClInclude Include="SpiceComponent.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
@@ -270,7 +269,6 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="MiniginPCH.h" />
-    <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
@@ -353,15 +351,12 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="ResetComponent.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="ServiceLocator.cpp" />
     <ClCompile Include="Sound_System.cpp" />
-    <ClCompile Include="SpiceComponent.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateMachine.cpp" />

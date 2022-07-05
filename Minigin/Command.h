@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "PPComponent.h"
 
 class Command
 {
@@ -25,7 +24,6 @@ public:
 	~AttackCommand() override = default;
 	virtual void Execute()
 	{
-		m_pGameObject->GetComponent<PPComponent>()->ChangeToAttack();
 	}
 
 	AttackCommand(const AttackCommand& other) = delete;

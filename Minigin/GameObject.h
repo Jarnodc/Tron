@@ -1,6 +1,5 @@
 #pragma once
 #include "Transform.h"
-#include "SceneObject.h"
 #include "Component.h"
 #include <vector>
 #define Tag std::string
@@ -10,12 +9,12 @@ namespace dae
 	class Texture2D;
 
 	// todo: this should become final.
-	class GameObject final : public SceneObject
+	class GameObject final
 	{
 	public:
-		void Update() override;
-		void FixedUpdate() override;
-		void Render() const override;
+		void Update();
+		void FixedUpdate();
+		void Render() const;
 
 		//Transform
 		void SetPosition(float x, float y);
@@ -32,7 +31,6 @@ namespace dae
 		template <typename T> void RemoveComponent(Component* pComp);
 
 		//Update Parent 
-		void SetParent(dae::GameObject* parent, bool keepWorldPosition = false);
 		dae::GameObject* GetParent() const;
 
 		//Update Child 
@@ -43,8 +41,8 @@ namespace dae
 		void AddChild(dae::GameObject* go);
 
 		//constructor / destructor
-		GameObject(Tag tag = "Null"):SceneObject(),m_Transform(this),m_Tag{tag}{}
-		~GameObject() override;
+		GameObject(Tag tag = "Null"):m_Transform(this),m_Tag{tag}{}
+		~GameObject();
 
 		//rule 5
 		GameObject(const GameObject& other) = delete;
@@ -58,8 +56,10 @@ namespace dae
 		Tag GetTag() const { return m_Tag; }
 		void SetTag(Tag tag) { m_Tag = tag; }
 	private:
+		void SetParent(dae::GameObject* parent, bool keepWorldPosition = false);
+
 		Transform m_Transform;
-		std::vector<Component*> m_pComponents{};
+		std::vector<Component*> m_pComponents{}; 
 		std::vector<dae::GameObject*> m_pChildren{};
 		dae::GameObject* m_pParent{ nullptr };
 		Tag m_Tag{"Null"};
