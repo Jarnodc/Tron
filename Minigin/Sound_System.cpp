@@ -74,7 +74,9 @@ SDLSoundSystem::SoundSystemImpl::~SoundSystemImpl()
 
 void SDLSoundSystem::SoundSystemImpl::AddToQueue(const std::string& filename, int loops, int volume)
 {
+	m_Mutex.lock();
 	m_pSoundQueue.push(new AudioClip(filename, loops, volume));
+	m_Mutex.unlock();
 }
 
 void SDLSoundSystem::SoundSystemImpl::CheckQueue()
@@ -84,10 +86,10 @@ void SDLSoundSystem::SoundSystemImpl::CheckQueue()
 	{
 		if (!m_pSoundQueue.empty())
 		{
-			std::unique_lock<std::mutex> lock(m_Mutex);
+			m_Mutex.lock();
 			ac.push_back(m_pSoundQueue.front());
 			m_pSoundQueue.pop();
-			lock.unlock();
+			m_Mutex.unlock();
 			if (LoadSound(ac.front()))
 			{
 				PlaySound(ac.front());
@@ -99,11 +101,9 @@ void SDLSoundSystem::SoundSystemImpl::CheckQueue()
 			{
 				if (ac[i]->IsPlaying())
 					continue;
-				std::unique_lock<std::mutex> lock(m_Mutex);
 				delete ac[i];
 				ac[i] = nullptr;
 				ac.erase(ac.begin() + i);
-				lock.unlock();
 			}
 		}
 	}

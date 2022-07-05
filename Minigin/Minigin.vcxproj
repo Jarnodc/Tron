@@ -252,17 +252,11 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClInclude Include="FpsCounter.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="MathHelper.h" />
-    <ClInclude Include="HealthComponent.h" />
-    <ClInclude Include="IngredientComponent.h" />
     <ClInclude Include="JsonReader.h" />
     <ClInclude Include="MovementComponent.h" />
-    <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="PhysicsManager.h" />
-    <ClInclude Include="PPComponent.h" />
-    <ClInclude Include="ResetComponent.h" />
     <ClInclude Include="RigidBody.h" />
-    <ClInclude Include="ScoreDisplayComponent.h" />
     <ClInclude Include="ServiceLocator.h" />
     <ClInclude Include="Sound_System.h" />
     <ClInclude Include="SpiceComponent.h" />
@@ -286,7 +280,6 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIButton.h" />
-    <ClInclude Include="UILevelLoadingButton.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="Xbox360Controller.h" />
   </ItemGroup>
@@ -347,8 +340,6 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FpsCounter.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="HealthComponent.cpp" />
-    <ClCompile Include="IngredientComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="JsonReader.cpp" />
     <ClCompile Include="Minigin.cpp" />
@@ -360,9 +351,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MiniginPCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="MovementComponent.cpp" />
-    <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
-    <ClCompile Include="PPComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResetComponent.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -370,7 +359,6 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneObject.cpp" />
-    <ClCompile Include="ScoreDisplayComponent.cpp" />
     <ClCompile Include="ServiceLocator.cpp" />
     <ClCompile Include="Sound_System.cpp" />
     <ClCompile Include="SpiceComponent.cpp" />
@@ -384,7 +372,6 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIButton.cpp" />
-    <ClCompile Include="UILevelLoadingButton.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="Xbox360Controller.cpp" />
   </ItemGroup>

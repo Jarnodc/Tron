@@ -102,9 +102,6 @@
     <ClInclude Include="Xbox360Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PPComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Achievements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -112,9 +109,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Observer.h">
@@ -156,12 +150,6 @@
     <ClInclude Include="JsonReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IngredientComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MovementComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -174,16 +162,7 @@
     <ClInclude Include="UIButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UILevelLoadingButton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResetComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SpiceComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreDisplayComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -260,16 +239,10 @@
     <ClCompile Include="Xbox360Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PPComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Achievements.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AudioClip.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Sound_System.cpp">
@@ -308,12 +281,6 @@
     <ClCompile Include="JsonReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IngredientComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MovementComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -326,16 +293,10 @@
     <ClCompile Include="UIButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UILevelLoadingButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ResetComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SpiceComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreDisplayComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
