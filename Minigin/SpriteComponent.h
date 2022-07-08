@@ -1,47 +1,53 @@
 #pragma once
 #include "Observer.h"
 #include "Renderer.h"
+#include "ResourceManager.h"
+#include "Texture2D.h"
 
 class SpriteComponent : public Component
 {
 public:
-	struct SpritePart
+	struct SourcePart
 	{
-		SpritePart() = default;
-		SpritePart(int cols,int rows,SDL_Rect srcRect, int offSetHor,int offSetVer, SDL_Point startPos)
-			:Cols{ cols }, Rows{ rows }, SrcRect{ srcRect }, OffSetHor{ offSetHor }, OffSetVer{ offSetVer }, StartPos{ startPos }{}
-
-		SpritePart(SDL_Rect srcRect, int offSetHor = 0, int offSetVer = 0)
-			:Cols{ 1 }, Rows{ 1 }, SrcRect{ srcRect }, OffSetHor{ offSetHor }, OffSetVer{ offSetVer }, StartPos{ srcRect.x,srcRect.y }{}
-
-		SpritePart(SDL_Point startPos, int size, int offSetHor = 0, int offSetVer = 0)
-			:Cols{ 1 }, Rows{ 1 }, SrcRect{ startPos.x,startPos.y,size,size }, OffSetHor{ offSetHor }, OffSetVer{ offSetVer }, StartPos{ startPos }{}
-
-		SpritePart(int cols, int rows, SDL_Point startPos, int size, int offSetHor = 0, int offSetVer = 0)
-			:Cols{ cols }, Rows{ rows }, SrcRect{ startPos.x,startPos.y,size,size }, OffSetHor{ offSetHor }, OffSetVer{ offSetVer }, StartPos{ startPos }{}
-
-		SpritePart(int cols, int rows, SDL_Rect srcRect, int offSetHor = 0, int offSetVer = 0)
-			:Cols{ cols }, Rows{ rows }, SrcRect{ srcRect }, OffSetHor{ offSetHor }, OffSetVer{ offSetVer }, StartPos{ srcRect.x,srcRect.y }{}
-
 		int Cols{ 1 };
 		int Rows{ 1 };
 		SDL_Rect SrcRect{ 0,0 };
-		int OffSetHor{ 0 }, OffSetVer{ 0 };
+		SDL_Point OffSet{ 0,0 };
 		SDL_Point StartPos{};
-		bool operator==(const SpritePart& other) const
+
+		SourcePart() = default;
+		SourcePart(const std::string& texturePath, int cols, int rows, const SDL_Rect& srcRect, const SDL_Point& offset)
+			:m_pTexture(dae::ResourceManager::GetInstance().LoadTexture(texturePath))
+			,Cols(cols)
+			,Rows(rows)
+			,SrcRect(srcRect)
+			,OffSet(offset)
+			,StartPos({srcRect.x, srcRect.y})
 		{
-			return Cols == other.Cols && Rows == other.Rows && OffSetHor == other.OffSetHor && OffSetVer == other.OffSetVer && StartPos.x == other.StartPos.x && StartPos.y == other.StartPos.y && SrcRect.x == other.SrcRect.x && SrcRect.y == other.SrcRect.y && SrcRect.w == other.SrcRect.w && SrcRect.h == other.SrcRect.h;
 		}
+		SourcePart(const std::string& texturePath, int cols, int rows, const SDL_Point& startPos, const SDL_Point& offset)
+			:m_pTexture(dae::ResourceManager::GetInstance().LoadTexture(texturePath))
+			, Cols(cols)
+			, Rows(rows)
+			, OffSet(offset)
+			, StartPos(startPos)
+		{
+			int width, height;
+			SDL_QueryTexture(m_pTexture->GetSDLTexture(), NULL, NULL, &width, &height);
+			SrcRect = { startPos.x,startPos.y, width,height};
+		}
+
+		bool operator==(const SourcePart& other) const
+		{
+			return Cols == other.Cols && Rows == other.Rows && OffSet.x == other.OffSet.x && OffSet.y == other.OffSet.y && StartPos.x == other.StartPos.x && StartPos.y == other.StartPos.y && SrcRect.x == other.SrcRect.x && SrcRect.y == other.SrcRect.y && SrcRect.w == other.SrcRect.w && SrcRect.h == other.SrcRect.h;
+		}
+		const dae::Texture2D* GetTexture() const { return m_pTexture; }
+	private:
+		const dae::Texture2D* m_pTexture{ nullptr };
 	};
-	SpriteComponent(dae::GameObject* pGO, const std::string& path, int rows, int cols, int x, int y, float animationSpeed);
-	SpriteComponent(dae::GameObject* pGO, const std::string& path, int rows, int cols, float animationSpeed);
-	SpriteComponent(dae::GameObject* pGO, const std::string& path, SpritePart sp, float animationSpeed);
-	SpriteComponent(dae::GameObject* pGO, const std::string& path, SpritePart sp);
-	SpriteComponent(dae::GameObject* pGO, const std::string& path, SpritePart sp, glm::vec2 scale);
-	SpriteComponent(dae::GameObject* pGO, const std::string& path, SpritePart sp, float animationSpeed,SDL_Rect dstRect);
-	SpriteComponent(dae::GameObject* pGO, const std::string& path, int rows, int cols, int x, int y, int width, int height, float animationSpeed);
-	SpriteComponent(dae::GameObject* pGO, const std::string& path, int rows, int cols, SDL_Point leftTop, int width, int height, float animationSpeed);
-	SpriteComponent(dae::GameObject* pGO, const std::string& path, int rows, int cols, SDL_Rect srcRect, float animationSpeed);
+
+
+	SpriteComponent(dae::GameObject* pGO, const SourcePart& sourcePart, const SDL_Rect& dstRect, float animationTime = 1, bool flip = false);
 	~SpriteComponent() override = default;
 
 	SpriteComponent(const SpriteComponent& other) = delete;
@@ -60,33 +66,27 @@ public:
 		return m_ReachedEnd;
 	}
 
-	void ChangeState(const SpritePart& sp)
+	void ChangeState(const SourcePart& sp)
 	{
-		if (m_SpritePart == sp)
+		if (m_SourcePart == sp)
 			return;
-		m_SpritePart = sp;
+		m_SourcePart = sp;
 		m_CurCol = m_CurRow = 1;
 		m_curTimer = 0;
 	}
-	void ChangePosition(const SDL_Point& pos)
-	{
-		m_SpritePart.SrcRect.x = pos.x;
-		m_SpritePart.SrcRect.y = pos.y;
-		m_SpritePart.StartPos =  pos;
-		m_CurCol = m_CurRow = 1;
-		m_curTimer = 0;
-	}
+
 	void ResetComponent() override { m_Flip = false; m_ReachedEnd = false; m_curTimer = 0;	m_CurCol = m_CurRow = 1; }
-	SpritePart GetSpritePart()const { return m_SpritePart; }
+	SourcePart GetSourcePart()const { return m_SourcePart; }
 private:
 	void MoveToNextFrame();
-	const dae::Texture2D* m_pTexture{ nullptr };
 	SDL_Rect m_DstRect{};
-	SpritePart m_SpritePart{};
-	int m_Width{}, m_Height{}, m_CurCol{1},m_CurRow{1};
+
 	float m_AnimationTime{ 1 };
-	float m_curTimer{ 0 };
 	bool m_Flip{ false };
+
+	SourcePart m_SourcePart{};
+
+	float m_curTimer{ 0 }, m_CurCol{ 1 }, m_CurRow{ 1 };
 	bool m_ReachedEnd{ false };
 };
 

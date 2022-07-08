@@ -8,7 +8,7 @@
 class State
 {
 public:
-	State(dae::GameObject* pGO, SpriteComponent::SpritePart sp)
+	State(dae::GameObject* pGO, SpriteComponent::SourcePart sp)
 	:m_pGameObject{pGO},m_SpritePart { sp }{}
 	virtual ~State() = default;
 
@@ -26,13 +26,13 @@ public:
 		
 	}
 protected:
-	SpriteComponent::SpritePart m_SpritePart{};
+	SpriteComponent::SourcePart m_SpritePart{};
 	dae::GameObject* m_pGameObject{};
 };
 class IdleState final: public State
 {
 public:
-	IdleState(dae::GameObject* pGO, SpriteComponent::SpritePart sp): State(pGO, sp){}
+	IdleState(dae::GameObject* pGO, SpriteComponent::SourcePart sp): State(pGO, sp){}
 	~IdleState() override = default;
 
 	IdleState(const IdleState& other) = delete;
@@ -48,7 +48,7 @@ public:
 class MoveState final : public State
 {
 public:
-	MoveState(dae::GameObject* pGO, SpriteComponent::SpritePart sp) : State(pGO, sp) {
+	MoveState(dae::GameObject* pGO, SpriteComponent::SourcePart sp) : State(pGO, sp) {
 	}
 	~MoveState() override = default;
 
@@ -80,7 +80,7 @@ private:
 class ClimbDownState final : public State
 {
 public:
-	ClimbDownState(dae::GameObject* pGO, SpriteComponent::SpritePart sp) : State(pGO, sp) {}
+	ClimbDownState(dae::GameObject* pGO, SpriteComponent::SourcePart sp) : State(pGO, sp) {}
 	~ClimbDownState() override = default;
 
 	ClimbDownState(const ClimbDownState& other) = delete;
@@ -102,7 +102,7 @@ private:
 class ClimbUpState final : public State
 {
 public:
-	ClimbUpState(dae::GameObject* pGO, SpriteComponent::SpritePart sp) : State(pGO, sp) {}
+	ClimbUpState(dae::GameObject* pGO, SpriteComponent::SourcePart sp) : State(pGO, sp) {}
 	~ClimbUpState() override = default;
 
 	ClimbUpState(const ClimbUpState& other) = delete;
@@ -124,7 +124,7 @@ private:
 class DieState final : public State
 {
 public:
-	DieState(dae::GameObject* pGO, SpriteComponent::SpritePart sp) : State(pGO, sp) {}
+	DieState(dae::GameObject* pGO, SpriteComponent::SourcePart sp) : State(pGO, sp) {}
 	~DieState() override = default;
 
 	DieState(const DieState& other) = delete;
@@ -140,7 +140,7 @@ public:
 class AttackState final : public State
 {
 public:
-	AttackState(dae::GameObject* pGO, SpriteComponent::SpritePart sp) : State(pGO, sp) {}
+	AttackState(dae::GameObject* pGO, SpriteComponent::SourcePart sp) : State(pGO, sp) {}
 	~AttackState() override = default;
 
 	AttackState(const AttackState& other) = delete;
