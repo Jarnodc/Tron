@@ -260,6 +260,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClInclude Include="ServiceLocator.h" />
     <ClInclude Include="Sound_System.h" />
     <ClInclude Include="SpriteComponent.h" />
+    <ClInclude Include="SpriteList.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Subject.h" />
@@ -358,6 +359,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClCompile Include="ServiceLocator.cpp" />
     <ClCompile Include="Sound_System.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="SpriteList.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="Subject.cpp" />
