@@ -10,6 +10,12 @@ SpriteComponent::SpriteComponent(dae::GameObject* pGO, const SourcePart& sourceP
 	,m_DstRect(dstRect)
 	,m_Flip(flip)
 {
+	if (dstRect.w == dstRect.h && dstRect.w == 0)
+	{
+		const auto dim = m_SourcePart.GetTextureDimensions();
+		m_DstRect.w = dim.x / m_SourcePart.Cols;
+		m_DstRect.h = dim.y / m_SourcePart.Rows;
+	}
 }
 
 void SpriteComponent::Update()

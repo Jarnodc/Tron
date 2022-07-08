@@ -3,7 +3,6 @@
 
 #include "BoxCollider.h"
 #include "GameObject.h"
-#include "PhysicsManager.h"
 #include "TimerInfo.h"
 
 RigidBody::RigidBody(dae::GameObject* pGO, const glm::vec3& speed)

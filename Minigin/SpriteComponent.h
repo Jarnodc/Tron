@@ -16,7 +16,7 @@ public:
 		SDL_Point StartPos{};
 
 		SourcePart() = default;
-		SourcePart(const std::string& texturePath, int cols, int rows, const SDL_Rect& srcRect, const SDL_Point& offset)
+		SourcePart(const std::string& texturePath, int cols, int rows, const SDL_Rect& srcRect, const SDL_Point& offset = {})
 			:m_pTexture(dae::ResourceManager::GetInstance().LoadTexture(texturePath))
 			,Cols(cols)
 			,Rows(rows)
@@ -25,7 +25,7 @@ public:
 			,StartPos({srcRect.x, srcRect.y})
 		{
 		}
-		SourcePart(const std::string& texturePath, int cols, int rows, const SDL_Point& startPos, const SDL_Point& offset)
+		SourcePart(const std::string& texturePath, int cols, int rows, const SDL_Point& startPos = {}, const SDL_Point& offset = {})
 			:m_pTexture(dae::ResourceManager::GetInstance().LoadTexture(texturePath))
 			, Cols(cols)
 			, Rows(rows)
@@ -34,7 +34,7 @@ public:
 		{
 			int width, height;
 			SDL_QueryTexture(m_pTexture->GetSDLTexture(), NULL, NULL, &width, &height);
-			SrcRect = { startPos.x,startPos.y, width,height};
+			SrcRect = { startPos.x,startPos.y, width/cols,height/rows};
 		}
 
 		bool operator==(const SourcePart& other) const
@@ -42,6 +42,12 @@ public:
 			return Cols == other.Cols && Rows == other.Rows && OffSet.x == other.OffSet.x && OffSet.y == other.OffSet.y && StartPos.x == other.StartPos.x && StartPos.y == other.StartPos.y && SrcRect.x == other.SrcRect.x && SrcRect.y == other.SrcRect.y && SrcRect.w == other.SrcRect.w && SrcRect.h == other.SrcRect.h;
 		}
 		const dae::Texture2D* GetTexture() const { return m_pTexture; }
+		SDL_Point GetTextureDimensions() const
+		{
+			int width, height;
+			SDL_QueryTexture(m_pTexture->GetSDLTexture(), NULL, NULL, &width, &height);
+			return{ width,height };
+		}
 	private:
 		const dae::Texture2D* m_pTexture{ nullptr };
 	};

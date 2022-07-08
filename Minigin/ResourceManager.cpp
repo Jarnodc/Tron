@@ -43,7 +43,8 @@ dae::Texture2D* dae::ResourceManager::LoadTexture(const std::string& file)
 		throw std::runtime_error(std::string("Failed to load texture: ") + SDL_GetError());
 	}
 	const auto pTexture = std::make_shared<Texture2D>(texture);
-	m_pTextures.emplace_back(std::pair<std::string,std::shared_ptr<Texture2D>>{ file, pTexture });
+	assert(pTexture.get());
+	m_pTextures.emplace_back(std::pair{ file, pTexture });
 	return pTexture.get();
 }
 
