@@ -1,5 +1,7 @@
 #pragma once
 #include "Observer.h"
+enum class EEvent;
+
 class Achievements final :
     public Observer
 {

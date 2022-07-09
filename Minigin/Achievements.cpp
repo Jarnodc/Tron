@@ -3,7 +3,7 @@
 
 void Achievements::Notify(const dae::GameObject& /*gameObject*/, EEvent event)
 {
-	const auto it = std::find(m_UnlockedAchievments.begin(), m_UnlockedAchievments.end(), event);
+	const auto it = std::ranges::find(m_UnlockedAchievments, event);
 	if(it == m_UnlockedAchievments.end())
 	{
 		Unlock(event);

@@ -38,8 +38,8 @@ void dae::SceneManager::LoadScene(const std::string& name)
 		return;
 	const auto& scene = std::shared_ptr<Scene>(new Scene(name));
 	m_LevelFunc[name](*scene);
-	//m_Scenes.emplace_back(scene);
 	m_pActiveScene = scene;
+	//m_Scenes.emplace_back(scene);
 }
 
 void dae::SceneManager::SetSpawnLevelFunc(std::function<void(Scene&)> func, const std::string& LevelName)

@@ -247,10 +247,10 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="EEvent.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FpsCounter.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HorizontalSpriteList.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="JsonReader.h" />
     <ClInclude Include="MovementComponent.h" />
@@ -339,6 +339,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FpsCounter.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="HorizontalSpriteList.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="JsonReader.cpp" />
     <ClCompile Include="Minigin.cpp" />

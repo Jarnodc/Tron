@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include "GameObject.h"
 
+#include <algorithm>
+
 
 void dae::GameObject::Update()
 {
@@ -82,15 +84,12 @@ void dae::GameObject::SetParent(dae::GameObject* parent, bool keepWorldPosition)
 	if (parent)
 	{
 		if (keepWorldPosition)
-			m_Transform.SetLocalPosition(m_Transform.GetLocalPosition() - parent->GetWorldPosition());
+			m_Transform.SetLocalPosition(m_Transform.GetLocalPosition() + parent->GetWorldPosition());
 		m_Transform.SetDirty();
 
-		if (m_pParent != parent)
+		if (m_pParent != parent && m_pParent)
 		{
-			if (parent)
-			{
-				m_pParent->AddChild(this);
-			}
+			m_pParent->RemoveChild(this);
 		}
 	}
 	m_pParent = parent;
@@ -111,7 +110,7 @@ dae::GameObject* dae::GameObject::GetChildAt(int index) const
 	if (static_cast<unsigned>(index) > m_pChildren.size())
 		return nullptr;
 
-	return m_pChildren.at(index);
+	return m_pChildren.at(index).get();
 }
 
 void dae::GameObject::RemoveChild(int index)
@@ -125,13 +124,20 @@ void dae::GameObject::RemoveChild(int index)
 void dae::GameObject::RemoveChild(dae::GameObject* go)
 {
 	go->SetParent(nullptr);
-	m_pChildren.erase(std::remove(m_pChildren.begin(), m_pChildren.end(), go));
+	for (size_t i = 0; i < m_pChildren.size(); ++i)
+	{
+		if(m_pChildren[i].get() == go)
+		{
+			m_pChildren.erase(std::ranges::remove(m_pChildren, m_pChildren[i]).begin());
+			return;
+		}
+	}
 }
 
-void dae::GameObject::AddChild(dae::GameObject* go)
+void dae::GameObject::AddChild(std::shared_ptr<dae::GameObject> go, bool keepTransform)
 {
-	m_pChildren.push_back(go);
-	go->SetParent(this,false);
+	m_pChildren.emplace_back(go);
+	go->SetParent(this, keepTransform);
 }
 
 
@@ -143,6 +149,7 @@ dae::GameObject::~GameObject()
 		component = nullptr;
 	}
 	m_pComponents.clear();
+	m_pChildren.clear();
 }
 
 void dae::GameObject::ResetObject() const

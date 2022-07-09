@@ -38,7 +38,7 @@ namespace dae
 		dae::GameObject* GetChildAt(int index) const;
 		void RemoveChild(int index);
 		void RemoveChild(dae::GameObject* go);
-		void AddChild(dae::GameObject* go);
+		void AddChild(std::shared_ptr<dae::GameObject> go, bool keepTransform = false);
 
 		//constructor / destructor
 		GameObject(Tag tag = "Null"):m_Transform(this),m_Tag{tag}{}
@@ -60,7 +60,7 @@ namespace dae
 
 		Transform m_Transform;
 		std::vector<Component*> m_pComponents{}; 
-		std::vector<dae::GameObject*> m_pChildren{};
+		std::vector<std::shared_ptr<dae::GameObject>> m_pChildren{};
 		dae::GameObject* m_pParent{ nullptr };
 		Tag m_Tag{"Null"};
 	};
@@ -69,13 +69,13 @@ namespace dae
 	inline T* GameObject::AddComponent()
 	{
 		auto pComp{ new T(this)};
-		m_pComponents.push_back(pComp);
+		m_pComponents.emplace_back(pComp);
 		return pComp;
 	}
 
 	inline Component* GameObject::AddComponent(Component* component)
 	{
-		m_pComponents.push_back(component);
+		m_pComponents.emplace_back(component);
 		return component;
 	}
 
@@ -99,7 +99,7 @@ namespace dae
 		for(auto comp : m_pComponents)
 		{
 			if (typeid(*comp) == typeid(T))
-				components.push_back(static_cast<T*>(comp));
+				components.emplace_back(static_cast<T*>(comp));
 		}
 		return components;
 	}

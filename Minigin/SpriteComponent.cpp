@@ -18,6 +18,14 @@ SpriteComponent::SpriteComponent(dae::GameObject* pGO, const SourcePart& sourceP
 	}
 }
 
+SpriteComponent::SpriteComponent(dae::GameObject* pGO, const SpriteComponent* pSC)
+	:Component(pGO)
+	, m_SourcePart(pSC->m_SourcePart)
+	, m_AnimationTime(pSC->m_AnimationTime)
+	, m_DstRect(pSC->m_DstRect)
+	, m_Flip(pSC->m_Flip)
+{
+}
 void SpriteComponent::Update()
 {
 	m_curTimer += dae::TimerInfo::GetInstance().deltaTime;

@@ -1,6 +1,7 @@
 #pragma once
-#include "EEvent.h"
 #include "GameObject.h"
+
+enum class EEvent;
 
 class Observer
 {

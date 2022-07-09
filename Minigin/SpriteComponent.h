@@ -25,7 +25,7 @@ public:
 			,StartPos({srcRect.x, srcRect.y})
 		{
 		}
-		SourcePart(const std::string& texturePath, int cols, int rows, const SDL_Point& startPos = {}, const SDL_Point& offset = {})
+		SourcePart(const std::string& texturePath, int cols = 1, int rows = 1, const SDL_Point& startPos = {}, const SDL_Point& offset = {})
 			:m_pTexture(dae::ResourceManager::GetInstance().LoadTexture(texturePath))
 			, Cols(cols)
 			, Rows(rows)
@@ -54,6 +54,7 @@ public:
 
 
 	SpriteComponent(dae::GameObject* pGO, const SourcePart& sourcePart, const SDL_Rect& dstRect, float animationTime = 1, bool flip = false);
+	SpriteComponent(dae::GameObject* pGO, const SpriteComponent* pSC);
 	~SpriteComponent() override = default;
 
 	SpriteComponent(const SpriteComponent& other) = delete;
@@ -83,6 +84,7 @@ public:
 
 	void ResetComponent() override { m_Flip = false; m_ReachedEnd = false; m_curTimer = 0;	m_CurCol = m_CurRow = 1; }
 	SourcePart GetSourcePart()const { return m_SourcePart; }
+	SDL_Rect GetDstRect() const { return m_DstRect; }
 private:
 	void MoveToNextFrame();
 	SDL_Rect m_DstRect{};
