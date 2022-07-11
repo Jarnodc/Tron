@@ -8,13 +8,12 @@ namespace dae
 {
 	class Texture2D;
 
-	// todo: this should become final.
-	class GameObject final
+	class GameObject
 	{
 	public:
-		void Update();
-		void FixedUpdate();
-		void Render() const;
+		virtual void Update();
+		virtual void FixedUpdate();
+		virtual void Render() const;
 
 		//Transform
 		void SetPosition(float x, float y);
@@ -42,7 +41,7 @@ namespace dae
 
 		//constructor / destructor
 		GameObject(Tag tag = "Null"):m_Transform(this),m_Tag{tag}{}
-		~GameObject();
+		virtual ~GameObject();
 
 		//rule 5
 		GameObject(const GameObject& other) = delete;

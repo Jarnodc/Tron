@@ -26,7 +26,6 @@ void HorizontalSpriteList::AddItem(int amount) const
 		{
 		case Allignment::Left:
 			pGO->MovePosition((dstRect.x + dstRect.w) * static_cast<float>(childCount) - dstRect.x, static_cast<float>(dstRect.y));
-			std::cout << (dstRect.x + dstRect.w) * static_cast<float>(childCount) - dstRect.x << std::endl;
 			break;
 		case Allignment::Right:
 			pGO->MovePosition((dstRect.x + dstRect.w) * -static_cast<float>(childCount) + dstRect.x, static_cast<float>(dstRect.y));

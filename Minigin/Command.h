@@ -17,18 +17,3 @@ protected:
 	dae::GameObject* m_pGameObject = nullptr;
 private:
 };
-class AttackCommand final : public Command
-{
-public:
-	explicit AttackCommand(dae::GameObject* gameObject):Command(gameObject){}
-	~AttackCommand() override = default;
-	virtual void Execute()
-	{
-	}
-
-	AttackCommand(const AttackCommand& other) = delete;
-	AttackCommand(AttackCommand&& other) noexcept = delete;
-	AttackCommand& operator=(const AttackCommand& other) = delete;
-	AttackCommand& operator=(AttackCommand&& other) noexcept = delete;
-private:
-};
