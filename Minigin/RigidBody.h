@@ -15,7 +15,8 @@ public:
 	void Update() override {};
 	void FixedUpdate() override {};
 	void Render() const override{};
-	void Move(glm::vec3 moveVec);
+	void Move(const glm::vec3& moveVec);
+
 	glm::vec3 GetVelocity()const { return m_Velocity; }
 	glm::vec3 GetSpeed() const { return m_Speed; }
 private:

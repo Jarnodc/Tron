@@ -7,11 +7,6 @@
 #include <backends/imgui_impl_sdl.h>
 #include <backends/imgui_impl_opengl2.h>
 
-#include "Font.h"
-#include "imgui_plot.h"
-#include "ResourceManager.h"
-
-
 int GetOpenGLDriverIndex()
 {
 	auto openglIndex = -1;
@@ -95,6 +90,26 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const SDL_Rect& srcR
 	}
 	else
 		SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &srcRect, &dstRect);
+}
+
+void dae::Renderer::RenderTexture(const Texture2D& texture, const SDL_Rect& srcRect, const SDL_Rect& dstRect, const double& angle, bool flipped) const
+{
+	if (flipped)
+	{
+		SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &srcRect, &dstRect, angle, nullptr, SDL_FLIP_HORIZONTAL);
+	}
+	else
+		SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &srcRect, &dstRect, angle, nullptr, SDL_FLIP_NONE);
+}
+
+void dae::Renderer::RenderTexture(const Texture2D& texture, const SDL_Rect& srcRect, const SDL_Rect& dstRect, const double& angle, const SDL_Point& center, bool flipped) const
+{
+	if (flipped)
+	{
+		SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &srcRect, &dstRect, angle, &center, SDL_FLIP_HORIZONTAL);
+	}
+	else
+		SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &srcRect, &dstRect, angle, &center, SDL_FLIP_NONE);
 }
 
 void dae::Renderer::RenderRectangle(const SDL_Rect& rect,SDL_Color color) const

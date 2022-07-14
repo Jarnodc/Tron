@@ -4,7 +4,7 @@
 class Bullet final : public Component
 {
 public:
-	Bullet(dae::GameObject* pGO, const glm::vec3& direction) :Component(pGO), m_Direction(direction) {}
+	Bullet(dae::GameObject* pGO, dae::GameObject* parent, const glm::vec3& direction) :Component(pGO), m_Direction(direction), m_pParent(parent) {}
 	~Bullet() override = default;
 
 	Bullet(const Bullet& other) = delete;
@@ -19,5 +19,7 @@ public:
 private:
 	glm::vec3 m_Direction;
 	int m_AmountBounces{ 0 };
+	const int m_MaxBounces{ 5 };
+	dae::GameObject* m_pParent;
 };
 

@@ -189,7 +189,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="BulletPrefab.cpp" />
+    <ClCompile Include="Prefab.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="MoveComponent.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -201,8 +203,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="BulletPrefab.h" />
+    <ClInclude Include="Prefab.h" />
     <ClInclude Include="EEvent.h" />
+    <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="TankComponent.h" />
   </ItemGroup>

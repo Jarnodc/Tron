@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "TankComponent.h"
 
+#include "Prefab.h"
 #include "Scene.h"
 #include "TimerInfo.h"
 #include "SceneManager.h"
@@ -13,8 +14,9 @@ void TankComponent::Update()
 
 void TankComponent::Attack()
 {
-
-	dae::SceneManager::GetInstance().GetScene().Add()
+	const float angle{ ToRadians(m_TurretAngle) };
+	
+	dae::SceneManager::GetInstance().GetScene().Add(BulletPrefab(GetGameObject(),{cos(angle),sin(angle),0}));
 }
 
 void TankComponent::Rotate(bool clockWise)

@@ -3,6 +3,7 @@
 #include "Minigin.h"
 #include "GameObject.h"
 #include "HorizontalSpriteList.h"
+#include "JsonReader.h"
 #include "Scene.h"
 #include "SceneManager.h"
 #include "ServiceLocator.h"
@@ -10,10 +11,12 @@
 
 void test(dae::Scene& scene)
 {
-	const auto test = std::make_shared<dae::GameObject>();
-	test->MovePosition(10, 10);
-	test->AddComponent(new HorizontalSpriteList(test.get(), new SpriteComponent(test.get(), SpriteComponent::SourcePart("test.png", 5, 2), { 10,0,30,30 }, .1f), 3));
-	scene.Add(test);
+	//const auto test = std::make_shared<dae::GameObject>();
+	//test->MovePosition(10, 10);
+	//test->AddComponent(new HorizontalSpriteList(test.get(), new SpriteComponent(test.get(), SpriteComponent::SourcePart("test.png", 5, 2), { 10,0,30,30 }, .1f), 3));
+	//scene.Add(test);
+
+	JsonReader::GetInstance().ReadFile(scene, "Level01.json");
 }
 int main(int, char* []) {
 

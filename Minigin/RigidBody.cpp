@@ -13,7 +13,7 @@ RigidBody::RigidBody(dae::GameObject* pGO, const glm::vec3& speed)
 	m_Speed.z *= 2;
 }
 
-void RigidBody::Move(glm::vec3 moveVec)
+void RigidBody::Move(const glm::vec3& moveVec)
 {
 	m_Velocity = moveVec * dae::TimerInfo::GetInstance().deltaTime * m_Speed;
 	auto curPos = GetGameObject()->GetLocalPosition();

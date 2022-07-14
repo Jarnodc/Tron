@@ -10,9 +10,8 @@
 
 void JsonReader::ReadFile(dae::Scene& scene,const std::string& path)
 {
-	if (std::ifstream is{ path })
+	if (std::ifstream is{"../Data/" + path})
 	{
-		assert(is);
 		rapidjson::IStreamWrapper isw{ is };
 
 		rapidjson::Document jsonDoc;
@@ -23,28 +22,12 @@ void JsonReader::ReadFile(dae::Scene& scene,const std::string& path)
 		{
 			const auto tag = p["Object"].GetString();
 			const auto dimensions = p["Dimensions"].GetArray();
-			SDL_Rect col{};
+			int arr[4]{};
 			for (int i = 0; i < static_cast<int>(dimensions.Size()); ++i)
 			{
-				switch (i)
-				{
-				case 0:
-					col.x = dimensions[i].GetInt() * 2 + 112;
-					break;
-				case 1:
-					col.y = dimensions[i].GetInt() * 2 + 40;
-					break;
-				case 2:
-					col.w = dimensions[i].GetInt() * 2;
-					break;
-				case 3:
-					col.h = dimensions[i].GetInt() * 2;
-					break;
-				default:
-					std::cout << "out of range" << std::endl;
-					break;
-				}
+				arr[i] = dimensions[i].GetInt();
 			}
+			SDL_Rect col{ arr[0] ,arr[1] ,arr[2] ,arr[3] };
 			const auto obj = std::make_shared<dae::GameObject>(tag);
 			obj->AddComponent(new BoxCollider(obj.get(), col));
 			scene.Add(obj);

@@ -14,3 +14,4 @@
 #include <SDL.h>
 #pragma warning (pop)
 
+#include "MathHelper.h"

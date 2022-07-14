@@ -33,10 +33,10 @@ void BoxCollider::FixedUpdate()
 }
 
 void BoxCollider::Render() const
-{/*
+{
     const auto objPos = GetGameObject()->GetLocalPosition();
     const SDL_Rect colWorldPos { static_cast<int>(m_Collider.x + objPos.x),static_cast<int>(m_Collider.y + objPos.y),m_Collider.w,m_Collider.h };
-    dae::Renderer::GetInstance().RenderRectangle(colWorldPos);*/
+    dae::Renderer::GetInstance().RenderRectangle(colWorldPos);
 }
 
 bool BoxCollider::IsOverlapping(const BoxCollider* collider, bool includeBorder) const
