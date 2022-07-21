@@ -6,7 +6,7 @@ Command::Command(dae::GameObject* gameObject)
 {
 }
 
-dae::GameObject* Command::GetObject() const
+dae::GameObject* Command::GetGameObject() const
 {
 	return m_pGameObject;
 }

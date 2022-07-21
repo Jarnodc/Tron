@@ -33,4 +33,5 @@ public:
 	static void InverseZ(glm::vec4& vector) { vector.z = -vector.z;}
 				
 	static void InverseW(glm::vec4& vector) { vector.w = -vector.w;}
+
 };

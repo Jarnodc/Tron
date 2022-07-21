@@ -3,7 +3,7 @@
 
 #include "BoxCollider.h"
 #include "GameObject.h"
-#include "HealthComponent.h"
+#include "TankComponent.h"
 #include "PhysicsManager.h"
 #include "RigidBody.h"
 #include "Scene.h"
@@ -29,7 +29,7 @@ void Bullet::Update()
 			}
 			if(tag == "Tank" && overlapper->GetGameObject() != m_pParent)
 			{
-				overlapper->GetGameObject()->GetComponent<HealthComponent>()->Hit();
+				overlapper->GetGameObject()->GetComponent<TankComponent>()->Hit();
 				dae::SceneManager::GetInstance().GetScene().Remove(std::shared_ptr<dae::GameObject>(GetGameObject()));
 				return;
 			}

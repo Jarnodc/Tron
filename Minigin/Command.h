@@ -13,7 +13,7 @@ public:
 	Command& operator=(const Command& other) = delete;
 	Command& operator=(Command&& other) noexcept = delete;
 protected:
-	dae::GameObject* GetObject() const;
-	dae::GameObject* m_pGameObject = nullptr;
+	dae::GameObject* GetGameObject() const;
 private:
+	dae::GameObject* m_pGameObject = nullptr;
 };

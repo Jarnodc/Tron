@@ -43,7 +43,7 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 	case EDirection::Up:
 	{
 		velocity *= glm::vec3{ 0, -1, 0 };
-		rect.y += static_cast<int>(velocity.y);
+		rect.y += static_cast<int>(velocity.y) - 1;
 		boxCollider->SetBoxCollider(rect);
 		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider, std::string("Wall")))
 		{
@@ -51,12 +51,14 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 			boxCollider->SetBoxCollider(rect);
 			return false;
 		}
+		rect.y = bottom;
+		boxCollider->SetBoxCollider(rect);
 	}
 	break;
 	case EDirection::Down:
 	{
 		velocity *= glm::vec3{ 0, 1, 0 };
-		rect.y += static_cast<int>(velocity.y) + rect.h;
+		rect.y += static_cast<int>(velocity.y) + 1;
 		boxCollider->SetBoxCollider(rect);
 		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider, std::string("Wall")))
 		{
@@ -64,12 +66,14 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 			boxCollider->SetBoxCollider(rect);
 			return false;
 		}
+		rect.y = bottom;
+		boxCollider->SetBoxCollider(rect);
 	}
 	break;
 	case EDirection::Left:
 	{
 		velocity *= glm::vec3{ -1,0, 0 };
-		rect.x += static_cast<int>(velocity.x);
+		rect.x += static_cast<int>(velocity.x) - 1;
 		boxCollider->SetBoxCollider(rect);
 		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider, std::string("Wall")))
 		{
@@ -77,12 +81,14 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 			boxCollider->SetBoxCollider(rect);
 			return false;
 		}
+		rect.x = left;
+		boxCollider->SetBoxCollider(rect);
 	}
 	break;
 	case EDirection::Right:
 	{
 		velocity *= glm::vec3{ 1, 0,0 };
-		rect.x += static_cast<int>(rect.w + velocity.x);
+		rect.x += static_cast<int>(velocity.x) + 1;
 		boxCollider->SetBoxCollider(rect);
 		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider, std::string("Wall")))
 		{
@@ -90,6 +96,8 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 			boxCollider->SetBoxCollider(rect);
 			return false;
 		}
+		rect.x = left;
+		boxCollider->SetBoxCollider(rect);
 	}
 	break;
 	case EDirection::Horizontal:

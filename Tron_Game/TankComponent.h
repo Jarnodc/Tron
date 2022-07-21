@@ -1,13 +1,13 @@
 #pragma once
 #include "pch.h"
-#include <Component.h>
+#include <SubjectComponent.h>
 
 #include "Bullet.h"
 
-class TankComponent final: public Component
+class TankComponent final: public SubjectComponent
 {
 public:
-	TankComponent(dae::GameObject* pGO):Component(pGO) {}
+	TankComponent(dae::GameObject* pGO):SubjectComponent(pGO) {}
 	~TankComponent() override = default;
 
 	TankComponent(const TankComponent& other) = delete;
@@ -19,6 +19,7 @@ public:
 	void FixedUpdate() override{}
 	void Render() const override{}
 
+	void Hit();
 	void Attack();
 	void Rotate(bool clockWise = true);
 private:

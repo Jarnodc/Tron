@@ -1,4 +1,5 @@
 #pragma once
+#include "GameObject.h"
 #include "SceneManager.h"
 
 namespace dae
@@ -24,6 +25,11 @@ namespace dae
 		Scene& operator=(Scene&& other) = delete;
 
 		std::vector<std::shared_ptr<GameObject>> GetObjects() const;
+		template<typename T>
+		std::vector<dae::GameObject*> GetGameObject() const;
+		std::vector<dae::GameObject*> GetGameObject(const Tag& tag) const;
+		template<typename T>
+		std::vector<dae::GameObject*> GetGameObject(const Tag& tag) const;
 
 		std::string GetName()const { return m_Name; }
 
@@ -36,4 +42,47 @@ namespace dae
 		static unsigned int m_IdCounter; 
 	};
 
+	template<typename T>
+	inline std::vector<dae::GameObject*> Scene::GetGameObject() const
+	{
+		std::vector<dae::GameObject*> objects{};
+		for (size_t i = 0; i < m_Objects.size(); ++i)
+		{
+			if(m_Objects[i].get()->GetComponent<T>() != nullptr)
+			{
+				objects.emplace_back(m_Objects[i].get());
+			}
+		}
+		return objects;
+	}
+
+	inline std::vector<dae::GameObject*> Scene::GetGameObject(const Tag& tag) const
+	{
+		std::vector<dae::GameObject*> objects{};
+		for (size_t i = 0; i < m_Objects.size(); ++i)
+		{
+			if (m_Objects[i].get()->GetTag() == tag)
+			{
+				objects.emplace_back(m_Objects[i].get());
+			}
+		}
+		return objects;
+	}
+
+	template<typename T>
+	inline std::vector<dae::GameObject*> Scene::GetGameObject(const Tag& tag) const
+	{
+		std::vector<dae::GameObject*> objects{};
+		for (size_t i = 0; i < m_Objects.size(); ++i)
+		{
+			if (m_Objects[i].get()->GetTag() == tag)
+			{
+				if (m_Objects[i].get()->GetComponent<T>() != nullptr)
+				{
+					objects.emplace_back(m_Objects[i].get());
+				}
+			}
+		}
+		return objects;
+	}
 }

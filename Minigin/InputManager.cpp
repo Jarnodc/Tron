@@ -34,11 +34,11 @@ bool dae::InputManager::ProcessInput()
 				{
 					keyCom.isPrevFrameDown = true;
 					keyCom.command->Execute();
-				}
+				} 
 				else if (m_Event.type == SDL_KEYUP && keyCom.isPrevFrameDown && m_Event.key.keysym.scancode == keyCom.keyBoardButton)keyCom.isPrevFrameDown = false;
 				break;
 			case EInputState::Pressed:
-				if (m_Event.type == SDL_KEYDOWN && m_Event.key.keysym.scancode == keyCom.keyBoardButton)
+				if (m_Event.key.keysym.scancode == keyCom.keyBoardButton)
 				{
 					keyCom.command->Execute();
 				}

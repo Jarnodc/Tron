@@ -65,3 +65,11 @@ bool BoxCollider::IsOverlapping(BoxCollider* collider, std::string tag) const
 {
     return IsOverlapping(collider) && GetGameObject()->GetTag() == tag;
 }
+bool BoxCollider::IsPointInRect(const glm::vec3& point) const
+{
+    const auto objPos = GetGameObject()->GetLocalPosition();
+    SDL_Rect rect{ static_cast<int>(m_Collider.x + objPos.x), static_cast<int>(m_Collider.y + objPos.y), m_Collider.w,m_Collider.h };
+    if (point.x >= rect.x && point.x <= rect.x + rect.w && point.y >= rect.y && point.y <= rect.y + rect.h)
+        return true;
+    return false;
+}

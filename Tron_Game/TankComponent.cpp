@@ -5,7 +5,7 @@
 #include "Scene.h"
 #include "TimerInfo.h"
 #include "SceneManager.h"
-
+#include "EEvent.h"
 
 void TankComponent::Update()
 {
@@ -15,8 +15,10 @@ void TankComponent::Update()
 void TankComponent::Attack()
 {
 	const float angle{ ToRadians(m_TurretAngle) };
-	
-	dae::SceneManager::GetInstance().GetScene().Add(BulletPrefab(GetGameObject(),{cos(angle),sin(angle),0}));
+	const auto bullet{ BulletPrefab(GetGameObject(),{cos(angle),sin(angle),0}) };
+	const auto pos{ GetGameObject()->GetLocalPosition() };
+	bullet.get()->SetPosition(pos.x, pos.y);
+	dae::SceneManager::GetInstance().GetScene().Add(bullet);
 }
 
 void TankComponent::Rotate(bool clockWise)
@@ -33,4 +35,9 @@ void TankComponent::Rotate(bool clockWise)
 		if (m_TurretAngle <= -360)
 			m_TurretAngle += 360;
 	}
+}
+
+void TankComponent::Hit()
+{
+	GetSubject()->Notify(*GetGameObject(), EEvent::Die);
 }

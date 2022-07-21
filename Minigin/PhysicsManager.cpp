@@ -94,3 +94,76 @@ bool PhysicsManager::IsOverlapping(BoxCollider* bc, std::string tag) const
 	}
 	return false;
 }
+
+Ray PhysicsManager::RayCast(const glm::vec3& startPosition, const glm::vec3& direction, dae::GameObject* pGO , const int maxDistance)
+{
+	const auto dir = glm::normalize(direction);
+
+	Ray ray = Ray(dir, maxDistance);
+	ray.HitPoint = startPosition;
+
+	std::vector<BoxCollider*> colliders{};
+	if (pGO)
+	{
+		std::vector objects{ pGO };
+		int checkedCount{ 0 };
+
+		while (objects.size() == checkedCount)
+		{
+			for (const auto& obj : objects)
+			{
+				if (obj->GetChildCount() != 0)
+				{
+					const auto children{ obj->GetChildren() };
+					for (const auto& child : children)
+					{
+						objects.emplace_back(child);
+					}
+				}
+				++checkedCount;
+			}
+		}
+		for (const auto& obj : objects)
+		{
+			if (const auto bc = obj->GetComponent<BoxCollider>())
+				colliders.emplace_back(bc);
+		}
+	}
+
+
+	while(ray.MaxDistance >= glm::distance(ray.HitPoint, startPosition))
+	{
+		ray.HitPoint += dir ;
+		for (const auto& col : m_Colliders)
+		{
+			if (IsPointInRect(col,colliders, ray.HitPoint))
+			{
+				ray.Distance = glm::distance(ray.HitPoint, startPosition);
+				ray.HitObject = col->GetGameObject();
+				
+				return ray;
+			}
+		}
+	}
+	return ray;
+}
+
+bool PhysicsManager::IsPointInRect(BoxCollider* pBC, const std::vector<BoxCollider*>& cols, const  glm::vec3& point) const
+{
+	bool exist{ false };
+	for (const auto& bc : cols)
+	{
+		if (pBC == bc)
+		{
+			exist = true;
+			break;
+		}
+	}
+	if (exist)
+		return false;
+
+	if (pBC->IsPointInRect(point))
+		return true;
+
+	return false;
+}

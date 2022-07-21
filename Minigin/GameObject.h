@@ -35,6 +35,15 @@ namespace dae
 		//Update Child 
 		size_t GetChildCount() const;
 		dae::GameObject* GetChildAt(int index) const;
+		std::vector<dae::GameObject*> GetChildren() const
+		{
+			std::vector<dae::GameObject*> copy{};
+			for (const auto& child : m_pChildren)
+			{
+				copy.emplace_back(child.get());
+			}
+			return copy;
+		}
 		void RemoveChild(int index);
 		void RemoveChild(dae::GameObject* go);
 		void AddChild(std::shared_ptr<dae::GameObject> go, bool keepTransform = false);

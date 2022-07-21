@@ -1,7 +1,7 @@
 #pragma once
 #include "SubjectComponent.h"
 
-class HealthComponent final:  public SubjectComponent
+class HealthComponent final:  public SubjectComponent, public Observer
 {
 public:
 	HealthComponent(dae::GameObject* pGO, int health):SubjectComponent(pGO), m_Health(health) {}
@@ -16,7 +16,7 @@ public:
 	void FixedUpdate() override{}
 	void Render() const override{}
 
-	void Hit(int damage = 1);
+	void Notify(const dae::GameObject& pObject, EEvent event) override;
 private:
 	int m_Health;
 };

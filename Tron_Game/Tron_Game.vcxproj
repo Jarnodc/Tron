@@ -188,7 +188,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AIController.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Prefab.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
@@ -202,7 +205,11 @@
     <ClCompile Include="Tron_Game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIController.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Controller.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="ICommand.h" />
     <ClInclude Include="Prefab.h" />
     <ClInclude Include="EEvent.h" />
     <ClInclude Include="HealthComponent.h" />

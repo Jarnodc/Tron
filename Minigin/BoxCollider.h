@@ -20,6 +20,8 @@ class BoxCollider final: public Component
 		bool IsOverlapping(BoxCollider* collider, bool includeBorder, std::string tag ) const;
 		bool IsOverlapping(BoxCollider* collider, std::string tag) const;
 
+		bool IsPointInRect(const  glm::vec3& point)const;
+
 		SDL_Rect GetBoxCollider() const { return m_Collider; }
 		void SetBoxCollider(SDL_Rect col) { m_Collider = col; }
 	private:
