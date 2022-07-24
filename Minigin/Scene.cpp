@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "Scene.h"
 #include "GameObject.h"
+#include <algorithm>
 
 using namespace dae;
 
@@ -21,9 +22,9 @@ void Scene::Add(const std::shared_ptr<GameObject>& object)
 	m_Objects.push_back(object);
 }
 
-void dae::Scene::Remove(const std::shared_ptr<GameObject>& object)
+void dae::Scene::Remove( std::shared_ptr<GameObject> object)
 {
-	m_Objects.erase(std::remove(m_Objects.begin(), m_Objects.end(), object));
+	m_Objects.erase(std::remove(m_Objects.begin(),m_Objects.end(), object));
 }
 
 void Scene::Update() const

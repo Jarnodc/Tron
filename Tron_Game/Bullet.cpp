@@ -2,12 +2,11 @@
 #include "Bullet.h"
 
 #include "BoxCollider.h"
+#include "BulletManager.h"
 #include "GameObject.h"
 #include "TankComponent.h"
 #include "PhysicsManager.h"
 #include "RigidBody.h"
-#include "Scene.h"
-#include "SceneManager.h"
 
 void Bullet::Update()
 {
@@ -23,14 +22,14 @@ void Bullet::Update()
 				++m_AmountBounces; // Change direction with Calc funtion
 				if (m_AmountBounces >= m_MaxBounces)
 				{
-					dae::SceneManager::GetInstance().GetScene().Remove(std::shared_ptr<dae::GameObject>(GetGameObject()));
+					m_IsDead = true;
 				}
 				return;
 			}
 			if(tag == "Tank" && overlapper->GetGameObject() != m_pParent)
 			{
 				overlapper->GetGameObject()->GetComponent<TankComponent>()->Hit();
-				dae::SceneManager::GetInstance().GetScene().Remove(std::shared_ptr<dae::GameObject>(GetGameObject()));
+				m_IsDead = true;
 				return;
 			}
 		}

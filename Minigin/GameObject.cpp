@@ -143,10 +143,10 @@ void dae::GameObject::AddChild(std::shared_ptr<dae::GameObject> go, bool keepTra
 
 dae::GameObject::~GameObject()
 {
-	for(auto component : m_pComponents)
+	for (size_t i = 0; i < m_pComponents.size(); ++i)
 	{
-		delete component;
-		component = nullptr;
+		delete m_pComponents[i];
+		m_pComponents[i] = nullptr;
 	}
 	m_pComponents.clear();
 	m_pChildren.clear();

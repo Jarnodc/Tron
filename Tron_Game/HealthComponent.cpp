@@ -8,7 +8,6 @@ void HealthComponent::Notify(const dae::GameObject& , EEvent event)
 {
 	if (EEvent::LoseHealth != event)
 		return;
-
 	--m_Health;
 	GetGameObject()->GetComponent<HorizontalSpriteList>()->RemoveItem(1);
 	if (m_Health <= 0)

@@ -15,11 +15,14 @@ public:
 	void Update() override;
 	void FixedUpdate() override {}
 	void Render() const override {}
+
+	bool IsDead() { return m_IsDead; }
 	
 private:
 	glm::vec3 m_Direction;
 	int m_AmountBounces{ 0 };
 	const int m_MaxBounces{ 5 };
 	dae::GameObject* m_pParent;
+	bool m_IsDead{ false };
 };
 

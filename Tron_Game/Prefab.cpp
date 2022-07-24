@@ -4,6 +4,7 @@
 #include "AIController.h"
 #include "BoxCollider.h"
 #include "Bullet.h"
+#include "BulletManager.h"
 #include "HealthComponent.h"
 #include "HorizontalSpriteList.h"
 #include "MoveComponent.h"
@@ -32,6 +33,7 @@ std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
 	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 11,0,32,32 }), { 0,0,30,30 }));
 	pGO->AddComponent(new RigidBody(pGO.get(),{40,40,40}));
 	pGO->AddComponent<MoveComponent>();
+	pGO->AddComponent<BulletManager>();
 
 	const auto controller{ pGO->AddComponent<AIController>()};
 
@@ -51,18 +53,13 @@ std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
 std::shared_ptr<dae::GameObject> BlueTankPrefab(dae::Scene& scene)
 {
 	const auto pGO{ std::make_shared<dae::GameObject>("Player")};
-
-	pGO->AddComponent(new BoxCollider(pGO.get(), 25));
-	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 9,0,32,32 }), { 0,0,25,25 }));
-	pGO->AddComponent(new RigidBody(pGO.get(), { 200,200,200 }));
-	pGO->AddComponent<MoveComponent>();
-	
+		
 	const auto cont{ pGO->AddComponent<Controller>() };
 	const auto playerID{ dae::InputManager::GetInstance().AddPlayer() };
 
 	// -- Attack --
-	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonA, std::make_shared<AttackCommand>(pGO.get()), playerID,dae::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_E, std::make_shared<AttackCommand>(pGO.get()), dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonA, std::make_shared<AttackCommand>(pGO.get()), playerID,dae::EInputState::Down);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_E, std::make_shared<AttackCommand>(pGO.get()), dae::EInputState::Down);
 
 	// -- RotateCW --
 	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonRightShoulder, std::make_shared<RotateCWCommand>(pGO.get()), playerID, dae::EInputState::Pressed);
@@ -89,11 +86,17 @@ std::shared_ptr<dae::GameObject> BlueTankPrefab(dae::Scene& scene)
 	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(pGO.get(), glm::vec3{ 0,1,0 }), dae::EInputState::Pressed);
 
 
+	pGO->AddComponent(new BoxCollider(pGO.get(), 25));
+	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 9,0,32,32 }), { 0,0,25,25 }));
+	pGO->AddComponent(new RigidBody(pGO.get(), { 200,200,200 }));
+	pGO->AddComponent<MoveComponent>();
+	pGO->AddComponent<BulletManager>();
+
 	const auto pHealth{ std::make_shared<dae::GameObject>() };
 	const auto healthComp{ new HealthComponent(pHealth.get(), 1) };
 	pHealth->AddComponent(healthComp);
-	pHealth->AddComponent(new HorizontalSpriteList(pHealth.get(),new SpriteComponent(pHealth.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 9,0,32,32 }), { 0,0,30,30 }),3));
-	pHealth->MovePosition(200);
+	pHealth->AddComponent(new HorizontalSpriteList(pHealth.get(),new SpriteComponent(pHealth.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 9,0,32,32 }), { 10,0,30,30 }),3));
+	pHealth->SetPosition(500, 20);
 	healthComp->GetSubject()->AddObserver(cont);
 	pGO->AddComponent<TankComponent>()->GetSubject()->AddObserver(healthComp);
 
@@ -117,6 +120,7 @@ std::shared_ptr<dae::GameObject> GreenTankPrefab(dae::Scene& scene)
 	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 8,0,32,32 }), { 0,0,30,30 }));
 	pGO->AddComponent(new RigidBody(pGO.get(), { 20,20,20 }));
 	pGO->AddComponent<MoveComponent>();
+	pGO->AddComponent<BulletManager>();
 
 	const auto cont{ pGO->AddComponent<Controller>() };
 

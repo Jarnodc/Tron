@@ -19,11 +19,10 @@ public:
 	void FixedUpdate() override{}
 	void Render() const override{}
 
-	void Hit();
-	void Attack();
+	void Hit() const;
+	void Attack() const;
 	void Rotate(bool clockWise = true);
 private:
-	std::vector<Bullet> m_Bullets{  };
 	float m_TurretAngle{};
 	float m_RotateSpeed{ 2 };
 };

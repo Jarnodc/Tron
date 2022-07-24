@@ -20,7 +20,7 @@ void MoveComponent::Move(glm::vec3 moveVec) const
 	{
 		moveVec.x = 0;
 	}
-	else if (velocity.y > 0 && !CanMoveTo(EDirection::Down))//CanMoveDown
+	if (velocity.y > 0 && !CanMoveTo(EDirection::Down))//CanMoveDown
 	{
 		moveVec.y = 0;
 	}

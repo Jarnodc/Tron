@@ -5,6 +5,7 @@
 
 #include "Scene.h"
 
+
 void dae::SceneManager::Update() const
 {
 	//for(auto& scene : m_Scenes)

@@ -38,7 +38,7 @@ bool dae::InputManager::ProcessInput()
 				else if (m_Event.type == SDL_KEYUP && keyCom.isPrevFrameDown && m_Event.key.keysym.scancode == keyCom.keyBoardButton)keyCom.isPrevFrameDown = false;
 				break;
 			case EInputState::Pressed:
-				if (m_Event.key.keysym.scancode == keyCom.keyBoardButton)
+				if (m_Event.type == SDL_KEYDOWN && m_Event.key.keysym.scancode == keyCom.keyBoardButton)
 				{
 					keyCom.command->Execute();
 				}
@@ -59,21 +59,21 @@ bool dae::InputManager::ProcessInput()
 	Update();
 	for (const auto& val : m_ConsoleCommands)
 	{
-			switch (val.state)
-			{
-			case EInputState::Down:
-				if (IsDownThisFrame(val.controllerButton, val.controllerIdx))
-					val.command->Execute();
-				break;
-			case EInputState::Pressed:
-				if (IsPressed(val.controllerButton, val.controllerIdx))
-					val.command->Execute();
-				break;
-			case EInputState::Up:
-				if (IsUpThisFrame(val.controllerButton, val.controllerIdx))
-					val.command->Execute();
-				break;
-			}
+		switch (val.state)
+		{
+		case EInputState::Down:
+			if (IsDownThisFrame(val.controllerButton, val.controllerIdx))
+				val.command->Execute();
+			break;
+		case EInputState::Pressed:
+			if (IsPressed(val.controllerButton, val.controllerIdx))
+				val.command->Execute();
+			break;
+		case EInputState::Up:
+			if (IsUpThisFrame(val.controllerButton, val.controllerIdx))
+				val.command->Execute();
+			break;
+		}
 	}
 	return true;
 }
@@ -99,7 +99,7 @@ void dae::InputManager::RemovePlayer(PlayerIndex idx)
 	{
 		for (size_t i = 0; i < m_ConsoleCommands.size(); ++i)
 		{
-			if(m_ConsoleCommands.at(i).controllerIdx == idx)
+			if(m_ConsoleCommands[i].controllerIdx == idx)
 			{
 				m_ConsoleCommands.erase(m_ConsoleCommands.begin() + i);
 			}
@@ -118,7 +118,6 @@ bool dae::InputManager::IsPressed(Xbox360Controller::ControllerButton button, Pl
 
 bool dae::InputManager::IsPressed(SDL_Scancode scancode) const
 {
-	
 	const Uint8* state = SDL_GetKeyboardState(nullptr);
 	return state[scancode];
 }
