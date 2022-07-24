@@ -3,9 +3,7 @@
 
 #include "BulletManager.h"
 #include "Prefab.h"
-#include "Scene.h"
 #include "TimerInfo.h"
-#include "SceneManager.h"
 #include "EEvent.h"
 
 void TankComponent::Update()

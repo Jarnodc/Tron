@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "SpriteComponent.h"
 
+#include "GameObject.h"
 #include "TimerInfo.h"
 
 SpriteComponent::SpriteComponent(dae::GameObject* pGO, const SourcePart& sourcePart, const SDL_Rect& dstRect, float animationTime, bool flip)
@@ -44,12 +45,17 @@ void SpriteComponent::Render() const
 {
 	const auto pos = GetGameObject()->GetLocalPosition();
 	const SDL_Rect tempDstRect{ static_cast<int>(m_DstRect.x + pos.x), static_cast<int>(m_DstRect.y + pos.y), m_DstRect.w,m_DstRect.h };
-	dae::Renderer::GetInstance().RenderTexture(*m_SourcePart.GetTexture(), m_SourcePart.SrcRect, tempDstRect, m_Flip);
+	dae::Renderer::GetInstance().RenderTexture(*m_SourcePart.GetTexture(), m_SourcePart.SrcRect, tempDstRect, m_Rotation, m_Flip);
 }
 
 void SpriteComponent::SetFlip(bool flip)
 {
 	m_Flip = flip;
+}
+
+void SpriteComponent::SetRotation(float angle)
+{
+	m_Rotation = angle;
 }
 
 void SpriteComponent::MoveToNextFrame()

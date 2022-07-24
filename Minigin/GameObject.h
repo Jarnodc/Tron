@@ -97,6 +97,7 @@ namespace dae
 				return static_cast<T*>(comp);
 			}
 		}
+		std::cout <<"GameObject with tag: " << m_Tag << ", doesn't have \"" << typeid(T).name() << "\" as component" << std::endl;
 		return nullptr;
 	}
 

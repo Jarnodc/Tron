@@ -53,7 +53,7 @@ std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
 std::shared_ptr<dae::GameObject> BlueTankPrefab(dae::Scene& scene)
 {
 	const auto pGO{ std::make_shared<dae::GameObject>("Player")};
-		
+
 	const auto cont{ pGO->AddComponent<Controller>() };
 	const auto playerID{ dae::InputManager::GetInstance().AddPlayer() };
 

@@ -17,6 +17,34 @@ static t ToRadians(const t& angle)
 {
 	return static_cast<t>(angle * M_PI / 180.f);
 }
+template<typename t>
+static t AbsAngleDegrees(const t& angle)
+{
+	if(angle >= 360)
+	{
+		t angleCopy{ angle };
+		while(angleCopy - 360 >= 0)
+		{
+			angleCopy -= 360;
+		}
+		return angleCopy;
+	}
+	if(angle < 0)
+	{
+		t angleCopy{ angle };
+		while(angleCopy + 360 < 0)
+		{
+			angleCopy += 360;
+		}
+		return angleCopy;
+	}
+	return angle;
+}
+template<typename t>
+static t AbsAngleRadians(const t& angle)
+{
+	return AbsAngleDegrees(ToDegrees(angle));
+}
 
 class MathHelper final
 {

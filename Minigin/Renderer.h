@@ -41,7 +41,10 @@ namespace dae
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
 		void RenderTexture(const Texture2D& texture, const SDL_Rect& srcRect, const SDL_Rect& dstRect, bool flipped) const;
+
+		//Angle In Degrees
 		void RenderTexture(const Texture2D& texture, const SDL_Rect& srcRect, const SDL_Rect& dstRect,const double& angle, bool flipped = false) const;
+		//Angle In Degrees
 		void RenderTexture(const Texture2D& texture, const SDL_Rect& srcRect, const SDL_Rect& dstRect,const double& angle, const SDL_Point& center, bool flipped = false) const;
 
 		void RenderRectangle(const SDL_Rect& rect, SDL_Color color = {255,255,255,1 }) const;

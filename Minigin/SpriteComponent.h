@@ -1,5 +1,5 @@
 #pragma once
-#include "Observer.h"
+#include "Component.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "Texture2D.h"
@@ -68,6 +68,10 @@ public:
 
 	void SetFlip(bool flip);
 
+	//Angle in Degrees
+	void SetRotation(float angle);
+	float GetRotation() const { return m_Rotation; }
+
 	bool HasReachedEnd()const
 	{
 		return m_ReachedEnd;
@@ -91,6 +95,7 @@ private:
 
 	float m_AnimationTime{ 1 };
 	bool m_Flip{ false };
+	float m_Rotation{};
 
 	SourcePart m_SourcePart{};
 

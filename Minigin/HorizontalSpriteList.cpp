@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include "HorizontalSpriteList.h"
 
+#include "GameObject.h"
+
 
 HorizontalSpriteList::HorizontalSpriteList(dae::GameObject* pGO, SpriteComponent* spriteTemplate, int beginAmount, Allignment allignment)
 	:SpriteList(pGO, spriteTemplate)

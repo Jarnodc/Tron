@@ -1,4 +1,5 @@
 #pragma once
+#include "GameObject.h"
 #include "SpriteComponent.h"
 
 class State

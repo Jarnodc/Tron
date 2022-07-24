@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "SpriteList.h"
 
+#include "GameObject.h"
 #include "SceneManager.h"
 
 void SpriteList::RemoveItem(int amount) const
