@@ -25,15 +25,12 @@ void TankComponent::Rotate(bool clockWise)
 	if(clockWise)
 	{
 		m_TurretAngle += m_RotateSpeed * dae::TimerInfo::GetInstance().deltaTime;
-		if (m_TurretAngle >= 360)
-			m_TurretAngle -= 360;
 	}
 	else
 	{
 		m_TurretAngle -= m_RotateSpeed * dae::TimerInfo::GetInstance().deltaTime;
-		if (m_TurretAngle <= -360)
-			m_TurretAngle += 360;
 	}
+	m_TurretAngle = AbsAngleDegrees(m_TurretAngle);
 }
 
 void TankComponent::Hit() const

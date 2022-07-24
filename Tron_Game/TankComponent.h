@@ -24,6 +24,6 @@ public:
 	void Rotate(bool clockWise = true);
 private:
 	float m_TurretAngle{};
-	float m_RotateSpeed{ 2 };
+	float m_RotateSpeed{ 360 };
 };
 
