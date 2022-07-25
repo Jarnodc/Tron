@@ -3,9 +3,15 @@
 
 #include "GameObject.h"
 #include "EEvent.h"
+#include "PhysicsManager.h"
+#include "TankComponent.h"
+#include "TimerInfo.h"
 
 void AIController::Update()
 {
+	CalcTarget();
+	CalcAttack();
+	CalcPath();
 }
 
 void AIController::FixedUpdate()
@@ -14,17 +20,34 @@ void AIController::FixedUpdate()
 
 void AIController::Notify(const dae::GameObject& , EEvent event)
 {
-
 	if (EEvent::Die != event)
 		return;
-
-	//GetSubject()->Notify(*GetGameObject(), EEvent::Lose);
+	
 	// else
 	// Respawn
 }
 
 void AIController::CalcAttack()
 {
+	const auto tankComp{ GetGameObject()->GetComponent<TankComponent>() };
+	const auto rayStartPos{ GetGameObject()->GetLocalPosition() + glm::vec3{8,8,0 } };
+	const auto vec{ m_pTarget->GetLocalPosition() - rayStartPos };
+	const auto angleD{ Angle(vec) - tankComp->GetTurretAngle()};
+	tankComp->Rotate(angleD > 0);
+
+	if (m_CurRate < m_FireRate)
+		m_CurRate += dae::TimerInfo::GetInstance().deltaTime;
+	else
+	{
+		const glm::vec3 dir{ cos(tankComp->GetTurretAngle()),sin(tankComp->GetTurretAngle()),0};
+		const auto ray{ PhysicsManager::GetInstance().RayCast(rayStartPos, dir, GetGameObject()) };
+		if (ray.HitObject->GetTag() == "Player")
+		{
+			p.push_back(SDL_Point{static_cast<int>(ray.HitPoint.x), static_cast<int>(ray.HitPoint.y)});
+			tankComp->Attack();
+			m_CurRate -= m_FireRate;
+		}
+	}
 }
 
 void AIController::CalcPath()

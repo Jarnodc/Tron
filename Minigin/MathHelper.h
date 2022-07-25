@@ -6,7 +6,6 @@ static t Magnitude(const glm::vec3& vector)
 {
 	return static_cast<t>(sqrtf(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z));
 }
-
 template<typename t>
 static t ToDegrees(const t& angle)
 {
@@ -32,7 +31,7 @@ static t AbsAngleDegrees(const t& angle)
 	if(angle < 0)
 	{
 		t angleCopy{ angle };
-		while(angleCopy + 360 < 0)
+		while(angleCopy < 0)
 		{
 			angleCopy += 360;
 		}
@@ -43,7 +42,14 @@ static t AbsAngleDegrees(const t& angle)
 template<typename t>
 static t AbsAngleRadians(const t& angle)
 {
-	return AbsAngleDegrees(ToDegrees(angle));
+	return ToRadians(AbsAngleDegrees(ToDegrees(angle)));
+}
+
+template<typename t>
+static float Angle(const t& v1, const t& v2 = { 1,0,0 })
+{
+	const auto u{ Magnitude<float>(v1) }, v{ Magnitude<float>(v2) };
+	return ToDegrees(acos(glm::dot(v1, v2) / (u * v)));
 }
 
 class MathHelper final

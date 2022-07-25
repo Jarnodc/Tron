@@ -155,4 +155,51 @@ void dae::Renderer::RenderText(const std::string& text, const SDL_Point& leftTop
 	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);
 	TTF_CloseFont(Sans);
+	
+}
+
+void dae::Renderer::RenderPolygon(const std::vector<SDL_Point>& points, const glm::vec2& size, SDL_Color color, bool AddPoints, SDL_Color PointsColor)
+{
+	if (points.size() == 0)
+		return;
+
+	SDL_RenderSetScale(GetSDLRenderer(), size.x, size.y);
+
+	//DrawPoints
+	if (AddPoints)
+	{
+		SDL_Point* pointArr{ new SDL_Point[points.size()]{} };
+		for (size_t i = 0; i < points.size(); ++i)
+		{
+			const auto& point{ points[i] };
+			pointArr[i] = point;
+		}
+		SDL_SetRenderDrawColor(GetSDLRenderer(), PointsColor.r, PointsColor.g, PointsColor.b, PointsColor.a);
+		SDL_RenderDrawPoints(GetSDLRenderer(), pointArr, static_cast<int>(points.size()));
+		delete[] pointArr;
+		pointArr = nullptr;
+	}
+
+	SDL_SetRenderDrawColor(GetSDLRenderer(), color.r, color.g, color.b, color.a);
+	if (points.size() == 1)
+	{
+		SDL_RenderDrawLine(GetSDLRenderer(),0,0,points.front().x,points.front().y);
+	}
+	else if (points.size() == 2)
+	{
+		SDL_RenderDrawLine(GetSDLRenderer(), points[0].x, points[0].y, points[1].x, points[1].y);
+	}
+	else
+	{
+		SDL_FPoint* fPointArr{ new SDL_FPoint[points.size()]{} };
+		for (size_t i = 0; i < points.size(); ++i)
+		{
+			const auto& point{ points[i] };
+			fPointArr[i] = SDL_FPoint(static_cast<float>(point.x), static_cast<float>(point.y));
+		}
+		SDL_RenderDrawLinesF(GetSDLRenderer(), fPointArr, static_cast<int>(points.size()));
+		delete[] fPointArr;
+		fPointArr = nullptr;
+	}
+	SDL_RenderSetScale(GetSDLRenderer(), 1, 1);
 }

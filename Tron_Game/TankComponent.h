@@ -22,8 +22,10 @@ public:
 	void Hit() const;
 	void Attack() const;
 	void Rotate(bool clockWise = true);
+
+	float GetTurretAngle() const { return m_TurretAngle; }
 private:
 	float m_TurretAngle{};
-	float m_RotateSpeed{ 360 };
+	float m_RotateSpeed{ 10 };
 };
 

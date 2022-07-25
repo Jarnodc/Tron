@@ -10,7 +10,6 @@
 
 void BulletManager::AddBullet(const std::shared_ptr<dae::GameObject>& bullet)
 {
-	//m_pBullets.emplace_back(bullet.get());
 	m_pBullets.emplace_back(bullet);
 	dae::SceneManager::GetInstance().GetScene().Add(bullet);
 }
@@ -19,7 +18,6 @@ void BulletManager::RemoveBullet(const std::shared_ptr<dae::GameObject>& bullet)
 {
 	dae::SceneManager::GetInstance().GetScene().Remove(bullet);
 	m_pBullets.erase(std::ranges::remove(m_pBullets,bullet).begin());
-
 }
 
 void BulletManager::Update()

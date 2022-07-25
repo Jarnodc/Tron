@@ -1,6 +1,8 @@
 #pragma once
 #include "pch.h"
 #include <Component.h>
+class BoxCollider;
+
 class Bullet final : public Component
 {
 public:
@@ -16,13 +18,17 @@ public:
 	void FixedUpdate() override {}
 	void Render() const override {}
 
-	bool IsDead() { return m_IsDead; }
+	bool IsDead() const { return m_IsDead; }
 	
 private:
+	void ChangeDirection(const BoxCollider* overlapper);
+
 	glm::vec3 m_Direction;
 	int m_AmountBounces{ 0 };
 	const int m_MaxBounces{ 5 };
 	dae::GameObject* m_pParent;
 	bool m_IsDead{ false };
+	BoxCollider* m_pPrevBoxCollider{ nullptr };
+
 };
 

@@ -1,6 +1,5 @@
 #include "MiniginPCH.h"
 #include "InputManager.h"
-#include <backends\imgui_impl_sdl.h>
 
 #include "SceneManager.h"
 #include "UIManager.h"
@@ -8,7 +7,7 @@
 
 bool dae::InputManager::ProcessInput()
 {
-	while (SDL_PollEvent(&m_Event)) {
+	if (SDL_PollEvent(&m_Event)) {
 		if (m_Event.type == SDL_QUIT)
 		{
 			return false;
@@ -38,10 +37,12 @@ bool dae::InputManager::ProcessInput()
 				else if (m_Event.type == SDL_KEYUP && keyCom.isPrevFrameDown && m_Event.key.keysym.scancode == keyCom.keyBoardButton)keyCom.isPrevFrameDown = false;
 				break;
 			case EInputState::Pressed:
-				if (m_Event.type == SDL_KEYDOWN && m_Event.key.keysym.scancode == keyCom.keyBoardButton)
-				{
-					keyCom.command->Execute();
-				}
+
+				if (keyCom.state != EInputState::Up)
+					if (m_Event.key.keysym.scancode == keyCom.keyBoardButton)
+					{
+						keyCom.command->Execute();
+					}
 				break;
 			case EInputState::Up:
 				if (m_Event.type == SDL_KEYUP && m_Event.key.keysym.scancode == keyCom.keyBoardButton)
@@ -52,8 +53,6 @@ bool dae::InputManager::ProcessInput()
 			}
 		}
 
-		//process event for IMGUI
-		ImGui_ImplSDL2_ProcessEvent(&m_Event);
 	}
 
 	Update();

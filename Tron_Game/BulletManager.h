@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.h"
+#include "Renderer.h"
 
 class Bullet;
 
@@ -25,6 +26,5 @@ public:
 private:
 
 	std::vector<std::shared_ptr<dae::GameObject>> m_pBullets{};
-	//std::vector<Bullet*> m_pBullets{};
 };
 

@@ -13,6 +13,9 @@ void test(dae::Scene& scene)
 	//test->MovePosition(10, 10);
 	//test->AddComponent(new HorizontalSpriteList(test.get(), new SpriteComponent(test.get(), SpriteComponent::SourcePart("test.png", 5, 2), { 10,0,30,30 }, .1f), 3));
 	//scene.Add(test);
+	const auto ai{ RedTankPrefab(scene) };
+	ai.get()->MovePosition(100, 17);
+	scene.Add(ai);
 	const auto player{ BlueTankPrefab(scene) };
 	player.get()->MovePosition(17, 17);
 	scene.Add(player);
