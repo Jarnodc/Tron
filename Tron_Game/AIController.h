@@ -17,7 +17,7 @@ public:
 
 	void Update() override;
 	void FixedUpdate() override;
-	void Render() const override { dae::Renderer::GetInstance().RenderPolygon(p); }
+	void Render() const override {}
 
 	void Notify(const dae::GameObject& pObject, EEvent event) override;
 
@@ -31,7 +31,7 @@ private:
 
 	std::vector<dae::GameObject*> m_pTargets{};
 	dae::GameObject* m_pTarget{ nullptr };
-	std::vector<SDL_Point> p{};
+
 	const float m_FireRate{ .3f };
 
 	float m_CurRate{ m_FireRate };

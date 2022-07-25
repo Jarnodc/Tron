@@ -26,6 +26,6 @@ public:
 	float GetTurretAngle() const { return m_TurretAngle; }
 private:
 	float m_TurretAngle{};
-	float m_RotateSpeed{ 10 };
+	float m_RotateSpeed{ 1 };
 };
 

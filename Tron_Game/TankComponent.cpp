@@ -31,6 +31,7 @@ void TankComponent::Rotate(bool clockWise)
 		m_TurretAngle -= m_RotateSpeed * dae::TimerInfo::GetInstance().deltaTime;
 	}
 	m_TurretAngle = AbsAngleDegrees(m_TurretAngle);
+	std::cout << m_TurretAngle << std::endl;
 }
 
 void TankComponent::Hit() const

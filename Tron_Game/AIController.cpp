@@ -30,8 +30,9 @@ void AIController::Notify(const dae::GameObject& , EEvent event)
 void AIController::CalcAttack()
 {
 	const auto tankComp{ GetGameObject()->GetComponent<TankComponent>() };
-	const auto rayStartPos{ GetGameObject()->GetLocalPosition() + glm::vec3{8,8,0 } };
-	const auto vec{ m_pTarget->GetLocalPosition() - rayStartPos };
+
+
+	const auto vec{ m_pTarget->GetLocalPosition() - GetGameObject()->GetLocalPosition() };
 	const auto angleD{ Angle(vec) - tankComp->GetTurretAngle()};
 	tankComp->Rotate(angleD > 0);
 
@@ -40,10 +41,9 @@ void AIController::CalcAttack()
 	else
 	{
 		const glm::vec3 dir{ cos(tankComp->GetTurretAngle()),sin(tankComp->GetTurretAngle()),0};
-		const auto ray{ PhysicsManager::GetInstance().RayCast(rayStartPos, dir, GetGameObject()) };
+		const auto ray{ PhysicsManager::GetInstance().RayCast(GetGameObject()->GetLocalPosition(), dir, GetGameObject()) };
 		if (ray.HitObject->GetTag() == "Player")
 		{
-			p.push_back(SDL_Point{static_cast<int>(ray.HitPoint.x), static_cast<int>(ray.HitPoint.y)});
 			tankComp->Attack();
 			m_CurRate -= m_FireRate;
 		}
