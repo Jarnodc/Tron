@@ -3,12 +3,16 @@
 
 #include "GameObject.h"
 #include "EEvent.h"
+#include "MoveComponent.h"
 #include "PhysicsManager.h"
 #include "TankComponent.h"
 #include "TimerInfo.h"
 
 void AIController::Update()
 {
+	if (m_pTargets.empty())
+		return;
+
 	CalcTarget();
 	CalcAttack();
 	CalcPath();
@@ -40,8 +44,8 @@ void AIController::CalcAttack()
 		m_CurRate += dae::TimerInfo::GetInstance().deltaTime;
 	else
 	{
-		const glm::vec3 dir{ cos(tankComp->GetTurretAngle()),sin(tankComp->GetTurretAngle()),0};
-		const auto ray{ PhysicsManager::GetInstance().RayCast(GetGameObject()->GetLocalPosition(), dir, GetGameObject()) };
+		const glm::vec3 dir{ cos(ToRadians(tankComp->GetTurretAngle())),sin(ToRadians(tankComp->GetTurretAngle())),0};
+		const auto ray = PhysicsManager::GetInstance().RayCast(GetGameObject()->GetLocalPosition() + glm::vec3{8,8,0}, dir, GetGameObject());
 		if (ray.HitObject->GetTag() == "Player")
 		{
 			tankComp->Attack();
@@ -50,8 +54,31 @@ void AIController::CalcAttack()
 	}
 }
 
-void AIController::CalcPath()
+void AIController::CalcPath() const
 {
+	glm::vec3 moveVec{};
+	glm::vec3 dir{ m_pTarget->GetLocalPosition() - GetGameObject()->GetLocalPosition() };
+	if(dir.x < 0)
+	{
+		moveVec.x = -1;
+	}
+	else if (dir.x > 0)
+	{
+		moveVec.x = 1;
+	}
+	else if(dir.y != 0)
+	{
+		moveVec.x = -1;
+	}
+	if(dir.y < 0)
+	{
+		moveVec.y = -1;
+	}
+	else if (dir.y > 0)
+	{
+		moveVec.y = 1;
+	}
+	//GetGameObject()->GetComponent<MoveComponent>()->Move(moveVec);
 }
 
 void AIController::CalcTarget()

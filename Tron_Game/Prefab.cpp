@@ -25,13 +25,13 @@ std::shared_ptr<dae::GameObject> BulletPrefab(dae::GameObject* parent, const glm
 	return pGO;
 }
 
-std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
+std::shared_ptr<dae::GameObject> BlueTankPrefab(dae::Scene& scene)
 {
 	const auto pGO{ std::make_shared<dae::GameObject>("AI") };
 
-	pGO->AddComponent(new BoxCollider(pGO.get(), 30));
-	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 11,0,32,32 }), { 0,0,30,30 }));
-	pGO->AddComponent(new RigidBody(pGO.get(),{40,40,40}));
+	pGO->AddComponent(new BoxCollider(pGO.get(), 25));
+	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 9,0,32,32 }), { 0,0,25,25 }));
+	pGO->AddComponent(new RigidBody(pGO.get(),{20,20,20 }));
 	pGO->AddComponent<MoveComponent>();
 	pGO->AddComponent<BulletManager>();
 
@@ -50,7 +50,7 @@ std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
 }
 #include "InputManager.h"
 #include "ICommand.h"
-std::shared_ptr<dae::GameObject> BlueTankPrefab(dae::Scene& scene)
+std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
 {
 	const auto pGO{ std::make_shared<dae::GameObject>("Player")};
 
@@ -87,8 +87,8 @@ std::shared_ptr<dae::GameObject> BlueTankPrefab(dae::Scene& scene)
 
 
 	pGO->AddComponent(new BoxCollider(pGO.get(), 25));
-	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 9,0,32,32 }), { 0,0,25,25 }));
-	pGO->AddComponent(new RigidBody(pGO.get(), { 200,200,200 }));
+	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 11,0,32,32 }), { 0,0,25,25 }));
+	pGO->AddComponent(new RigidBody(pGO.get(), { 40,40,40 }));
 	pGO->AddComponent<MoveComponent>();
 	pGO->AddComponent<BulletManager>();
 

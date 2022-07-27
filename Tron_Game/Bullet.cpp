@@ -29,7 +29,7 @@ void Bullet::Update()
 				}
 				return;
 			}
-			if(tag == "Tank" && overlapper->GetGameObject() != m_pParent)
+			if(tag == "Player" && overlapper->GetGameObject() != m_pParent)
 			{
 				overlapper->GetGameObject()->GetComponent<TankComponent>()->Hit();
 				m_IsDead = true;
