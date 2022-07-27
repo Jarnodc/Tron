@@ -7,30 +7,26 @@
 #include "SceneManager.h"
 #include "ServiceLocator.h"
 
-void test(dae::Scene& scene)
+void Scene01(dae::Scene& scene)
 {
-	//const auto test = std::make_shared<dae::GameObject>();
-	//test->MovePosition(10, 10);
-	//test->AddComponent(new HorizontalSpriteList(test.get(), new SpriteComponent(test.get(), SpriteComponent::SourcePart("test.png", 5, 2), { 10,0,30,30 }, .1f), 3));
-	//scene.Add(test);
-	const auto ai{ RedTankPrefab(scene) };
-	ai.get()->MovePosition(100, 17);
+	const auto ai{ BlueTankPrefab(scene) };
+	ai->MovePosition(100, 17);
 	scene.Add(ai);
-	const auto player{ BlueTankPrefab(scene) };
-	player.get()->MovePosition(17, 17);
+	const auto player{ RedTankPrefab(scene) };
+	player->MovePosition(17, 17);
 	scene.Add(player);
 	JsonReader::GetInstance().ReadFile(scene, "Level01.json");
 }
 int main(int, char* []) {
 
-	// -- Init -- //
+	// -- Init -- //t
 	dae::Minigin engine;
 	engine.Initialize();
 	ServiceLocator::RegisterSoundSystem(new SDLSoundSystem());
 
 	// -- Load Game -- //
-	dae::SceneManager::GetInstance().SetSpawnLevelFunc(test, "test");
-	dae::SceneManager::GetInstance().LoadScene("test");
+	dae::SceneManager::GetInstance().SetSpawnLevelFunc(Scene01, "Scene01");
+	dae::SceneManager::GetInstance().LoadScene("Scene01");
 
 	// -- Run -- //
 	engine.Run();

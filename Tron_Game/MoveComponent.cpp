@@ -45,11 +45,20 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 		velocity *= glm::vec3{ 0, -1, 0 };
 		rect.y += static_cast<int>(velocity.y) - 1;
 		boxCollider->SetBoxCollider(rect);
-		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider, std::string("Wall")))
+		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider))
 		{
+			const auto overlappers = PhysicsManager::GetInstance().GetOverlappers(boxCollider);
+			bool overlappedNonBullet{ false };
+			for (auto overlapper : overlappers)
+			{
+				if (overlapper->GetGameObject()->GetTag() != "Bullet" && overlapper->GetGameObject()->GetTag() != "Teleporter")
+				{
+					overlappedNonBullet = true;
+				}
+			}
 			rect.y = bottom;
 			boxCollider->SetBoxCollider(rect);
-			return false;
+			return !overlappedNonBullet;
 		}
 		rect.y = bottom;
 		boxCollider->SetBoxCollider(rect);
@@ -60,11 +69,20 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 		velocity *= glm::vec3{ 0, 1, 0 };
 		rect.y += static_cast<int>(velocity.y) + 1;
 		boxCollider->SetBoxCollider(rect);
-		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider, std::string("Wall")))
+		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider))
 		{
+			const auto overlappers = PhysicsManager::GetInstance().GetOverlappers(boxCollider);
+			bool overlappedNonBullet{ false };
+			for (auto overlapper : overlappers)
+			{
+				if (overlapper->GetGameObject()->GetTag() != "Bullet" && overlapper->GetGameObject()->GetTag() != "Teleporter")
+				{
+					overlappedNonBullet = true;
+				}
+			}
 			rect.y = bottom;
 			boxCollider->SetBoxCollider(rect);
-			return false;
+			return !overlappedNonBullet;
 		}
 		rect.y = bottom;
 		boxCollider->SetBoxCollider(rect);
@@ -75,11 +93,21 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 		velocity *= glm::vec3{ -1,0, 0 };
 		rect.x += static_cast<int>(velocity.x) - 1;
 		boxCollider->SetBoxCollider(rect);
-		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider, std::string("Wall")))
+
+		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider))
 		{
+			const auto overlappers = PhysicsManager::GetInstance().GetOverlappers(boxCollider);
+			bool overlappedNonBullet{ false };
+			for (auto overlapper : overlappers)
+			{
+				if (overlapper->GetGameObject()->GetTag() != "Bullet" && overlapper->GetGameObject()->GetTag() != "Teleporter")
+				{
+					overlappedNonBullet = true;
+				}
+			}
 			rect.x = left;
 			boxCollider->SetBoxCollider(rect);
-			return false;
+			return !overlappedNonBullet;
 		}
 		rect.x = left;
 		boxCollider->SetBoxCollider(rect);
@@ -90,11 +118,20 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 		velocity *= glm::vec3{ 1, 0,0 };
 		rect.x += static_cast<int>(velocity.x) + 1;
 		boxCollider->SetBoxCollider(rect);
-		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider, std::string("Wall")))
+		if (PhysicsManager::GetInstance().IsOverlapping(boxCollider))
 		{
+			const auto overlappers = PhysicsManager::GetInstance().GetOverlappers(boxCollider);
+			bool overlappedNonBullet{ false };
+			for (auto overlapper : overlappers)
+			{
+				if (overlapper->GetGameObject()->GetTag() != "Bullet" && overlapper->GetGameObject()->GetTag() != "Teleporter")
+				{
+					overlappedNonBullet = true;
+				}
+			}
 			rect.x = left;
 			boxCollider->SetBoxCollider(rect);
-			return false;
+			return !overlappedNonBullet;
 		}
 		rect.x = left;
 		boxCollider->SetBoxCollider(rect);

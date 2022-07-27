@@ -78,7 +78,7 @@ void AIController::CalcPath() const
 	{
 		moveVec.y = 1;
 	}
-	//GetGameObject()->GetComponent<MoveComponent>()->Move(moveVec);
+	GetGameObject()->GetComponent<MoveComponent>()->Move(moveVec);
 }
 
 void AIController::CalcTarget()

@@ -86,12 +86,12 @@ void dae::Minigin::Run()
 			lag += dae::TimerInfo::GetInstance().deltaTime;
 
 			//Check if shut down
-			doContinue = input.ProcessInput();
 			while (lag >= MsPerFrame)
 			{
 				sceneManager.FixedUpdate();
 				lag -= MsPerFrame;
 			}
+			doContinue = input.ProcessInput();
 			sceneManager.Update();
 			renderer.Render();
 		}
