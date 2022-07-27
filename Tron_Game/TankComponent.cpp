@@ -35,5 +35,5 @@ void TankComponent::Rotate(bool clockWise)
 
 void TankComponent::Hit() const
 {
-	GetSubject()->Notify(*GetGameObject(), EEvent::Die);
+	GetSubject()->Notify(*GetGameObject(), EEvent::LoseHealth);
 }

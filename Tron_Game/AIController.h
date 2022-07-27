@@ -33,7 +33,7 @@ private:
 	std::vector<dae::GameObject*> m_pTargets{};
 	dae::GameObject* m_pTarget{ nullptr };
 
-	const float m_FireRate{ .3f };
+	const float m_FireRate{ .7f };
 	float m_CurRate{ m_FireRate };
 
 };
