@@ -24,7 +24,7 @@ int main(int, char* []) {
 	engine.Initialize();
 	ServiceLocator::RegisterSoundSystem(new SDLSoundSystem());
 
-	// -- Load Game -- //
+	// -- Load Game -- //z
 	dae::SceneManager::GetInstance().SetSpawnLevelFunc(Scene01, "Scene01");
 	dae::SceneManager::GetInstance().LoadScene("Scene01");
 
