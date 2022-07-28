@@ -7,7 +7,7 @@
 
 using namespace dae;
 
-class Xbox360Controller::Xbox360ControllerImpl
+class Xbox360Controller::Xbox360ControllerImpl final
 {
 	XINPUT_STATE m_CurrentState{};
 	XINPUT_STATE m_PreviousState{};
@@ -71,7 +71,7 @@ bool dae::Xbox360Controller::IsPressed(Xbox360Controller::ControllerButton butto
 }
 
 dae::Xbox360Controller::Xbox360Controller(int controllerIdx)
-	:m_pImpl{ new Xbox360ControllerImpl(controllerIdx) }
+	:PlayerController(),m_pImpl{ new Xbox360ControllerImpl(controllerIdx) }
 {
 }
 

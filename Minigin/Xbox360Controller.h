@@ -1,9 +1,11 @@
 #pragma once
 #include <XInput.h>
 
+#include "PlayerController.h"
+
 namespace dae
 {
-	class Xbox360Controller final
+	class Xbox360Controller final : public PlayerController
 	{
 		class Xbox360ControllerImpl;
 		Xbox360ControllerImpl* m_pImpl = nullptr;
@@ -25,14 +27,14 @@ namespace dae
 		ButtonLeftShoulder = XINPUT_GAMEPAD_LEFT_SHOULDER,
 		ButtonRightShoulder = XINPUT_GAMEPAD_RIGHT_SHOULDER,
 	};
-		void Update() const;
+		void Update() const override;
 
 		bool IsDown(ControllerButton button) const;
 		bool IsUp(ControllerButton button) const;
 		bool IsPressed(ControllerButton button) const;
 
 		explicit Xbox360Controller(int controllerIdx);
-		~Xbox360Controller();
+		~Xbox360Controller() override;
 
 	};
 }

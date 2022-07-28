@@ -251,10 +251,12 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClInclude Include="FpsCounter.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HorizontalSpriteList.h" />
+    <ClInclude Include="KeyBoardController.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="JsonReader.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="PhysicsManager.h" />
+    <ClInclude Include="PlayerController.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="ServiceLocator.h" />
     <ClInclude Include="Sound_System.h" />
@@ -341,6 +343,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClCompile Include="HorizontalSpriteList.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="JsonReader.cpp" />
+    <ClCompile Include="KeyBoardController.cpp" />
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="MiniginPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -350,6 +353,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MiniginPCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="PhysicsManager.cpp" />
+    <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RigidBody.cpp" />

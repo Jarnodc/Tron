@@ -55,35 +55,36 @@ std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
 	const auto pGO{ std::make_shared<dae::GameObject>("Player")};
 
 	const auto cont{ pGO->AddComponent<Controller>() };
-	const auto playerID{ dae::InputManager::GetInstance().AddPlayer() };
+	const auto contID{ dae::InputManager::GetInstance().AddPlayer() };
+	const auto kbID{ dae::InputManager::GetInstance().AddPlayer(true) };
 
 	// -- Attack --
-	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonA, std::make_shared<AttackCommand>(pGO.get()), playerID,dae::EInputState::Down);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_E, std::make_shared<AttackCommand>(pGO.get()), dae::EInputState::Down);
+	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonA, std::make_shared<AttackCommand>(pGO.get()), contID,dae::EInputState::Down);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_E, std::make_shared<AttackCommand>(pGO.get()), kbID, dae::EInputState::Down);
 
 	// -- RotateCW --
-	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonRightShoulder, std::make_shared<RotateCWCommand>(pGO.get()), playerID, dae::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_X, std::make_shared<RotateCWCommand>(pGO.get()), dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonRightShoulder, std::make_shared<RotateCWCommand>(pGO.get()), contID, dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_X, std::make_shared<RotateCWCommand>(pGO.get()), kbID, dae::EInputState::Pressed);
 
 	// -- RotateCCW --
-	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonLeftShoulder, std::make_shared<RotateCCWCommand>(pGO.get()), playerID, dae::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_C, std::make_shared<RotateCCWCommand>(pGO.get()), dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonLeftShoulder, std::make_shared<RotateCCWCommand>(pGO.get()), contID, dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_C, std::make_shared<RotateCCWCommand>(pGO.get()), kbID, dae::EInputState::Pressed);
 
 	// -- MoveLeft --
-	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonDPADLeft, std::make_shared<MoveCommand>(pGO.get(),glm::vec3{-1,0,0}), playerID, dae::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(pGO.get(), glm::vec3{ -1,0,0 }), dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonDPADLeft, std::make_shared<MoveCommand>(pGO.get(), glm::vec3{-1,0,0}), contID, dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_A, std::make_shared<MoveCommand>(pGO.get(), glm::vec3{ -1,0,0 }), kbID, dae::EInputState::Pressed);
 	
 	// -- MoveRight --
-	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonDPADRight, std::make_shared<MoveCommand>(pGO.get(),glm::vec3{1,0,0}), playerID, dae::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(pGO.get(), glm::vec3{ 1,0,0 }), dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonDPADRight, std::make_shared<MoveCommand>(pGO.get(),glm::vec3{1,0,0}), contID, dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_D, std::make_shared<MoveCommand>(pGO.get(), glm::vec3{ 1,0,0 }), kbID, dae::EInputState::Pressed);
 
 	// -- MoveUp --
-	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonDPADUp, std::make_shared<MoveCommand>(pGO.get(),glm::vec3{ 0,-1,0}), playerID, dae::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(pGO.get(), glm::vec3{ 0,-1,0 }), dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonDPADUp, std::make_shared<MoveCommand>(pGO.get(),glm::vec3{ 0,-1,0}), contID, dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_W, std::make_shared<MoveCommand>(pGO.get(), glm::vec3{ 0,-1,0 }), kbID, dae::EInputState::Pressed);
 	
 	// -- MoveDown --
-	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonDPADDown, std::make_shared<MoveCommand>(pGO.get(),glm::vec3{ 0,1,0}), playerID, dae::EInputState::Pressed);
-	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(pGO.get(), glm::vec3{ 0,1,0 }), dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(dae::Xbox360Controller::ControllerButton::ButtonDPADDown, std::make_shared<MoveCommand>(pGO.get(),glm::vec3{ 0,1,0}), contID, dae::EInputState::Pressed);
+	dae::InputManager::GetInstance().AddCommand(SDL_SCANCODE_S, std::make_shared<MoveCommand>(pGO.get(), glm::vec3{ 0,1,0 }), kbID, dae::EInputState::Pressed);
 
 
 	pGO->AddComponent(new BoxCollider(pGO.get(), 25));

@@ -1,76 +1,68 @@
 #include "MiniginPCH.h"
 #include "InputManager.h"
 
+#include <algorithm>
+
 #include "SceneManager.h"
 #include "UIManager.h"
 
-
 bool dae::InputManager::ProcessInput()
 {
-	if (SDL_PollEvent(&m_Event)) {
+	if (SDL_PollEvent(&m_Event)) 
+	{
 		if (m_Event.type == SDL_QUIT)
 		{
 			return false;
 		}
-		if(m_Event.button.button == SDL_BUTTON_LEFT)
+		if (m_Event.button.button == SDL_BUTTON_LEFT)
 		{
 			const auto mousePos = glm::vec2{ m_Event.button.x,m_Event.button.y };
-			if(m_Event.button.type == SDL_MOUSEBUTTONDOWN)
+			if (m_Event.button.type == SDL_MOUSEBUTTONDOWN)
 			{
 				UIManager::GetInstance().HandleButtons(EInputState::Down, mousePos);
 			}
-			else if(m_Event.button.type == SDL_MOUSEBUTTONUP)
+			else if (m_Event.button.type == SDL_MOUSEBUTTONUP)
 			{
 				UIManager::GetInstance().HandleButtons(EInputState::Up, mousePos);
 			}
 		}
-		for (auto& keyCom : m_KeyBoardCommands)
-		{
-			switch (keyCom.state)
-			{
-			case EInputState::Down:
-				if (m_Event.type == SDL_KEYDOWN && !keyCom.isPrevFrameDown && m_Event.key.keysym.scancode == keyCom.keyBoardButton)
-				{
-					keyCom.isPrevFrameDown = true;
-					keyCom.command->Execute();
-				} 
-				else if (m_Event.type == SDL_KEYUP && keyCom.isPrevFrameDown && m_Event.key.keysym.scancode == keyCom.keyBoardButton)keyCom.isPrevFrameDown = false;
-				break;
-			case EInputState::Pressed:
-
-				if (keyCom.state != EInputState::Up)
-					if (m_Event.key.keysym.scancode == keyCom.keyBoardButton)
-					{
-						keyCom.command->Execute();
-					}
-				break;
-			case EInputState::Up:
-				if (m_Event.type == SDL_KEYUP && m_Event.key.keysym.scancode == keyCom.keyBoardButton)
-				{
-					keyCom.command->Execute();
-				}
-				break;
-			}
-		}
-
 	}
 
 	Update();
 	for (const auto& val : m_ConsoleCommands)
 	{
-		switch (val.state)
+		switch (val->state)
 		{
 		case EInputState::Down:
-			if (IsDownThisFrame(val.controllerButton, val.controllerIdx))
-				val.command->Execute();
+			if (IsDownThisFrame(val->controllerButton, val->playerIdx))
+				val->command->Execute();
 			break;
 		case EInputState::Pressed:
-			if (IsPressed(val.controllerButton, val.controllerIdx))
-				val.command->Execute();
+			if (IsPressed(val->controllerButton, val->playerIdx))
+				val->command->Execute();
 			break;
 		case EInputState::Up:
-			if (IsUpThisFrame(val.controllerButton, val.controllerIdx))
-				val.command->Execute();
+			if (IsUpThisFrame(val->controllerButton, val->playerIdx))
+				val->command->Execute();
+			break;
+		}
+	}
+
+	for (const auto& val : m_KeyBoardCommands)
+	{
+		switch (val->state)
+		{
+		case EInputState::Down:
+			if (IsDownThisFrame(val->keyBoardButton, val->playerIdx))
+				val->command->Execute();
+			break;
+		case EInputState::Pressed:
+			if (IsPressed(val->keyBoardButton, val->playerIdx))
+				val->command->Execute();
+			break;
+		case EInputState::Up:
+			if (IsUpThisFrame(val->keyBoardButton, val->playerIdx))
+				val->command->Execute();
 			break;
 		}
 	}
@@ -83,94 +75,141 @@ void dae::InputManager::Update() const
 	{
 		controller->Update();
 	}
+	for (const auto& kb : m_pKeyBoards)
+	{
+		kb->Update();
+	}
 }
 
-PlayerIndex dae::InputManager::AddPlayer()
+PlayerIndex dae::InputManager::AddPlayer(bool IsKeyBoard)
 {
+	if(IsKeyBoard)
+	{
+		PlayerIndex idx = static_cast<int>(m_pKeyBoards.size());
+		m_pKeyBoards.push_back(std::make_unique<KeyBoardController>(idx));
+		return idx;		
+	}
 	PlayerIndex idx = static_cast<int>(m_pControllers.size());
 	m_pControllers.push_back(std::make_unique<Xbox360Controller>(idx));
 	return idx;
 }
 
-void dae::InputManager::RemovePlayer(PlayerIndex idx)
+void dae::InputManager::RemovePlayer(PlayerIndex idx, bool IsKeyBoard)
 {
-	if (idx < m_pControllers.size())
+	if(IsKeyBoard)
 	{
-		for (size_t i = 0; i < m_ConsoleCommands.size(); ++i)
+		if (idx < m_pKeyBoards.size())
 		{
-			if(m_ConsoleCommands[i].controllerIdx == idx)
+			for (size_t i = 0; i < m_KeyBoardCommands.size(); ++i)
 			{
-				m_ConsoleCommands.erase(m_ConsoleCommands.begin() + i);
+				if(m_KeyBoardCommands[i]->playerIdx == idx)
+				{
+					m_KeyBoardCommands.erase(std::ranges::remove(m_KeyBoardCommands, m_KeyBoardCommands[i]).begin());
+				}
 			}
+			m_pKeyBoards.erase(m_pKeyBoards.begin() + idx);
 		}
-		m_pControllers.erase(m_pControllers.begin() + idx);
+		else
+			std::cout << "Idx is too high" << std::endl;
 	}
 	else
-		std::cout << "Idx is too high" << std::endl;
-
-}
-
-bool dae::InputManager::IsPressed(Xbox360Controller::ControllerButton button, PlayerIndex controllerIdx) const
-{
-	return m_pControllers[controllerIdx]->IsPressed(button);
-}
-
-bool dae::InputManager::IsPressed(SDL_Scancode scancode) const
-{
-	const Uint8* state = SDL_GetKeyboardState(nullptr);
-	return state[scancode];
-}
-
-bool dae::InputManager::IsDownThisFrame(Xbox360Controller::ControllerButton button, PlayerIndex controllerIdx) const
-{
-	return m_pControllers[controllerIdx]->IsDown(button);
-}
-
-bool dae::InputManager::IsUpThisFrame(Xbox360Controller::ControllerButton button, PlayerIndex controllerIdx) const
-{
-	return m_pControllers[controllerIdx]->IsUp(button);
-}
-
-void dae::InputManager::AddCommand(Xbox360Controller::ControllerButton button, std::shared_ptr<Command> command, PlayerIndex controllerIdx, EInputState state)
-{
-	if(controllerIdx > m_pControllers.size())
 	{
-		std::cout << "You are adding a command to an no existing player" << std::endl; //todo change to a throw
+		if (idx < m_pControllers.size())
+		{
+			for (size_t i = 0; i < m_pKeyBoards.size(); ++i)
+			{
+				if (m_ConsoleCommands[i]->playerIdx == idx)
+				{
+					m_ConsoleCommands.erase(std::ranges::remove(m_ConsoleCommands, m_ConsoleCommands[i]).begin());
+				}
+			}
+			m_pControllers.erase(m_pControllers.begin() + idx);
+		}
+		else
+			std::cout << "Idx is too high" << std::endl;
+	}
+
+}
+
+bool dae::InputManager::IsPressed(Xbox360Controller::ControllerButton button, PlayerIndex playerIdx) const
+{
+	return m_pControllers[playerIdx]->IsPressed(button);
+}
+
+bool dae::InputManager::IsPressed(SDL_Scancode scancode, PlayerIndex playerIdx) const
+{
+	return m_pKeyBoards[playerIdx]->IsPressed(scancode);
+}
+
+bool dae::InputManager::IsDownThisFrame(Xbox360Controller::ControllerButton button, PlayerIndex playerIdx) const
+{
+	return m_pControllers[playerIdx]->IsDown(button);
+}
+
+bool dae::InputManager::IsDownThisFrame(SDL_Scancode scancode, PlayerIndex playerIdx) const
+{
+	return m_pKeyBoards[playerIdx]->IsDown(scancode);
+}
+
+bool dae::InputManager::IsUpThisFrame(Xbox360Controller::ControllerButton button, PlayerIndex playerIdx) const
+{
+	return m_pControllers[playerIdx]->IsUp(button);
+}
+
+bool dae::InputManager::IsUpThisFrame(SDL_Scancode scancode, PlayerIndex playerIdx) const
+{
+	return m_pKeyBoards[playerIdx]->IsUp(scancode);
+}
+
+void dae::InputManager::AddCommand(Xbox360Controller::ControllerButton button, std::shared_ptr<Command> command, PlayerIndex playerIdx, EInputState state)
+{
+	if(playerIdx > m_pControllers.size())
+	{
+		std::cout << "You are adding a command to an no existing player" << std::endl; 
 		return;
 	}
-	ControllerCommand cc;
-	cc.command = command;
-	cc.controllerButton = button;
-	cc.state = state;
-	cc.controllerIdx = controllerIdx;
-	m_ConsoleCommands.push_back(cc);
+	ControllerCommand* cc = new ControllerCommand;
+	cc->command = command;
+	cc->controllerButton = button;
+	cc->state = state;
+	cc->playerIdx = playerIdx;
+	m_ConsoleCommands.emplace_back(cc);
 }
 
-void dae::InputManager::AddCommand(SDL_Scancode keyBoardKey, std::shared_ptr<Command> command, EInputState state)
+void dae::InputManager::AddCommand(SDL_Scancode keyBoardKey, std::shared_ptr<Command> command, PlayerIndex playerIdx, EInputState state)
 {
-	KeyBoardCommand kc;
-	kc.keyBoardButton = keyBoardKey;
-	kc.command = command;
-	kc.state = state;
-	m_KeyBoardCommands.push_back(kc);
+	if (playerIdx > m_pKeyBoards.size())
+	{
+		std::cout << "You are adding a command to an no existing player" << std::endl;
+		return;
+	}
+	KeyBoardCommand* kc= new KeyBoardCommand();
+	kc->keyBoardButton = keyBoardKey;
+	kc->command = command;
+	kc->state = state;
+	kc->playerIdx = playerIdx;
+	m_KeyBoardCommands.emplace_back(kc);
 }
 
-void dae::InputManager::RemoveCommand(Xbox360Controller::ControllerButton button, std::shared_ptr<Command> command, PlayerIndex controllerIdx, EInputState state)
+void dae::InputManager::RemoveCommand(Xbox360Controller::ControllerButton button, std::shared_ptr<Command> command, PlayerIndex playerIdx, EInputState state)
 {
 	const auto len{ m_ConsoleCommands.size() };
 	for (size_t i = 0; i < len; ++i)
 	{
-		const ControllerCommand temp = m_ConsoleCommands.at(i);
-		if(temp.controllerButton == button)
+		const ControllerCommand* temp =m_ConsoleCommands[i];
+		if (temp != nullptr)
 		{
-			if(typeid(*temp.command) == typeid(*command))
+			if (temp->controllerButton == button)
 			{
-				if (temp.state == state)
+				if (typeid(*temp->command) == typeid(*command))
 				{
-					if(temp.controllerIdx == controllerIdx)
+					if (temp->state == state)
 					{
-						m_ConsoleCommands.erase(m_ConsoleCommands.begin() + i);
-						return;
+						if (temp->playerIdx == playerIdx)
+						{
+							m_ConsoleCommands.erase(std::ranges::remove(m_ConsoleCommands, m_ConsoleCommands[i]).begin());
+							return;
+						}
 					}
 				}
 			}
@@ -178,23 +217,28 @@ void dae::InputManager::RemoveCommand(Xbox360Controller::ControllerButton button
 	}
 }
 
-void dae::InputManager::RemoveCommand(SDL_Scancode keyBoardKey, std::shared_ptr<Command> command, EInputState state)
+void dae::InputManager::RemoveCommand(SDL_Scancode keyBoardKey, std::shared_ptr<Command> command, PlayerIndex playerIdx, EInputState state)
 {
 	const auto len{ m_KeyBoardCommands.size() };
 	for (size_t i = 0; i < len; ++i)
 	{
-		const KeyBoardCommand temp = m_KeyBoardCommands.at(i);
-		if (temp.keyBoardButton == keyBoardKey)
+		const KeyBoardCommand* temp =m_KeyBoardCommands[i];
+		if (temp != nullptr)
 		{
-			if (typeid(*temp.command) == typeid(*command))
+			if (temp->keyBoardButton == keyBoardKey)
 			{
-				if (temp.state == state)
+				if (typeid(*temp->command) == typeid(*command))
 				{
-					m_ConsoleCommands.erase(m_ConsoleCommands.begin() + i);
-					return;
+					if (temp->state == state)
+					{
+						if (temp->playerIdx == playerIdx)
+						{
+							m_KeyBoardCommands.erase(std::ranges::remove(m_KeyBoardCommands, m_KeyBoardCommands[i]).begin());
+							return;
+						}
+					}
 				}
 			}
 		}
 	}
 }
-
