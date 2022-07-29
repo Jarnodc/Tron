@@ -9,13 +9,11 @@
 
 void Scene01(dae::Scene& scene)
 {
+	JsonReader::GetInstance().ReadFile(scene, "Level01.json");
 	const auto ai{ BlueTankPrefab(scene) };
-	ai->MovePosition(100, 17);
 	scene.Add(ai);
 	const auto player{ RedTankPrefab(scene) };
-	player->MovePosition(17, 17);
 	scene.Add(player);
-	JsonReader::GetInstance().ReadFile(scene, "Level01.json");
 }
 int main(int, char* []) {
 

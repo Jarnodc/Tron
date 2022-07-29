@@ -9,7 +9,6 @@
 #include "HorizontalSpriteList.h"
 #include "MoveComponent.h"
 #include "RigidBody.h"
-#include "SceneManager.h"
 #include "SpriteComponent.h"
 #include "TankComponent.h"
 
@@ -20,7 +19,7 @@ std::shared_ptr<dae::GameObject> BulletPrefab(dae::GameObject* parent, const glm
 	pGO->AddComponent(new Bullet(pGO.get(), parent, direction));
 	pGO->AddComponent(new BoxCollider(pGO.get(), 10));
 	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 6,0,10,10 }), { 0,0,10,10 }));
-	pGO->AddComponent(new RigidBody(pGO.get(), { 100,100,100 }));
+	pGO->AddComponent(new RigidBody(pGO.get(), { 40,40,40 }));
 
 	return pGO;
 }
@@ -31,8 +30,10 @@ std::shared_ptr<dae::GameObject> BlueTankPrefab(dae::Scene& scene)
 
 	pGO->AddComponent(new BoxCollider(pGO.get(), 25));
 	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 9,0,32,32 }), { 0,0,25,25 }));
-	pGO->AddComponent(new RigidBody(pGO.get(),{10,10,10 }));
+	const auto tankComp{ new TankComponent(pGO.get(),{16,16,448,416}) };
 	pGO->AddComponent<MoveComponent>();
+	pGO->AddComponent(new RigidBody(pGO.get(),{10,10,10 })); 
+	pGO->AddComponent(tankComp);
 	pGO->AddComponent<BulletManager>();
 
 	const auto controller{ pGO->AddComponent<AIController>()};
@@ -42,7 +43,8 @@ std::shared_ptr<dae::GameObject> BlueTankPrefab(dae::Scene& scene)
 	pHealth->AddComponent(healthComp);
 
 	healthComp->GetSubject()->AddObserver(controller);
-	pGO->AddComponent<TankComponent>()->GetSubject()->AddObserver(healthComp);
+
+	tankComp->GetSubject()->AddObserver(healthComp);
 
 	scene.Add(pHealth);
 
@@ -89,8 +91,10 @@ std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
 
 	pGO->AddComponent(new BoxCollider(pGO.get(), 25));
 	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 11,0,32,32 }), { 0,0,25,25 }));
-	pGO->AddComponent(new RigidBody(pGO.get(), { 20,20,20 }));
+	const auto tankComp{ new TankComponent(pGO.get(),{16,16,448,416}) };
 	pGO->AddComponent<MoveComponent>();
+	pGO->AddComponent(new RigidBody(pGO.get(), { 20,20,20 }));
+	pGO->AddComponent(tankComp);
 	pGO->AddComponent<BulletManager>();
 
 	const auto pHealth{ std::make_shared<dae::GameObject>() };
@@ -99,7 +103,7 @@ std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
 	pHealth->AddComponent(new HorizontalSpriteList(pHealth.get(),new SpriteComponent(pHealth.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 11,0,32,32 }), { 10,0,30,30 }),3));
 	pHealth->SetPosition(500, 20);
 	healthComp->GetSubject()->AddObserver(cont);
-	pGO->AddComponent<TankComponent>()->GetSubject()->AddObserver(healthComp);
+	tankComp->GetSubject()->AddObserver(healthComp);
 
 	scene.Add(pHealth);
 
@@ -119,8 +123,10 @@ std::shared_ptr<dae::GameObject> GreenTankPrefab(dae::Scene& scene)
 	const auto pGO{ std::make_shared<dae::GameObject>() };
 	pGO->AddComponent(new BoxCollider(pGO.get(), 30));
 	pGO->AddComponent(new SpriteComponent(pGO.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 8,0,32,32 }), { 0,0,30,30 }));
+	const auto tankComp{ new TankComponent(pGO.get(),{16,16,448,416}) };
 	pGO->AddComponent(new RigidBody(pGO.get(), { 20,20,20 }));
 	pGO->AddComponent<MoveComponent>();
+	pGO->AddComponent(tankComp);
 	pGO->AddComponent<BulletManager>();
 
 	const auto cont{ pGO->AddComponent<Controller>() };
@@ -130,7 +136,7 @@ std::shared_ptr<dae::GameObject> GreenTankPrefab(dae::Scene& scene)
 	pHealth->AddComponent(healthComp);
 
 	healthComp->GetSubject()->AddObserver(cont);
-	pGO->AddComponent<TankComponent>()->GetSubject()->AddObserver(healthComp);
+	tankComp->GetSubject()->AddObserver(healthComp);
 
 	scene.Add(pHealth);
 

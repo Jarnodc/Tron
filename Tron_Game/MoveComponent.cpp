@@ -49,7 +49,7 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 		{
 			const auto overlappers = PhysicsManager::GetInstance().GetOverlappers(boxCollider);
 			bool overlappedNonBullet{ false };
-			for (auto overlapper : overlappers)
+			for (const auto& overlapper : overlappers)
 			{
 				if (overlapper->GetGameObject()->GetTag() != "Bullet" && overlapper->GetGameObject()->GetTag() != "Teleporter")
 				{
@@ -73,7 +73,7 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 		{
 			const auto overlappers = PhysicsManager::GetInstance().GetOverlappers(boxCollider);
 			bool overlappedNonBullet{ false };
-			for (auto overlapper : overlappers)
+			for (const auto& overlapper : overlappers)
 			{
 				if (overlapper->GetGameObject()->GetTag() != "Bullet" && overlapper->GetGameObject()->GetTag() != "Teleporter")
 				{
@@ -98,7 +98,7 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 		{
 			const auto overlappers = PhysicsManager::GetInstance().GetOverlappers(boxCollider);
 			bool overlappedNonBullet{ false };
-			for (auto overlapper : overlappers)
+			for (const auto& overlapper : overlappers)
 			{
 				if (overlapper->GetGameObject()->GetTag() != "Bullet" && overlapper->GetGameObject()->GetTag() != "Teleporter")
 				{
@@ -122,7 +122,7 @@ bool MoveComponent::CanMoveTo(EDirection dir) const
 		{
 			const auto overlappers = PhysicsManager::GetInstance().GetOverlappers(boxCollider);
 			bool overlappedNonBullet{ false };
-			for (auto overlapper : overlappers)
+			for (const auto& overlapper : overlappers)
 			{
 				if (overlapper->GetGameObject()->GetTag() != "Bullet" && overlapper->GetGameObject()->GetTag() != "Teleporter")
 				{

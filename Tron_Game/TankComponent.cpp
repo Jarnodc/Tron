@@ -5,9 +5,16 @@
 #include "Prefab.h"
 #include "TimerInfo.h"
 #include "EEvent.h"
+#include "PhysicsManager.h"
 
 void TankComponent::Update()
 {
+	BoxCollider* pBC{ GetGameObject()->GetComponent<BoxCollider>() };
+	if (PhysicsManager::GetInstance().IsOverlapping(pBC, std::string("Teleporter")))
+	{
+		MoveToRandomLocation();
+		std::cout << "Teleporter done" << std::endl;
+	}
 }
 
 
@@ -31,6 +38,74 @@ void TankComponent::Rotate(bool clockWise)
 		m_TurretAngle -= m_RotateSpeed * dae::TimerInfo::GetInstance().deltaTime;
 	}
 	m_TurretAngle = AbsAngleDegrees(m_TurretAngle);
+}
+
+void TankComponent::MoveToRandomLocation() const
+{
+	BoxCollider* pBC{ GetGameObject()->GetComponent<BoxCollider>() };
+	srand(static_cast<unsigned>(time(nullptr)));
+	if (GetGameObject()->GetTag() == "Player")
+		std::cout << "Teleporter noot noot" << std::endl;
+	while (PhysicsManager::GetInstance().IsOverlapping(pBC))
+	{
+		glm::vec2 randomPos{ rand() % m_MapRect.w,rand() % m_MapRect.h};
+		randomPos += glm::vec2{m_MapRect.x, m_MapRect.y};
+		Side side{ Side(rand() % 4) };
+		switch (side)
+		{
+		case Side::Left:
+			while(randomPos.x >= m_MapRect.x)
+			{
+				randomPos.x -= 1;
+				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
+				if(!PhysicsManager::GetInstance().IsOverlapping(pBC))
+				{
+					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
+					return;
+				}
+			}
+			break;
+		case Side::Right:
+			while (randomPos.x <= m_MapRect.w)
+			{
+				randomPos.x += 1;
+				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
+				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
+				{
+					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
+					return;
+				}
+			}
+			break;
+		case Side::Bottom:
+			while (randomPos.y <= m_MapRect.h)
+			{
+				randomPos.y += 1;
+				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
+				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
+				{
+					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
+					return;
+				}
+			}
+			break;
+		case Side::Top:
+			while (randomPos.y >= m_MapRect.y)
+			{
+				randomPos.x -= 1;
+				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
+				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
+				{
+					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
+					return;
+				}
+			}
+			break;
+		default:
+			std::cout << "Default" << std::endl;
+				break;
+		}
+	}
 }
 
 void TankComponent::Hit() const
