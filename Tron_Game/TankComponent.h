@@ -7,7 +7,7 @@
 class TankComponent final: public SubjectComponent
 {
 public:
-	TankComponent(dae::GameObject* pGO, const SDL_Rect& mapRect) :SubjectComponent(pGO), m_MapRect(mapRect) { MoveToRandomLocation(); }
+	TankComponent(dae::GameObject* pGO, const SDL_Rect& mapRect, int value) :SubjectComponent(pGO), m_MapRect(mapRect), m_Value(value) { MoveToRandomLocation(); }
 	~TankComponent() override = default;
 
 	TankComponent(const TankComponent& other) = delete;
@@ -24,12 +24,16 @@ public:
 	void Rotate(bool clockWise = true);
 
 	float GetTurretAngle() const { return m_TurretAngle; }
+	int GetValue()const { return m_Value; }
 
 	void MoveToRandomLocation() const;
+
 private:
 	float m_TurretAngle{};
-	float m_RotateSpeed{ 10 };
+	float m_RotateSpeed{ 40 };
 
 	SDL_Rect m_MapRect;
+
+	int m_Value;
 };
 

@@ -13,7 +13,6 @@ void TankComponent::Update()
 	if (PhysicsManager::GetInstance().IsOverlapping(pBC, std::string("Teleporter")))
 	{
 		MoveToRandomLocation();
-		std::cout << "Teleporter done" << std::endl;
 	}
 }
 
@@ -44,8 +43,6 @@ void TankComponent::MoveToRandomLocation() const
 {
 	BoxCollider* pBC{ GetGameObject()->GetComponent<BoxCollider>() };
 	srand(static_cast<unsigned>(time(nullptr)));
-	if (GetGameObject()->GetTag() == "Player")
-		std::cout << "Teleporter noot noot" << std::endl;
 	while (PhysicsManager::GetInstance().IsOverlapping(pBC))
 	{
 		glm::vec2 randomPos{ rand() % m_MapRect.w,rand() % m_MapRect.h};
@@ -60,7 +57,6 @@ void TankComponent::MoveToRandomLocation() const
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
 				if(!PhysicsManager::GetInstance().IsOverlapping(pBC))
 				{
-					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
 					return;
 				}
 			}
@@ -72,7 +68,6 @@ void TankComponent::MoveToRandomLocation() const
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
 				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
 				{
-					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
 					return;
 				}
 			}
@@ -84,7 +79,6 @@ void TankComponent::MoveToRandomLocation() const
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
 				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
 				{
-					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
 					return;
 				}
 			}
@@ -96,14 +90,10 @@ void TankComponent::MoveToRandomLocation() const
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
 				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
 				{
-					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
 					return;
 				}
 			}
 			break;
-		default:
-			std::cout << "Default" << std::endl;
-				break;
 		}
 	}
 }

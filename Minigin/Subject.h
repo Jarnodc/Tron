@@ -15,7 +15,7 @@ public:
 	void AddObserver(Observer* pObserver);
 	void RemoveObserver(Observer* pObserver);
 
-	void Notify(const dae::GameObject& gameObject, EEvent event) const;
+	void Notify(const dae::GameObject& gameObject, EEvent event);
 protected:
 private:
 	std::vector<Observer*> m_pObservers{};

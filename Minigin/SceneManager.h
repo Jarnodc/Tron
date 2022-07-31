@@ -18,7 +18,6 @@ namespace dae
 		void Render() const;
 
 		dae::Scene& GetScene() const{ return *m_pActiveScene.get(); }
-		int idxNextScene{ 1 };
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
