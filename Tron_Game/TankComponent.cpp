@@ -43,7 +43,7 @@ void TankComponent::MoveToRandomLocation() const
 {
 	BoxCollider* pBC{ GetGameObject()->GetComponent<BoxCollider>() };
 	srand(static_cast<unsigned>(time(nullptr)));
-	do
+	while (PhysicsManager::GetInstance().IsOverlapping(pBC))
 	{
 		glm::vec2 randomPos{ rand() % m_MapRect.w,rand() % m_MapRect.h};
 		randomPos += glm::vec2{m_MapRect.x, m_MapRect.y};
@@ -86,7 +86,7 @@ void TankComponent::MoveToRandomLocation() const
 		case Side::Top:
 			while (randomPos.y >= m_MapRect.y)
 			{
-				randomPos.y -= 1;
+				randomPos.x -= 1;
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
 				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
 				{
@@ -95,7 +95,7 @@ void TankComponent::MoveToRandomLocation() const
 			}
 			break;
 		}
-	} while (PhysicsManager::GetInstance().IsOverlapping(pBC));
+	}
 }
 
 void TankComponent::Hit() const

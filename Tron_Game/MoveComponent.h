@@ -13,6 +13,7 @@ public:
 		Horizontal
 	};
 
+
 	MoveComponent(dae::GameObject* pGO) :Component(pGO) {}
 	~MoveComponent() override = default;
 

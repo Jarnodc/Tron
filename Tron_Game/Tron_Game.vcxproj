@@ -202,9 +202,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ScoreBoard.cpp" />
     <ClCompile Include="ScoreComponent.cpp" />
-    <ClCompile Include="SkipLevelButton.cpp" />
     <ClCompile Include="TankComponent.cpp" />
     <ClCompile Include="Tron_Game.cpp" />
   </ItemGroup>
@@ -220,9 +218,7 @@
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="ScoreBoard.h" />
     <ClInclude Include="ScoreComponent.h" />
-    <ClInclude Include="SkipLevelButton.h" />
     <ClInclude Include="TankComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
