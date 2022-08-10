@@ -71,8 +71,8 @@ public:
 	void SetFlip(bool flip);
 
 	//Angle in Degrees
-	void SetRotation(const SDL_Point& rotationPoint, float angle);
-	float GetRotation(const SDL_Point& rotationPoint) const;
+	void SetRotation(const glm::vec2& rotationPoint, float angle);
+	float GetRotation(const glm::vec2& rotationPoint) const;
 
 	bool HasReachedEnd()const
 	{
@@ -97,7 +97,8 @@ private:
 
 	float m_AnimationTime{ 1 };
 	bool m_Flip{ false };
-	std::map<SDL_Point, float> m_Rotations{};
+	//std::map<glm::vec2, float> m_Rotations{};
+	std::vector<std::pair<glm::vec2, float>> m_Rotations{};
 
 	SourcePart m_SourcePart{};
 

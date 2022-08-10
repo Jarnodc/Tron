@@ -8,6 +8,7 @@
 #include <SpriteComponent.h>
 
 
+
 void MoveComponent::Move(glm::vec3 moveVec) const
 {
 	const auto rigidBody{ GetGameObject()->GetComponent<RigidBody>() };
@@ -29,25 +30,22 @@ void MoveComponent::Move(glm::vec3 moveVec) const
 	{
 		moveVec.y = 0;
 	}
+	if (moveVec.x == 0 && moveVec.y == 0)
+		return;
 	rigidBody->Move(moveVec);
 
 
 	float angle{};
-	if (moveVec.x == 0)// 90 or 270 degrees
-	{
-		if (moveVec.y > 0)
-			angle = 180;
-	}
-	else
+	if (moveVec.x != 0)// 90 or 270 degrees
 	{
 		if (moveVec.x > 0)
 			angle = 90;
 		else
-			angle = 270;
+			angle = 90;
 	}
-	GetGameObject()->GetComponent<SpriteComponent>()->SetRotation(SDL_Point(16,16), angle);
-	
-	
+	else if (moveVec.y > 0)
+			angle = 180;
+	GetGameObject()->GetComponent<SpriteComponent>()->SetRotation({ 12.5f,12.5f }, angle);
 }
 
 bool MoveComponent::CanMoveTo(EDirection dir) const

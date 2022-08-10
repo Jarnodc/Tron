@@ -36,11 +36,10 @@ void SpriteComponent::Update()
 		m_curTimer -= m_AnimationTime;
 	}
 }
-
 void SpriteComponent::FixedUpdate()
 {
+	
 }
-
 void SpriteComponent::Render() const
 {
 	const auto pos = GetGameObject()->GetLocalPosition();
@@ -52,9 +51,10 @@ void SpriteComponent::Render() const
 		0,0,1,0,
 		0,0,0,1
 	};
-	for (auto rotation : m_Rotations)
+	for (const auto& rotation : m_Rotations)
 	{
 		const auto angle{ ToRadians(rotation.second) };
+
 		const glm::dmat4x4 cur
 		{
 			cos(angle),-sin(angle),0,rotation.first.x,
@@ -63,10 +63,13 @@ void SpriteComponent::Render() const
 			0,0,0,1
 		};
 		final *= cur;
-
 	}
-
-	dae::Renderer::GetInstance().RenderTexture(*m_SourcePart.GetTexture(), m_SourcePart.SrcRect, tempDstRect, acos(final[0][0]), SDL_Point{ static_cast<int>(final[3][0]) ,static_cast<int>(final[3][1]) }, m_Flip);
+	const auto x{ final[0][0] }, y{ final[1][0] };
+	const float a{static_cast<float>(ToDegrees(atan2(y,x)))};
+	
+	if (GetGameObject()->GetParent() && GetGameObject()->GetParent()->GetTag() == "Player")
+		std::cout << final[0][0] << "- >> " << final[1][0] << "-> " << a << std::endl;
+	dae::Renderer::GetInstance().RenderTexture(*m_SourcePart.GetTexture(), m_SourcePart.SrcRect, tempDstRect, a, SDL_Point{ static_cast<int>(final[0][3]) ,static_cast<int>(final[1][3]) }, m_Flip);
 }
 
 void SpriteComponent::SetFlip(bool flip)
@@ -74,14 +77,27 @@ void SpriteComponent::SetFlip(bool flip)
 	m_Flip = flip;
 }
 
-void SpriteComponent::SetRotation(const SDL_Point& rotationPoint, float angle)
+void SpriteComponent::SetRotation(const glm::vec2& rotationPoint, float angle)
 {
-	m_Rotations[rotationPoint] = angle;
+	for (auto& rotation : m_Rotations)
+	{
+		if (rotation.first == rotationPoint)
+		{
+			rotation.second = angle;
+			return;
+		}
+	}
+	m_Rotations.emplace_back(std::pair{ rotationPoint,angle });
 }
 
-float SpriteComponent::GetRotation(const SDL_Point& rotationPoint) const
+float SpriteComponent::GetRotation(const glm::vec2& rotationPoint) const
 {
-	return m_Rotations.at(rotationPoint);
+	for (const auto& rotation : m_Rotations)
+	{
+		if (rotation.first == rotationPoint)
+			return rotation.second;
+	}
+	return 0;
 }
 
 void SpriteComponent::MoveToNextFrame()

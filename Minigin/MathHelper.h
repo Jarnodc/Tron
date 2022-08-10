@@ -9,7 +9,7 @@ static t Magnitude(const glm::vec3& vector)
 template<typename t>
 static t ToDegrees(const t& angle)
 {
-	return static_cast<t >(angle * 180.f / M_PI);
+	return static_cast<t>(angle * 180.f / M_PI);
 }
 template<typename t>
 static t ToRadians(const t& angle)

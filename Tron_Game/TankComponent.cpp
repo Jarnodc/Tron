@@ -6,6 +6,7 @@
 #include "TimerInfo.h"
 #include "EEvent.h"
 #include "PhysicsManager.h"
+#include "SpriteComponent.h"
 
 void TankComponent::Update()
 {
@@ -37,6 +38,11 @@ void TankComponent::Rotate(bool clockWise)
 		m_TurretAngle -= m_RotateSpeed * dae::TimerInfo::GetInstance().deltaTime;
 	}
 	m_TurretAngle = AbsAngleDegrees(m_TurretAngle);
+	if (GetGameObject()->GetChildCount() != 0)
+	{
+		const auto spriteComp{ GetGameObject()->GetChildAt(0)->GetComponent<SpriteComponent>() };
+		spriteComp->SetRotation({ 10,25 }, m_TurretAngle);
+	}
 }
 
 void TankComponent::MoveToRandomLocation() const

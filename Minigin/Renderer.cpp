@@ -108,7 +108,7 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const SDL_Rect& srcR
 	{
 		SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &srcRect, &dstRect, angle, &center, SDL_FLIP_HORIZONTAL);
 	}
-	else
+	else 
 		SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &srcRect, &dstRect, angle, &center, SDL_FLIP_NONE);
 }
 

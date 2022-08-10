@@ -35,7 +35,6 @@ void AIController::CalcAttack()
 {
 	const auto tankComp{ GetGameObject()->GetComponent<TankComponent>() };
 
-
 	const auto vec{ m_pTarget->GetLocalPosition() - GetGameObject()->GetLocalPosition() };
 	const auto angleD{ Angle(vec) - tankComp->GetTurretAngle()};
 	tankComp->Rotate(angleD > 0);
@@ -65,10 +64,6 @@ void AIController::CalcPath() const
 	else if (dir.x > 0)
 	{
 		moveVec.x = 1;
-	}
-	else if(dir.y != 0)
-	{
-		moveVec.x = -1;
 	}
 	if(dir.y < 0)
 	{
