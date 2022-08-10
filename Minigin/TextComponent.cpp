@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include <SDL_ttf.h>
 #include "TextComponent.h"
+
+#include "GameObject.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "Texture2D.h"
@@ -53,8 +55,9 @@ void dae::TextComponent::Render() const
 {
 	if (m_TextTexture != nullptr)
 	{
+		const auto gamePos{ GetGameObject()->GetLocalPosition() };
 		const auto& pos = m_Transform.GetLocalPosition();
-		Renderer::GetInstance().RenderTexture(*m_TextTexture, pos.x, pos.y);
+		Renderer::GetInstance().RenderTexture(*m_TextTexture, gamePos.x + pos.x, gamePos.y + pos.y);
 	}
 }
 
@@ -77,7 +80,7 @@ void dae::TextComponent::SetColor(const SDL_Color& color)
 
 void dae::TextComponent::SetPosition(const float x, const float y)
 {
-	m_Transform.SetLocalPosition(x, y, 0.0f);
+	m_Transform.SetLocalPosition(x, y, 0);
 }
 
 

@@ -45,7 +45,28 @@ void SpriteComponent::Render() const
 {
 	const auto pos = GetGameObject()->GetLocalPosition();
 	const SDL_Rect tempDstRect{ static_cast<int>(m_DstRect.x + pos.x), static_cast<int>(m_DstRect.y + pos.y), m_DstRect.w,m_DstRect.h };
-	dae::Renderer::GetInstance().RenderTexture(*m_SourcePart.GetTexture(), m_SourcePart.SrcRect, tempDstRect, m_Rotation, m_Flip);
+
+	glm::dmat4x4 final{
+		1,0,0,0,
+		0,1,0,0,
+		0,0,1,0,
+		0,0,0,1
+	};
+	for (auto rotation : m_Rotations)
+	{
+		const auto angle{ ToRadians(rotation.second) };
+		const glm::dmat4x4 cur
+		{
+			cos(angle),-sin(angle),0,rotation.first.x,
+			sin(angle),cos(angle),0,rotation.first.y,
+			0,0,1,0,
+			0,0,0,1
+		};
+		final *= cur;
+
+	}
+
+	dae::Renderer::GetInstance().RenderTexture(*m_SourcePart.GetTexture(), m_SourcePart.SrcRect, tempDstRect, acos(final[0][0]), SDL_Point{ static_cast<int>(final[3][0]) ,static_cast<int>(final[3][1]) }, m_Flip);
 }
 
 void SpriteComponent::SetFlip(bool flip)
@@ -53,9 +74,14 @@ void SpriteComponent::SetFlip(bool flip)
 	m_Flip = flip;
 }
 
-void SpriteComponent::SetRotation(float angle)
+void SpriteComponent::SetRotation(const SDL_Point& rotationPoint, float angle)
 {
-	m_Rotation = angle;
+	m_Rotations[rotationPoint] = angle;
+}
+
+float SpriteComponent::GetRotation(const SDL_Point& rotationPoint) const
+{
+	return m_Rotations.at(rotationPoint);
 }
 
 void SpriteComponent::MoveToNextFrame()

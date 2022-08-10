@@ -1,4 +1,4 @@
-#include "pch.h"
+	#include "pch.h"
 #include "AIController.h"
 
 #include "GameObject.h"
@@ -19,7 +19,7 @@ void AIController::Update()
 }
 
 void AIController::FixedUpdate()
-{
+{		
 }
 
 void AIController::Notify(const dae::GameObject& , EEvent event)
@@ -78,7 +78,7 @@ void AIController::CalcPath() const
 	{
 		moveVec.y = 1;
 	}
-	//GetGameObject()->GetComponent<MoveComponent>()->Move(moveVec);
+	GetGameObject()->GetComponent<MoveComponent>()->Move(moveVec);
 }
 
 void AIController::CalcTarget()

@@ -1,4 +1,6 @@
 #pragma once
+#include <map>
+
 #include "Component.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
@@ -69,8 +71,8 @@ public:
 	void SetFlip(bool flip);
 
 	//Angle in Degrees
-	void SetRotation(float angle);
-	float GetRotation() const { return m_Rotation; }
+	void SetRotation(const SDL_Point& rotationPoint, float angle);
+	float GetRotation(const SDL_Point& rotationPoint) const;
 
 	bool HasReachedEnd()const
 	{
@@ -95,7 +97,7 @@ private:
 
 	float m_AnimationTime{ 1 };
 	bool m_Flip{ false };
-	float m_Rotation{};
+	std::map<SDL_Point, float> m_Rotations{};
 
 	SourcePart m_SourcePart{};
 

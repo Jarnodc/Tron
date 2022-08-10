@@ -13,7 +13,6 @@ void TankComponent::Update()
 	if (PhysicsManager::GetInstance().IsOverlapping(pBC, std::string("Teleporter")))
 	{
 		MoveToRandomLocation();
-		std::cout << "Teleporter done" << std::endl;
 	}
 }
 
@@ -44,12 +43,7 @@ void TankComponent::MoveToRandomLocation() const
 {
 	BoxCollider* pBC{ GetGameObject()->GetComponent<BoxCollider>() };
 	srand(static_cast<unsigned>(time(nullptr)));
-<<<<<<< HEAD
-	if (GetGameObject()->GetTag() == "Player")
-		std::cout << "Teleporter noot noot" << std::endl;
-=======
->>>>>>> parent of 356ae7f (add scoreboard scene, skip buttons and levels switcher)
-	while (PhysicsManager::GetInstance().IsOverlapping(pBC))
+	do
 	{
 		glm::vec2 randomPos{ rand() % m_MapRect.w,rand() % m_MapRect.h};
 		randomPos += glm::vec2{m_MapRect.x, m_MapRect.y};
@@ -63,7 +57,6 @@ void TankComponent::MoveToRandomLocation() const
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
 				if(!PhysicsManager::GetInstance().IsOverlapping(pBC))
 				{
-					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
 					return;
 				}
 			}
@@ -75,7 +68,6 @@ void TankComponent::MoveToRandomLocation() const
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
 				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
 				{
-					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
 					return;
 				}
 			}
@@ -87,7 +79,6 @@ void TankComponent::MoveToRandomLocation() const
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
 				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
 				{
-					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
 					return;
 				}
 			}
@@ -95,20 +86,16 @@ void TankComponent::MoveToRandomLocation() const
 		case Side::Top:
 			while (randomPos.y >= m_MapRect.y)
 			{
-				randomPos.x -= 1;
+				randomPos.y -= 1;
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
 				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
 				{
-					std::cout << randomPos.x << ", " << randomPos.y << std::endl;
 					return;
 				}
 			}
 			break;
-		default:
-			std::cout << "Default" << std::endl;
-				break;
 		}
-	}
+	} while (PhysicsManager::GetInstance().IsOverlapping(pBC));
 }
 
 void TankComponent::Hit() const

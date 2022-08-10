@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "GameManager.h"
-<<<<<<< HEAD
-=======
 
 #include "AIController.h"
 #include "EEvent.h"
@@ -38,16 +36,16 @@ void GameManager::SwitchLevel()
 		dae::SceneManager::GetInstance().LoadScene("Level01");
 		m_CurLevel = Level::Level01;
 		break;
-	case Level::DEFAULT:
-		dae::SceneManager::GetInstance().LoadScene("Level01");
-		m_CurLevel = Level::Level01;
-		break;
 	}
 	const auto& scene{ dae::SceneManager::GetInstance().GetScene() };
 	const auto AIControllers = scene.GetGameObject<AIController>();
+	const auto controllers = scene.GetGameObject<Controller>();
+	for (const auto& controller : controllers)
+	{
+		controller->GetComponent<TankComponent>()->MoveToRandomLocation();
+	}
 	for (const auto& controller : AIControllers)
 	{
-		controller->GetComponent<AIController>()->SetTargets(scene.GetGameObject<Controller>());
+		controller->GetComponent<AIController>()->SetTargets(controllers);
 	}
 }
->>>>>>> parent of 356ae7f (add scoreboard scene, skip buttons and levels switcher)
