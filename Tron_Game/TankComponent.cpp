@@ -44,8 +44,11 @@ void TankComponent::MoveToRandomLocation() const
 {
 	BoxCollider* pBC{ GetGameObject()->GetComponent<BoxCollider>() };
 	srand(static_cast<unsigned>(time(nullptr)));
+<<<<<<< HEAD
 	if (GetGameObject()->GetTag() == "Player")
 		std::cout << "Teleporter noot noot" << std::endl;
+=======
+>>>>>>> parent of 356ae7f (add scoreboard scene, skip buttons and levels switcher)
 	while (PhysicsManager::GetInstance().IsOverlapping(pBC))
 	{
 		glm::vec2 randomPos{ rand() % m_MapRect.w,rand() % m_MapRect.h};

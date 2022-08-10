@@ -97,6 +97,10 @@ std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
 	pGO->AddComponent(tankComp);
 	pGO->AddComponent<BulletManager>();
 
+<<<<<<< HEAD
+=======
+	//HealthCompp
+>>>>>>> parent of 356ae7f (add scoreboard scene, skip buttons and levels switcher)
 	const auto pHealth{ std::make_shared<dae::GameObject>() };
 	const auto healthComp{ new HealthComponent(pHealth.get(), 1) };
 	pHealth->AddComponent(healthComp);

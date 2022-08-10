@@ -202,6 +202,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+<<<<<<< HEAD
+=======
+    <ClCompile Include="ScoreComponent.cpp" />
+>>>>>>> parent of 356ae7f (add scoreboard scene, skip buttons and levels switcher)
     <ClCompile Include="TankComponent.cpp" />
     <ClCompile Include="Tron_Game.cpp" />
   </ItemGroup>
@@ -217,6 +221,10 @@
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="pch.h" />
+<<<<<<< HEAD
+=======
+    <ClInclude Include="ScoreComponent.h" />
+>>>>>>> parent of 356ae7f (add scoreboard scene, skip buttons and levels switcher)
     <ClInclude Include="TankComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
