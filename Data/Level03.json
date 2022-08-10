@@ -1,96 +1,216 @@
 {
   "Colliders": [
     {
-      "Object": "Ground",
-      "Dimensions": [ 0, 13, 208, 2 ]
+      "Object": "Wall",
+      "Dimensions": [ 0, 0, 480, 16 ]
     },
     {
-      "Object": "Ground",
-      "Dimensions": [ 0, 29, 208, 2 ]
+      "Object": "Wall",
+      "Dimensions": [ 416, 16, 16, 48 ]
     },
     {
-      "Object": "Ground",
-      "Dimensions": [ 0, 45, 161, 2 ]
+      "Object": "Wall",
+      "Dimensions": [ 0, 16, 16, 432 ]
     },
     {
-      "Object": "Ground",
-      "Dimensions": [ 0, 61, 161, 2 ]
+      "Object": "Wall",
+      "Dimensions": [ 48, 48, 16, 32 ]
     },
     {
-      "Object": "Ground",
-      "Dimensions": [ 0, 77, 208, 2 ]
+      "Object": "Wall",
+      "Dimensions": [ 96, 48, 64, 16 ]
     },
     {
-      "Object": "Ground",
-      "Dimensions": [ 0, 93, 161, 2 ]
+      "Object": "Wall",
+      "Dimensions": [ 192, 48, 16, 16 ]
     },
     {
-      "Object": "Ground",
-      "Dimensions": [ 0, 109, 161, 2 ]
+      "Object": "Wall",
+      "Dimensions": [ 240, 48, 16, 16 ]
     },
     {
-      "Object": "Ground",
-      "Dimensions": [ 0, 125, 161, 2 ]
+      "Object": "Wall",
+      "Dimensions": [ 288, 48, 96, 16 ]
     },
     {
-      "Object": "Ground",
-      "Dimensions": [ 144, 141, 64, 2 ]
+      "Object": "Wall",
+      "Dimensions": [ 464, 16, 16, 432 ]
     },
     {
-      "Object": "Ground",
-      "Dimensions": [ 144, 189, 64, 2 ]
+      "Object": "Wall",
+      "Dimensions": [ 144, 64, 16, 48 ]
     },
     {
-      "Object": "Ground",
-      "Dimensions": [ 0, 189, 16, 2 ]
+      "Object": "Wall",
+      "Dimensions": [ 96, 96, 16, 16 ]
     },
     {
-      "Object": "Ladder",
-      "Dimensions": [ 3, 13, 10, 17 ]
+      "Object": "Wall",
+      "Dimensions": [ 192, 96, 16, 16 ]
     },
     {
-      "Object": "Ladder",
-      "Dimensions": [ 171, 13, 10, 129 ]
+      "Object": "Wall",
+      "Dimensions": [ 240, 96, 48, 16 ]
     },
     {
-      "Object": "Ladder",
-      "Dimensions": [ 195, 13, 10, 177 ]
+      "Object": "Wall",
+      "Dimensions": [ 320, 96, 16, 16 ]
     },
     {
-      "Object": "Ladder",
-      "Dimensions": [ 99, 29, 10, 17 ]
+      "Object": "Wall",
+      "Dimensions": [ 368, 96, 16, 64 ]
     },
     {
-      "Object": "Ladder",
-      "Dimensions": [ 147, 29, 10, 17 ]
+      "Object": "Wall",
+      "Dimensions": [ 416, 96, 16, 16 ]
     },
     {
-      "Object": "Ladder",
-      "Dimensions": [ 3, 47, 10, 145 ]
+      "Object": "Wall",
+      "Dimensions": [ 48, 112, 16, 48 ]
     },
     {
-      "Object": "Ladder",
-      "Dimensions": [ 147, 61, 10, 17 ]
+      "Object": "Wall",
+      "Dimensions": [ 96, 144, 16, 16 ]
     },
     {
-      "Object": "Ladder",
-      "Dimensions": [ 51, 77, 10, 17 ]
+      "Object": "Wall",
+      "Dimensions": [ 144, 144, 16, 16 ]
     },
     {
-      "Object": "Ladder",
-      "Dimensions": [ 147, 93, 10, 33 ]
+      "Object": "Wall",
+      "Dimensions": [ 192, 144, 16, 16 ]
     },
     {
-      "Object": "Ladder",
-      "Dimensions": [ 147, 143, 10, 49 ]
+      "Object": "Wall",
+      "Dimensions": [ 240, 144, 48, 16 ]
     },
     {
-      "Object": "Plate",
-      "Dimensions": [ 64, 199, 32, 1 ]
+      "Object": "Wall",
+      "Dimensions": [ 320, 144, 16, 16 ]
     },
     {
-      "Object": "Plate",
-      "Dimensions": [ 112, 199, 32, 1 ]
+      "Object": "Wall",
+      "Dimensions": [ 416, 144, 16, 64 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 48, 192, 16, 64 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 96, 192, 16, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 144, 192, 16, 64 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 192, 192, 32, 64 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 256, 192, 32, 64 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 320, 192, 16, 64 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 368, 192, 16, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 96, 240, 16, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 368, 240, 16, 64 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 416, 240, 16, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 416, 288, 16, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 48, 288, 64, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 144, 288, 16, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 192, 288, 16, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 240, 288, 48, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 320, 288, 48, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 48, 304, 16, 48 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 96, 336, 16, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 144, 336, 64, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 240, 336, 48, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 320, 336, 16, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 368, 336, 16, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 416, 336, 16, 64 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 16, 384, 48, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 96, 384, 48, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 176, 384, 32, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 240, 384, 48, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 320, 384, 96, 16 ]
+    },
+    {
+      "Object": "Wall",
+      "Dimensions": [ 16, 432, 448, 16 ]
+    },
+    {
+      "Object": "Teleporter",
+      "Dimensions": [ 224, 192, 32, 64 ]
     }
   ]
 }

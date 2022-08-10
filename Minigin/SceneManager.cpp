@@ -3,7 +3,6 @@
 
 #include <functional>
 
-#include "InputManager.h"
 #include "Scene.h"
 
 
@@ -39,21 +38,21 @@ void dae::SceneManager::LoadScene(const std::string& name)
 	if(!m_LevelFunc.contains(name))
 		return;
 	const auto& scene = std::shared_ptr<Scene>(new Scene(name));
-	m_LevelFunc[name](*scene);
-	if (m_pActiveScene)
+	if (m_pActiveScene && m_LevelFunc[name].first) // .first holds boolean if the default needs to be hold
 	{
-
 		const auto objects{ m_pActiveScene->GetDefaultGameObject() };
 		for (const auto& obj : objects)
 		{
-			scene->Add(obj);
+			scene->AddDefault(obj);
 		}
 	}
+	m_LevelFunc[name].second(*scene);
+
 	m_pActiveScene = scene;
 	//m_Scenes.emplace_back(scene);
 }
 
-void dae::SceneManager::SetSpawnLevelFunc(std::function<void(Scene&)> func, const std::string& LevelName)
+void dae::SceneManager::SetSpawnLevelFunc(std::function<void(Scene&)> func, const std::string& LevelName, bool keepDefault)
 {
-	m_LevelFunc[LevelName] = func;
+	m_LevelFunc[LevelName] = std::pair(keepDefault,func);
 }
