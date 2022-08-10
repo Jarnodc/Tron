@@ -22,8 +22,8 @@ public:
 	void ButtonDown(const glm::vec2& mousePos);
 	void ButtonUp(const glm::vec2& mousePos);
 
-	virtual void OnButtonDown() = 0;
-	virtual void OnButtonUp() = 0;
+	virtual void OnButtonDown() {}
+	virtual void OnButtonUp() {}
 
 protected:
 	virtual bool IsOverlapping(const glm::vec2& mousePos) const

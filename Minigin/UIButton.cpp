@@ -22,8 +22,7 @@ UIButton::~UIButton()
 
 void UIButton::Render() const
 {
-	const SDL_Rect tempDstRect{ static_cast<int>(m_DstRect.x), static_cast<int>(m_DstRect.y), m_DstRect.w,m_DstRect.h };
-	dae::Renderer::GetInstance().RenderTexture(*m_pTexture, m_SrcRect, tempDstRect,false);
+	dae::Renderer::GetInstance().RenderTexture(*m_pTexture, m_SrcRect, m_DstRect,false);
 }
 
 void UIButton::ButtonDown(const glm::vec2& mousePos)
@@ -45,10 +44,13 @@ void UIButton::ButtonUp(const glm::vec2& mousePos)
 	if (m_HasPressedImage && m_HasChangedSrcRect)
 	{
 		m_SrcRect.x -= m_SrcRect.w;
+		m_HasChangedSrcRect = false;
+		if (IsOverlapping(mousePos))
+			OnButtonUp();
 	}
 
 	if (!IsOverlapping(mousePos))
 		return;
-
-	OnButtonUp();
+	if(!m_HasPressedImage)
+		OnButtonUp();
 }

@@ -48,6 +48,14 @@ std::shared_ptr<dae::GameObject> BlueTankPrefab(dae::Scene& scene)
 
 	scene.Add(pHealth);
 
+	const auto controllers = scene.GetGameObject<Controller>();
+	controller->SetTargets(controllers);
+
+	//Turret
+	const auto pTurret{ std::make_shared<dae::GameObject>() };
+	pTurret->AddComponent(new SpriteComponent(pTurret.get(), SpriteComponent::SourcePart("TronSpriteSheet.png", 1, 1, { 32 * 6,32,32,32 }), { 0,0,25,25 }));
+	pGO->AddChild(pTurret);
+
 	return pGO;
 }
 #include "InputManager.h"
@@ -57,7 +65,9 @@ std::shared_ptr<dae::GameObject> BlueTankPrefab(dae::Scene& scene)
 #include "GameManager.h"
 std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
 {
+
 	const auto pGO{ std::make_shared<dae::GameObject>("Player")};
+
 
 	const auto cont{ pGO->AddComponent<Controller>() };
 	const auto contID{ dae::InputManager::GetInstance().AddPlayer() };
@@ -99,6 +109,7 @@ std::shared_ptr<dae::GameObject> RedTankPrefab(dae::Scene& scene)
 	pGO->AddComponent(new RigidBody(pGO.get(), { 20,20,20 }));
 	pGO->AddComponent(tankComp);
 	pGO->AddComponent<BulletManager>();
+
 
 	//HealthCompp
 	const auto pHealth{ std::make_shared<dae::GameObject>() };

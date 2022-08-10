@@ -11,9 +11,8 @@ public:
 		Level01,
 		Level02,
 		Level03,
-		DEFAULT
 	};
-	GameManager(dae::GameObject* pGO) :Component(pGO), Observer() {  }
+	GameManager(dae::GameObject* pGO):Component(pGO), Observer() {  }
 	~GameManager() override = default;
 
 	GameManager(const GameManager& other) = delete;
@@ -29,6 +28,6 @@ public:
 private:
 	void SwitchLevel();
 
-	Level m_CurLevel{ Level::DEFAULT };
+	Level m_CurLevel{ Level::Level01 };
 };
 
