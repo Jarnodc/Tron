@@ -3,7 +3,6 @@
 
 #include <functional>
 
-#include "InputManager.h"
 #include "Scene.h"
 
 
@@ -40,15 +39,6 @@ void dae::SceneManager::LoadScene(const std::string& name)
 		return;
 	const auto& scene = std::shared_ptr<Scene>(new Scene(name));
 	m_LevelFunc[name](*scene);
-	if (m_pActiveScene)
-	{
-
-		const auto objects{ m_pActiveScene->GetDefaultGameObject() };
-		for (const auto& obj : objects)
-		{
-			scene->Add(obj);
-		}
-	}
 	m_pActiveScene = scene;
 	//m_Scenes.emplace_back(scene);
 }

@@ -62,25 +62,6 @@ namespace dae
 		void RemoveCommand(Xbox360Controller::ControllerButton button, std::shared_ptr<Command> command, PlayerIndex playerIdx, EInputState state = EInputState::Down);
 		void RemoveCommand(SDL_Scancode keyBoardKey, std::shared_ptr<Command> command, PlayerIndex playerIdx, EInputState state = EInputState::Down);
 
-
-		void ResetManager()
-		{
-			for (size_t i = 0; i < m_KeyBoardCommands.size(); ++i)
-			{
-				delete m_KeyBoardCommands[i];
-				m_KeyBoardCommands[i] = nullptr;
-			}
-			for (size_t i = 0; i < m_ConsoleCommands.size(); ++i)
-			{
-				delete m_ConsoleCommands[i];
-				m_ConsoleCommands[i] = nullptr;
-			}
-			m_ConsoleCommands.clear();
-			m_KeyBoardCommands.clear();
-			m_pControllers.clear();
-			m_pKeyBoards.clear();
-
-		}
 	private:
 		std::vector<KeyBoardCommand*> m_KeyBoardCommands{};
 		std::vector<ControllerCommand*> m_ConsoleCommands{};

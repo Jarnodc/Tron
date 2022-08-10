@@ -24,7 +24,6 @@ namespace dae
 		//Update Component 
 		template <typename T> T* AddComponent();
 		Component* AddComponent(Component* component);
-		template <typename T> bool HasComponent() const;
 		template <typename T> T* GetComponent() const;
 		template <typename T> T* GetComponents() const;
 		template <typename T> void RemoveComponent();
@@ -86,19 +85,6 @@ namespace dae
 	{
 		m_pComponents.emplace_back(component);
 		return component;
-	}
-
-	template<typename T>
-	inline bool GameObject::HasComponent() const
-	{
-		for (auto comp : m_pComponents)
-		{
-			if (typeid(*comp) == typeid(T))
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 
 	template<typename T>

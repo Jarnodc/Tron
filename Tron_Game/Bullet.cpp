@@ -2,8 +2,6 @@
 #include "Bullet.h"
 
 #include "BoxCollider.h"
-#include "Controller.h"
-#include "EEvent.h"
 #include "GameObject.h"
 #include "TankComponent.h"
 #include "PhysicsManager.h"
@@ -22,6 +20,7 @@ void Bullet::Update()
 			{
 				m_pPrevBoxCollider = overlapper;
 				++m_AmountBounces;
+				//std::cout << "hit " << m_AmountBounces;
 				ChangeDirection(overlapper);
 				GetGameObject()->GetComponent<RigidBody>()->Move(m_Direction);
 				if (m_AmountBounces >= m_MaxBounces)
@@ -30,20 +29,10 @@ void Bullet::Update()
 				}
 				return;
 			}
-			if(overlapper->GetGameObject() != m_pParent)
+			if(tag == "Player" && overlapper->GetGameObject() != m_pParent)
 			{
-				if(tag == "Player")
-				{
-					overlapper->GetGameObject()->GetComponent<TankComponent>()->Hit();
-					m_IsDead = true;
-				}
-				else if (tag == "AI")
-				{
-					overlapper->GetGameObject()->GetComponent<TankComponent>()->Hit();
-					m_IsDead = true;
-					if (m_pParent->GetTag() == "Player")
-						m_pParent->GetComponent<Controller>()->GetSubject()->Notify(*overlapper->GetGameObject(), EEvent::Kill);
-				}
+				overlapper->GetGameObject()->GetComponent<TankComponent>()->Hit();
+				m_IsDead = true;
 				return;
 			}
 		}

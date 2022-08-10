@@ -18,23 +18,37 @@ public:
 		GetGameObject()->GetComponent<TankComponent>()->Attack();
 	}
 };
-class RotateCommand final : public Command
+class RotateCWCommand final : public Command
 {
 public:
-	RotateCommand(dae::GameObject* gameObject, bool cwrotate = false):Command(gameObject),m_CWRotate(cwrotate){}
-	~RotateCommand() override= default;
+	RotateCWCommand(dae::GameObject* gameObject):Command(gameObject){}
+	~RotateCWCommand() override= default;
 
-	RotateCommand(const RotateCommand& other) = delete;
-	RotateCommand(RotateCommand&& other) noexcept = delete;
-	RotateCommand& operator=(const RotateCommand& other) = delete;
-	RotateCommand& operator=(RotateCommand&& other) noexcept = delete;
+	RotateCWCommand(const RotateCWCommand& other) = delete;
+	RotateCWCommand(RotateCWCommand&& other) noexcept = delete;
+	RotateCWCommand& operator=(const RotateCWCommand& other) = delete;
+	RotateCWCommand& operator=(RotateCWCommand&& other) noexcept = delete;
 
 	void Execute() override
 	{
-		GetGameObject()->GetComponent<TankComponent>()->Rotate(m_CWRotate);
+		GetGameObject()->GetComponent<TankComponent>()->Rotate();
 	}
-private:
-	bool m_CWRotate{ false };
+};
+class RotateCCWCommand final : public Command
+{
+public:
+	RotateCCWCommand(dae::GameObject* gameObject):Command(gameObject){}
+	~RotateCCWCommand() override= default;
+
+	RotateCCWCommand(const RotateCCWCommand& other) = delete;
+	RotateCCWCommand(RotateCCWCommand&& other) noexcept = delete;
+	RotateCCWCommand& operator=(const RotateCCWCommand& other) = delete;
+	RotateCCWCommand& operator=(RotateCCWCommand&& other) noexcept = delete;
+
+	void Execute() override
+	{
+		GetGameObject()->GetComponent<TankComponent>()->Rotate(false);
+	}
 };
 
 #include "MoveComponent.h"

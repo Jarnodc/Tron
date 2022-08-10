@@ -14,12 +14,11 @@ public:
 	Controller& operator=(const Controller& other) = delete;
 	Controller& operator=(Controller&& other) noexcept = delete;
 
-	virtual void Update() override{}
-	virtual void FixedUpdate() override{}
-	virtual void Render() const override{}
+	void Update() override{}
+	void FixedUpdate() override{}
+	void Render() const override{}
 	
-	virtual void Notify(const dae::GameObject& pObject, EEvent event) override;
-
+	void Notify(const dae::GameObject& pObject, EEvent event) override;
 protected:
 private:
 	int m_Lives{ 3 };

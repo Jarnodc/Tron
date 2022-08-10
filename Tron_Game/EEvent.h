@@ -7,6 +7,4 @@ enum class EEvent
 	Die,
 	LoseHealth,
 	Reset,
-	Kill,
-	SwitchLevel
 };

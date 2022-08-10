@@ -18,9 +18,8 @@ public:
 
 	void Update()
 	{
+		CopyMemory(&m_CurrentState,&m_PreviousState, sizeof(bool) * 256);
 		ZeroMemory(&m_PreviousState, sizeof(bool) * 256);
-		CopyMemory(&m_PreviousState,&m_CurrentState, sizeof(bool) * 256);
-
 
 		const Uint8* pState = SDL_GetKeyboardState(nullptr);
 		for (size_t i = 0; i < 256; ++i)
@@ -39,9 +38,7 @@ public:
 	}
 	bool IsPressed(SDL_Scancode scancode)const
 	{
-		if (!m_PreviousState[scancode] && m_CurrentState[scancode])
-			return true;
-		return false;
+		return !m_PreviousState[scancode] && m_CurrentState[scancode];
 	}
 
 
