@@ -34,14 +34,6 @@ namespace dae
 	class Renderer final : public Singleton<Renderer>
 	{
 	public:
-		enum class HorAllignment
-		{
-			Left,Mid,Right
-		};
-		enum class VerAllignment
-		{
-			Top,Mid,Bottom
-		};
 		void Init(SDL_Window* window);
 		void Render() const;
 		void Destroy();
@@ -58,34 +50,9 @@ namespace dae
 		void RenderRectangle(const SDL_Rect& rect, SDL_Color color = {255,255,255,1 }) const;
 
 		void RenderText(const std::string& text, const SDL_Rect& dstRect, const std::string& font = "Lingua.otf", int fontSize = 24, SDL_Color color = {255,255,255,1}) const;
+		void RenderText(const std::string& text,  const SDL_Point& leftTop, const std::string& font = "Lingua.otf", int fontSize = 24, SDL_Color color = {255,255,255,1}) const;
 
-		void RenderText(
-			const std::string& text, 
-			const SDL_Point& leftTop, 
-			std::pair< HorAllignment, VerAllignment> textAllignment = { HorAllignment::Left ,VerAllignment::Top },
-			const std::string& font = "Lingua.otf", 
-			int fontSize = 24, 
-			SDL_Color color = {255,255,255,1}
-			) const;
-		void RenderText(
-			const std::string& text, 
-			const int top, 
-			HorAllignment windowAllignment = HorAllignment::Left,
-			std::pair< HorAllignment, VerAllignment> textAllignment = { HorAllignment::Left ,VerAllignment::Top },
-			const std::string& font = "Lingua.otf", 
-			int fontSize = 24, 
-			SDL_Color color = {255,255,255,1}
-			) const;
-		void RenderText(
-			const std::string& text, 
-			std::pair< HorAllignment, VerAllignment> windowAllignment = { HorAllignment::Left ,VerAllignment::Top },
-			std::pair< HorAllignment, VerAllignment> textAllignment = { HorAllignment::Left ,VerAllignment::Top },
-			const std::string& font = "Lingua.otf", 
-			int fontSize = 24, 
-			SDL_Color color = {255,255,255,1}
-			) const;
-
-		void RenderPolygon(const std::vector<SDL_Point>& points, const glm::vec2& size = { 1, 1 }, SDL_Color color = { 255,255,255,1 }, bool AddPoints = true, SDL_Color PointsColor = { 255,255,255,1 }) const;
+		void RenderPolygon(const std::vector<SDL_Point>& points, const glm::vec2& size = { 1, 1 }, SDL_Color color = { 255,255,255,1 }, bool AddPoints = true, SDL_Color PointsColor = { 255,255,255,1 });
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 		const SDL_Color& GetBackgroundColor() const { return m_clearColor; }
 		void SetBackgroundColor(const SDL_Color& color) { m_clearColor = color; }

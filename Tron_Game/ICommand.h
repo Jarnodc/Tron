@@ -52,6 +52,20 @@ public:
 	void Execute() override
 	{
 		GetGameObject()->GetComponent<MoveComponent>()->Move(m_MoveVec);
+		if(m_MoveVec.x == 0)// 90 or 270 degrees
+		{
+			if (m_MoveVec.y > 0)
+				GetGameObject()->GetComponent<SpriteComponent>()->SetRotation(180);
+			else
+				GetGameObject()->GetComponent<SpriteComponent>()->SetRotation(0);
+		}
+		else
+		{
+			if (m_MoveVec.x > 0)
+				GetGameObject()->GetComponent<SpriteComponent>()->SetRotation(90);
+			else
+				GetGameObject()->GetComponent<SpriteComponent>()->SetRotation(270);
+		}
 	}
 private:
 	glm::vec3 m_MoveVec;
