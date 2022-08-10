@@ -48,12 +48,15 @@
     <ClCompile Include="BulletManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
-=======
     <ClCompile Include="ScoreComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
->>>>>>> parent of 356ae7f (add scoreboard scene, skip buttons and levels switcher)
+    <ClCompile Include="SkipLevelButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -92,11 +95,14 @@
     <ClInclude Include="BulletManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
-=======
     <ClInclude Include="ScoreComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
->>>>>>> parent of 356ae7f (add scoreboard scene, skip buttons and levels switcher)
+    <ClInclude Include="SkipLevelButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreBoard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
