@@ -13,7 +13,10 @@ public:
 	UIManager& operator=(const UIManager& other) = delete;
 	UIManager& operator=(UIManager&& other) noexcept = delete;
 
-	void AddButton(UIButton* button) { m_Buttons.emplace_back(button); }
+	void AddButton(UIButton* button)
+	{
+		m_Buttons.emplace_back(button);
+	}
 	void RemoveButton(const UIButton* button) {
 		for (size_t i = 0; i < m_Buttons.size(); ++i)
 		{

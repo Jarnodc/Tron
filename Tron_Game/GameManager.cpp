@@ -2,6 +2,7 @@
 #include "GameManager.h"
 
 #include "AIController.h"
+#include "BulletManager.h"
 #include "EEvent.h"
 #include "Scene.h"
 #include "SceneManager.h"
@@ -11,8 +12,7 @@ void GameManager::Notify(const dae::GameObject&, EEvent event)
 	switch (event)
 	{
 	case EEvent::Lose:
-		std::cout << "YOU LOSE";
-		//Switch scene to high score
+		dae::SceneManager::GetInstance().LoadScene("ScoreBoard");
 		break;
 	case EEvent::SwitchLevel:
 		SwitchLevel();
@@ -22,6 +22,12 @@ void GameManager::Notify(const dae::GameObject&, EEvent event)
 
 void GameManager::SwitchLevel()
 {
+	const auto bulletManagers{ dae::SceneManager::GetInstance().GetScene().GetGameObject<BulletManager>() };
+	for (const auto& bulletmanager : bulletManagers)
+	{
+		bulletmanager->GetComponent<BulletManager>()->ClearBullets();
+	}
+
 	switch (m_CurLevel)
 	{
 	case Level::Level01:
@@ -39,7 +45,7 @@ void GameManager::SwitchLevel()
 	}
 	const auto& scene{ dae::SceneManager::GetInstance().GetScene() };
 	const auto AIControllers = scene.GetGameObject<AIController>();
-	const auto controllers = scene.GetGameObject<Controller>();
+	const auto controllers = scene.GetGameObject<Controller>("Player");
 	for (const auto& controller : controllers)
 	{
 		controller->GetComponent<TankComponent>()->MoveToRandomLocation();

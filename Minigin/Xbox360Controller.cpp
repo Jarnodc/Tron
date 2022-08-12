@@ -35,12 +35,12 @@ public:
 	}
 	bool IsPressed(Xbox360Controller::ControllerButton button) const
 	{
-		return m_CurrentState.Gamepad.wButtons & static_cast<unsigned>(button);
+		return m_ButtonsIsPressedThisFrame & static_cast<unsigned>(button);
 	}
 
 	bool IsDown(Xbox360Controller::ControllerButton button) const
 	{
-		return m_ButtonsIsPressedThisFrame & static_cast<unsigned>(button);
+		return m_CurrentState.Gamepad.wButtons & static_cast<unsigned>(button);
 	}
 
 	bool IsUp(Xbox360Controller::ControllerButton button) const

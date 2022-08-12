@@ -6,6 +6,7 @@
 #include "TimerInfo.h"
 #include "EEvent.h"
 #include "PhysicsManager.h"
+#include "ServiceLocator.h"
 #include "SpriteComponent.h"
 
 void TankComponent::Update()
@@ -20,11 +21,16 @@ void TankComponent::Update()
 
 void TankComponent::Attack() const
 {
+	// -- Sound Effect -- //
+	ServiceLocator::GetSoundSystem().AddToQueue("Shot.wav");
+
+
 	const float angle{ ToRadians(m_TurretAngle) };
 	const auto bullet{ BulletPrefab(GetGameObject(),{cos(angle),sin(angle),0}) };
 	const auto pos{ GetGameObject()->GetLocalPosition() + glm::vec3{7,7,0} };
 	bullet->SetPosition(pos.x, pos.y);
 	GetGameObject()->GetComponent<BulletManager>()->AddBullet(bullet);
+
 }
 
 void TankComponent::Rotate(bool clockWise)

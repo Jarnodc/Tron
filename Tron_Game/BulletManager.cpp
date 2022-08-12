@@ -16,8 +16,20 @@ void BulletManager::AddBullet(const std::shared_ptr<dae::GameObject>& bullet)
 
 void BulletManager::RemoveBullet(const std::shared_ptr<dae::GameObject>& bullet)
 {
+	if (m_pBullets.empty())
+		return;
+
 	dae::SceneManager::GetInstance().GetScene().Remove(bullet);
 	m_pBullets.erase(std::ranges::remove(m_pBullets,bullet).begin());
+}
+
+void BulletManager::ClearBullets()
+{
+	for (const auto& bullet : m_pBullets)
+	{
+		dae::SceneManager::GetInstance().GetScene().Remove(bullet);
+	}
+	m_pBullets.clear();
 }
 
 void BulletManager::Update()

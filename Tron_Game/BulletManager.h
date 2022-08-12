@@ -18,6 +18,7 @@ public:
 
 	void AddBullet(const std::shared_ptr<dae::GameObject>& bullet);
 	void RemoveBullet(const std::shared_ptr<dae::GameObject>& bullet);
+	void ClearBullets();
 
 	void Update() override;
 	void FixedUpdate() override{}

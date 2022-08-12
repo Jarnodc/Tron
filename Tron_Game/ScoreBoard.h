@@ -15,7 +15,7 @@ public:
 	ScoreBoard& operator=(const ScoreBoard& other) = delete;
 	ScoreBoard& operator=(ScoreBoard&& other) noexcept = delete;
 
-	void Update() override{}
+	void Update() override;
 	void FixedUpdate() override{}
 	void Render() const override;
 
@@ -23,5 +23,8 @@ private:
 	void ReadScores();
 
 	std::vector<int> m_HighScores{};
+
+	float m_MaxTime{ 5 };
+	float m_CurTime{};
 };
 

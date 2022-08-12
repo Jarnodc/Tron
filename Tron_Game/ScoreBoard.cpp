@@ -4,6 +4,18 @@
 
 #include "GameObject.h"
 #include "Renderer.h"
+#include "SceneManager.h"
+#include "TimerInfo.h"
+
+void ScoreBoard::Update()
+{
+	m_CurTime += dae::TimerInfo::GetInstance().deltaTime;
+
+	if(m_CurTime >= m_MaxTime)
+	{
+		dae::SceneManager::GetInstance().LoadScene("MainScene");
+	}
+}
 
 void ScoreBoard::Render() const
 {

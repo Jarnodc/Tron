@@ -46,7 +46,10 @@ void UIButton::ButtonUp(const glm::vec2& mousePos)
 		m_SrcRect.x -= m_SrcRect.w;
 		m_HasChangedSrcRect = false;
 		if (IsOverlapping(mousePos))
+		{
 			OnButtonUp();
+		}
+		return;
 	}
 
 	if (!IsOverlapping(mousePos))

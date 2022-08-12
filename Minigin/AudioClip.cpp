@@ -11,7 +11,6 @@ AudioClip::AudioClip(const std::string& path, int loops, int volume)
 
 AudioClip::~AudioClip()
 {
-	std::cout << "audioClip destoyed" << std::endl;
 	Mix_FreeChunk(m_pSample);
 	m_pSample = nullptr;
 }

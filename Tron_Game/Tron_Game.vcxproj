@@ -193,6 +193,7 @@
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="LoadGameMode.cpp" />
     <ClCompile Include="Prefab.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="ICommand.h" />
+    <ClInclude Include="LoadGameMode.h" />
     <ClInclude Include="Prefab.h" />
     <ClInclude Include="EEvent.h" />
     <ClInclude Include="HealthComponent.h" />

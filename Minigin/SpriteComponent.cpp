@@ -66,9 +66,7 @@ void SpriteComponent::Render() const
 	}
 	const auto x{ final[0][0] }, y{ final[1][0] };
 	const float a{static_cast<float>(ToDegrees(atan2(y,x)))};
-	
-	if (GetGameObject()->GetParent() && GetGameObject()->GetParent()->GetTag() == "Player")
-		std::cout << final[0][0] << "- >> " << final[1][0] << "-> " << a << std::endl;
+
 	dae::Renderer::GetInstance().RenderTexture(*m_SourcePart.GetTexture(), m_SourcePart.SrcRect, tempDstRect, a, SDL_Point{ static_cast<int>(final[0][3]) ,static_cast<int>(final[1][3]) }, m_Flip);
 }
 

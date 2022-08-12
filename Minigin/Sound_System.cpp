@@ -75,7 +75,7 @@ SDLSoundSystem::SoundSystemImpl::~SoundSystemImpl()
 void SDLSoundSystem::SoundSystemImpl::AddToQueue(const std::string& filename, int loops, int volume)
 {
 	m_Mutex.lock();
-	m_pSoundQueue.push(new AudioClip(filename, loops, volume));
+	m_pSoundQueue.push(new AudioClip("../Data/" + filename, loops, volume));
 	m_Mutex.unlock();
 }
 

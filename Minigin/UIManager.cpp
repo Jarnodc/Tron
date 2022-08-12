@@ -3,15 +3,15 @@
 
 void UIManager::HandleButtons(dae::EInputState inputState, const glm::vec2& mousePos)
 {
-	for (const auto& button : m_Buttons)
+	for (size_t i = 0; i < m_Buttons.size(); ++i)
 	{
 		switch (inputState)
 		{
 		case dae::EInputState::Down:
-			button->ButtonDown(mousePos);
+			m_Buttons[i]->ButtonDown(mousePos);
 			break;
 		case dae::EInputState::Up:
-			button->ButtonUp(mousePos);
+			m_Buttons[i]->ButtonUp(mousePos);
 			break;
 		}
 	}
