@@ -29,6 +29,8 @@ public:
 	void MoveToRandomLocation() const;
 
 private:
+	bool CanSpawnHere() const;
+
 	float m_TurretAngle{};
 	float m_RotateSpeed{ 40 };
 

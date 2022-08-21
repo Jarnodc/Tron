@@ -106,7 +106,7 @@ Ray PhysicsManager::RayCast(const glm::vec3& startPosition, const glm::vec3& dir
 	if (pGO)
 	{
 		std::vector objects{ pGO };
-		int checkedCount{ 0 };
+		size_t checkedCount{ 0 };
 
 		while (objects.size() == checkedCount)
 		{

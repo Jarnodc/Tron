@@ -25,12 +25,10 @@ void AIController::Notify(const dae::GameObject& , EEvent event)
 {
 	if (EEvent::Die != event)
 		return;
-	
-	// else
-	// Respawn
+	GetGameObject()->GetComponent<TankComponent>()->MoveToRandomLocation();
 }
 
-void AIController::CalcAttack()
+void AIController::CalcAttack() const
 {
 	const auto tankComp{ GetGameObject()->GetComponent<TankComponent>() };
 

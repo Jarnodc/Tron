@@ -12,10 +12,12 @@
 void TankComponent::Update()
 {
 	BoxCollider* pBC{ GetGameObject()->GetComponent<BoxCollider>() };
-	if (PhysicsManager::GetInstance().IsOverlapping(pBC, std::string("Teleporter")))
+	if (PhysicsManager::GetInstance().IsOverlapping(pBC, std::string("Wall"))
+	|| PhysicsManager::GetInstance().IsOverlapping(pBC, std::string("Teleporter")))
 	{
 		MoveToRandomLocation();
 	}
+	m_CurRate += dae::TimerInfo::GetInstance().deltaTime;
 }
 
 
@@ -23,7 +25,6 @@ void TankComponent::Attack()
 {
 	if (m_CurRate < m_FireRate)
 	{
-		m_CurRate += dae::TimerInfo::GetInstance().deltaTime;
 		return;
 	}
 	m_CurRate -= m_FireRate;
@@ -60,7 +61,6 @@ void TankComponent::Rotate(bool clockWise)
 
 void TankComponent::MoveToRandomLocation() const
 {
-	BoxCollider* pBC{ GetGameObject()->GetComponent<BoxCollider>() };
 	srand(static_cast<unsigned>(time(nullptr)));
 	do
 	{
@@ -74,7 +74,7 @@ void TankComponent::MoveToRandomLocation() const
 			{
 				randomPos.x -= 1;
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
-				if(!PhysicsManager::GetInstance().IsOverlapping(pBC))
+				if(CanSpawnHere())
 				{
 					return;
 				}
@@ -85,7 +85,7 @@ void TankComponent::MoveToRandomLocation() const
 			{
 				randomPos.x += 1;
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
-				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
+				if (CanSpawnHere())
 				{
 					return;
 				}
@@ -96,7 +96,7 @@ void TankComponent::MoveToRandomLocation() const
 			{
 				randomPos.y += 1;
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
-				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
+				if (CanSpawnHere())
 				{
 					return;
 				}
@@ -107,14 +107,47 @@ void TankComponent::MoveToRandomLocation() const
 			{
 				randomPos.y -= 1;
 				GetGameObject()->SetPosition(randomPos.x, randomPos.y);
-				if (!PhysicsManager::GetInstance().IsOverlapping(pBC))
+				if (CanSpawnHere())
 				{
 					return;
 				}
 			}
 			break;
 		}
-	} while (PhysicsManager::GetInstance().IsOverlapping(pBC));
+	} while (!CanSpawnHere());
+}
+
+bool TankComponent::CanSpawnHere() const
+{
+	BoxCollider* pBC{ GetGameObject()->GetComponent<BoxCollider>() };
+	if (PhysicsManager::GetInstance().IsOverlapping(pBC))
+		return false;
+	if(GetGameObject()->GetTag() == "Player")
+	{
+		const auto enemies{ dae::SceneManager::GetInstance().GetScene().GetGameObject("AI") };
+		const auto center{ glm::vec3{12.5f,12.5f,0} };
+		const auto pos{ GetGameObject()->GetLocalPosition() + center };
+		for (const auto& enemy : enemies)
+		{
+			const auto dir{ enemy->GetLocalPosition() + center - pos };
+			if (const auto ray{ PhysicsManager::GetInstance().RayCast(pos,dir,GetGameObject()) }; ray.HitObject->GetTag() == "AI")
+				return false;			
+		}
+	}
+	else if (GetGameObject()->GetTag() == "AI")
+		{
+			const auto players{ dae::SceneManager::GetInstance().GetScene().GetGameObject("Player") };
+			const auto center{ glm::vec3{12.5f,12.5f,0} };
+			const auto pos{ GetGameObject()->GetLocalPosition() + center };
+			for (const auto& player : players)
+			{
+				const auto dir{ player->GetLocalPosition() + center - pos };
+				if (const auto ray{ PhysicsManager::GetInstance().RayCast(pos,dir,GetGameObject()) }; ray.HitObject->GetTag() == "Player")
+					return false;
+			}
+		}
+	return true;
+	
 }
 
 void TankComponent::Hit() const

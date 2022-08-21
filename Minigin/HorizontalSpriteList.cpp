@@ -15,7 +15,7 @@ void HorizontalSpriteList::AddItem(int amount) const
 	assert(m_pSpriteTemplate);
 	const auto dstRect{ m_pSpriteTemplate->GetDstRect() };
 	
-	for (size_t i = 0; i < amount; ++i)
+	for (int i = 0; i < amount; ++i)
 	{
 		const auto pGO = std::make_shared<dae::GameObject>();
 		SpriteComponent* pSC{ new SpriteComponent(pGO.get(),m_pSpriteTemplate) };

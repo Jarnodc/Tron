@@ -26,7 +26,7 @@ public:
 	void AddTarget(dae::GameObject* pTarget) { m_pTargets.emplace_back(pTarget); }
 	void RemoveTarget(dae::GameObject* pTarget) { m_pTargets.erase(std::ranges::remove(m_pTargets, pTarget).begin()); }
 private:
-	void CalcAttack();
+	void CalcAttack() const;
 	void CalcPath() const;
 	void CalcTarget();
 

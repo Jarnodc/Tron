@@ -6,9 +6,9 @@
 
 void SpriteList::RemoveItem(int amount) const
 {
-	assert(amount <= GetGameObject()->GetChildCount());
+	assert(static_cast<size_t>(amount) <= GetGameObject()->GetChildCount());
 
-	for (size_t i = 0; i < amount; ++i)
+	for (int i = 0; i < amount; ++i)
 	{
 		GetGameObject()->RemoveChild(static_cast<int>(GetGameObject()->GetChildCount() - 1));
 	}
