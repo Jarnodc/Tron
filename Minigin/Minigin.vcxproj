@@ -245,6 +245,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClInclude Include="Achievements.h" />
     <ClInclude Include="AudioClip.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Clip.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="cstmbtn.h" />
@@ -255,6 +256,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClInclude Include="KeyBoardController.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="JsonReader.h" />
+    <ClInclude Include="MusicClip.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PlayerController.h" />
@@ -336,6 +338,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClCompile Include="Achievements.cpp" />
     <ClCompile Include="AudioClip.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Clip.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="cstmbtn.cpp" />
@@ -354,6 +357,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MiniginPCH.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="MusicClip.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Renderer.cpp" />

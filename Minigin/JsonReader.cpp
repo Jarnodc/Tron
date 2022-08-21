@@ -8,7 +8,7 @@
 #include <istreamwrapper.h>
 
 
-void JsonReader::ReadFile(dae::Scene& scene,const std::string& path)
+void JsonReader::ReadFile(dae::Scene& scene,const std::string& path) const
 {
 	if (std::ifstream is{"../Data/" + path})
 	{

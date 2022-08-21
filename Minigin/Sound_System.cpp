@@ -7,6 +7,7 @@
 
 #include "AudioClip.h"
 #include "InputManager.h"
+#include "MusicClip.h"
 
 class SDLSoundSystem::SoundSystemImpl final
 {
@@ -24,12 +25,12 @@ public:
 	void CheckQueue();
 
 private:
-	bool LoadSound(AudioClip* ac);
-	void PlaySound(AudioClip* ac);
+	bool LoadSound(Clip* ac);
+	void PlaySound(Clip* ac);
 
 	bool m_Active = true;
 	std::mutex m_Mutex;
-	std::queue<AudioClip*> m_pSoundQueue{};
+	std::queue<Clip*> m_pSoundQueue{};
 };
 
 
@@ -75,24 +76,33 @@ SDLSoundSystem::SoundSystemImpl::~SoundSystemImpl()
 void SDLSoundSystem::SoundSystemImpl::AddToQueue(const std::string& filename, int loops, int volume)
 {
 	m_Mutex.lock();
-	m_pSoundQueue.push(new AudioClip("../Data/" + filename, loops, volume));
+	if(filename.ends_with("wav"))
+		m_pSoundQueue.push(new AudioClip("../Data/" + filename, loops, volume));
+	else if (filename.ends_with("mp3"))
+		m_pSoundQueue.push(new MusicClip("../Data/" + filename, loops, volume));
 	m_Mutex.unlock();
 }
 
 void SDLSoundSystem::SoundSystemImpl::CheckQueue()
 {
-	std::vector<AudioClip*> ac {};
+	std::vector<Clip*> ac {};
 	while (m_Active)
 	{
 		if (!m_pSoundQueue.empty())
 		{
 			m_Mutex.lock();
-			ac.push_back(m_pSoundQueue.front());
+			ac.emplace_back(m_pSoundQueue.front());
 			m_pSoundQueue.pop();
 			m_Mutex.unlock();
-			if (LoadSound(ac.front()))
+			for (size_t i = 0; i < ac.size(); ++i)
 			{
-				PlaySound(ac.front());
+				if (ac[i]->IsPlaying())
+					continue;
+				if (LoadSound(ac[i]))
+				{
+					PlaySound(ac[i]);
+					break;
+				}
 			}
 		}
 		if(!ac.empty())
@@ -103,7 +113,7 @@ void SDLSoundSystem::SoundSystemImpl::CheckQueue()
 					continue;
 				delete ac[i];
 				ac[i] = nullptr;
-				ac.erase(ac.begin() + i);
+				ac.erase(std::ranges::remove(ac,ac[i]).begin());
 			}
 		}
 	}
@@ -115,12 +125,12 @@ void SDLSoundSystem::SoundSystemImpl::CheckQueue()
 	ac.clear();
 }
 
-bool SDLSoundSystem::SoundSystemImpl::LoadSound(AudioClip* ac)
+bool SDLSoundSystem::SoundSystemImpl::LoadSound(Clip* ac)
 {
 	return ac->LoadWav();
 }
 
-void SDLSoundSystem::SoundSystemImpl::PlaySound(AudioClip* ac)
+void SDLSoundSystem::SoundSystemImpl::PlaySound(Clip* ac)
 {
 	ac->Play();
 }

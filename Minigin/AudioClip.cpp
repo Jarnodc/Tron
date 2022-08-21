@@ -2,11 +2,8 @@
 #include "AudioClip.h"
 
 AudioClip::AudioClip(const std::string& path, int loops, int volume)
-	:m_Path{path}
-	,m_Volume{volume}
-	,m_Loops{ loops }
+	:Clip(path,loops,volume)
 {
-	SetVolume(volume);
 }
 
 AudioClip::~AudioClip()
@@ -14,24 +11,6 @@ AudioClip::~AudioClip()
 	Mix_FreeChunk(m_pSample);
 	m_pSample = nullptr;
 }
-
-//AudioClip::AudioClip(const AudioClip& other)
-//{
-//	m_Channel = other.m_Channel;
-//	m_Path = other.m_Path;
-//	m_Volume = other.m_Volume;
-//	m_Loops = other.m_Loops;
-//	m_pSample = other.m_pSample;
-//}
-//
-//AudioClip::AudioClip(AudioClip&& other)
-//{
-//	m_Channel = other.m_Channel;
-//	m_Path = other.m_Path;
-//	m_Volume = other.m_Volume;
-//	m_Loops = other.m_Loops;
-//	m_pSample = other.m_pSample;
-//}
 
 bool AudioClip::operator==(const AudioClip& ac) const
 {
@@ -41,6 +20,7 @@ bool AudioClip::operator==(const AudioClip& ac) const
 bool AudioClip::LoadWav()
 {
 	m_pSample = Mix_LoadWAV(m_Path.c_str());
+	SetVolume(m_Volume);
 	if (m_pSample)
 		return true;
 
@@ -79,7 +59,6 @@ void AudioClip::SetVolume(const int volume)
 	if (m_pSample)
 	{
 		m_Volume = Mix_VolumeChunk(m_pSample, volume);
-		printf("Volume set to: %d\n", m_Volume);
 	}
 }
 

@@ -130,6 +130,7 @@ int main(int, char* []) {
 	{
 		controller->GetComponent<TankComponent>()->MoveToRandomLocation();
 	}
+	ServiceLocator::GetSoundSystem().AddToQueue("Background.mp3", -1, 10);
 
 	// -- Run -- //
 	engine.Run();

@@ -6,7 +6,6 @@
 #include "MoveComponent.h"
 #include "PhysicsManager.h"
 #include "TankComponent.h"
-#include "TimerInfo.h"
 
 void AIController::Update()
 {
@@ -36,20 +35,14 @@ void AIController::CalcAttack()
 	const auto tankComp{ GetGameObject()->GetComponent<TankComponent>() };
 
 	const auto vec{ m_pTarget->GetLocalPosition() - GetGameObject()->GetLocalPosition() };
-	const auto angleD{ Angle(vec) - tankComp->GetTurretAngle()};
+	const auto angleD{ Angle(vec) - tankComp->GetTurretAngle() };
 	tankComp->Rotate(angleD > 0);
 
-	if (m_CurRate < m_FireRate)
-		m_CurRate += dae::TimerInfo::GetInstance().deltaTime;
-	else
+	const glm::vec3 dir{ cos(ToRadians(tankComp->GetTurretAngle())),sin(ToRadians(tankComp->GetTurretAngle())),0 };
+	const auto ray = PhysicsManager::GetInstance().RayCast(GetGameObject()->GetLocalPosition() + glm::vec3{ 8,8,0 }, dir, GetGameObject());
+	if (ray.HitObject->GetTag() == "Player")
 	{
-		const glm::vec3 dir{ cos(ToRadians(tankComp->GetTurretAngle())),sin(ToRadians(tankComp->GetTurretAngle())),0};
-		const auto ray = PhysicsManager::GetInstance().RayCast(GetGameObject()->GetLocalPosition() + glm::vec3{8,8,0}, dir, GetGameObject());
-		if (ray.HitObject->GetTag() == "Player")
-		{
-			tankComp->Attack();
-			m_CurRate -= m_FireRate;
-		}
+		tankComp->Attack();
 	}
 }
 

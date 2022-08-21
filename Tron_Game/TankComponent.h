@@ -20,7 +20,7 @@ public:
 	void Render() const override{}
 
 	void Hit() const;
-	void Attack() const;
+	void Attack();
 	void Rotate(bool clockWise = true);
 
 	float GetTurretAngle() const { return m_TurretAngle; }
@@ -35,5 +35,8 @@ private:
 	SDL_Rect m_MapRect;
 
 	int m_Value;
+
+	const float m_FireRate{ .7f };
+	float m_CurRate{ m_FireRate };
 };
 

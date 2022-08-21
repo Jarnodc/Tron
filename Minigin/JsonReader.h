@@ -11,7 +11,7 @@ public:
 	JsonReader& operator=(const JsonReader& other) = delete;
 	JsonReader& operator=(JsonReader&& other) noexcept = delete;
 
-	void ReadFile(dae::Scene& scene, const std::string& path);
+	void ReadFile(dae::Scene& scene, const std::string& path) const;
 
 private:
 	friend class Singleton<JsonReader>;

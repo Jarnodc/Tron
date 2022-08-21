@@ -8,6 +8,7 @@
 #include "TankComponent.h"
 #include "PhysicsManager.h"
 #include "RigidBody.h"
+#include "ServiceLocator.h"
 
 void Bullet::Update()
 {
@@ -20,6 +21,10 @@ void Bullet::Update()
 			const auto tag{ overlapper->GetGameObject()->GetTag() };
 			if((tag == "Wall" || tag == "Teleporter") && m_pPrevBoxCollider != overlapper)
 			{
+				// -- Sound Effect -- //
+				ServiceLocator::GetSoundSystem().AddToQueue("Bounce.wav");
+
+
 				m_pPrevBoxCollider = overlapper;
 				++m_AmountBounces;
 				ChangeDirection(overlapper);

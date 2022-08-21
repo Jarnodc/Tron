@@ -19,8 +19,15 @@ void TankComponent::Update()
 }
 
 
-void TankComponent::Attack() const
+void TankComponent::Attack()
 {
+	if (m_CurRate < m_FireRate)
+	{
+		m_CurRate += dae::TimerInfo::GetInstance().deltaTime;
+		return;
+	}
+	m_CurRate -= m_FireRate;
+
 	// -- Sound Effect -- //
 	ServiceLocator::GetSoundSystem().AddToQueue("Shot.wav");
 
