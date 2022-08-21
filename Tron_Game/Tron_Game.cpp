@@ -3,6 +3,7 @@
 #include "Controller.h"
 #include "EEvent.h"
 #include "GameManager.h"
+#include "InputManager.h"
 #include "Minigin.h"
 #include "JsonReader.h"
 #include "LoadGameMode.h"
@@ -100,6 +101,7 @@ void MainScene(dae::Scene& scene)
 
 void ScoreBoardScene(dae::Scene& scene)
 {
+	dae::InputManager::GetInstance().ResetManager();
 	const auto scoreDisplay{ std::make_shared<dae::GameObject>() };
 	scoreDisplay->AddComponent<ScoreBoard>();
 	scene.Add(scoreDisplay);

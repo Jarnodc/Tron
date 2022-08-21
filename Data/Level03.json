@@ -2,215 +2,73 @@
   "Colliders": [
     {
       "Object": "Wall",
-      "Dimensions": [ 0, 0, 480, 16 ]
+      "Dimensions": [ 0, 0, 480, 16 ],
+      "FillColor": {
+        "r": 0,
+        "g": 204,
+        "b": 0,
+        "a": 1
+      }
     },
     {
       "Object": "Wall",
-      "Dimensions": [ 416, 16, 16, 48 ]
+      "Dimensions": [ 0, 16, 16, 432 ],
+      "FillColor": {
+        "r": 0,
+        "g": 204,
+        "b": 0,
+        "a": 1
+      }
     },
     {
       "Object": "Wall",
-      "Dimensions": [ 0, 16, 16, 432 ]
+      "Dimensions": [ 464, 16, 16, 432 ],
+      "FillColor": {
+        "r": 0,
+        "g": 204,
+        "b": 0,
+        "a": 1
+      }
     },
     {
       "Object": "Wall",
-      "Dimensions": [ 48, 48, 16, 32 ]
+      "Dimensions": [ 16, 432, 448, 16 ],
+      "FillColor": {
+        "r": 0,
+        "g": 204,
+        "b": 0,
+        "a": 1
+      }
     },
     {
       "Object": "Wall",
-      "Dimensions": [ 96, 48, 64, 16 ]
+      "Dimensions": [ 232, 48, 16, 368 ],
+      "FillColor": {
+        "r": 0,
+        "g": 204,
+        "b": 0,
+        "a": 1
+      }
     },
     {
       "Object": "Wall",
-      "Dimensions": [ 192, 48, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 240, 48, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 288, 48, 96, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 464, 16, 16, 432 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 144, 64, 16, 48 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 96, 96, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 192, 96, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 240, 96, 48, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 320, 96, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 368, 96, 16, 64 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 416, 96, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 48, 112, 16, 48 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 96, 144, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 144, 144, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 192, 144, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 240, 144, 48, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 320, 144, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 416, 144, 16, 64 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 48, 192, 16, 64 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 96, 192, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 144, 192, 16, 64 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 192, 192, 32, 64 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 256, 192, 32, 64 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 320, 192, 16, 64 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 368, 192, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 96, 240, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 368, 240, 16, 64 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 416, 240, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 416, 288, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 48, 288, 64, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 144, 288, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 192, 288, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 240, 288, 48, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 320, 288, 48, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 48, 304, 16, 48 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 96, 336, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 144, 336, 64, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 240, 336, 48, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 320, 336, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 368, 336, 16, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 416, 336, 16, 64 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 16, 384, 48, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 96, 384, 48, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 176, 384, 32, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 240, 384, 48, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 320, 384, 96, 16 ]
-    },
-    {
-      "Object": "Wall",
-      "Dimensions": [ 16, 432, 448, 16 ]
+      "Dimensions": [ 48, 224, 384, 16 ],
+      "FillColor": {
+        "r": 0,
+        "g": 204,
+        "b": 0,
+        "a": 1
+      }
     },
     {
       "Object": "Teleporter",
-      "Dimensions": [ 224, 192, 32, 64 ]
+      "Dimensions": [ 215, 207, 50, 50 ],
+      "FillColor": {
+        "r": 51,
+        "g": 102,
+        "b": 255,
+        "a": 1
+      }
     }
   ]
 }

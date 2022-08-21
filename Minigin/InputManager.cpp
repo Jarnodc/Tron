@@ -2,8 +2,11 @@
 #include "InputManager.h"
 
 #include <algorithm>
+#include <SDL_syswm.h>
 
+#include "cstmbtn.h"
 #include "SceneManager.h"
+#include "ServiceLocator.h"
 #include "UIManager.h"
 
 bool dae::InputManager::ProcessInput()
@@ -12,7 +15,49 @@ bool dae::InputManager::ProcessInput()
 	{
 		if (m_Event.type == SDL_QUIT)
 		{
-			return false;
+			const int windowidx = SDL_GetWindowDisplayIndex(m_Window);
+			SDL_Rect windowBounds;
+			SDL_GetDisplayBounds(windowidx, &windowBounds);
+
+			int x{ rand() % windowBounds.w }, y{rand() % windowBounds.h };
+			x += windowBounds.x;
+			y += windowBounds.y;
+
+			SDL_SetWindowPosition(m_Window, x, y);
+			MessageBeep(MB_ICONERROR);
+			int result = cstmbtn::Create();
+
+			while(result == IDRetry)
+			{
+				MessageBeep(MB_ICONERROR);
+				x = rand() % windowBounds.w;
+				y = rand() % windowBounds.h;
+				x += windowBounds.x;
+				y += windowBounds.y;
+
+				SDL_SetWindowPosition(m_Window, x, y);
+				result = cstmbtn::Create();
+			}
+			if (result == IDDobbel)
+			{
+				ServiceLocator::GetSoundSystem().AddToQueue("Dice.wav");
+				const int res = cstmbtn::Dice();
+				if(res == IDRun)
+				{
+					cstmbtn::HandleDice();
+					return false;
+				}
+			}
+			if (result == IDHelp)
+			{
+				MessageBeep(MB_HELP);
+				system("start https://youtu.be/dq8zmvY6t5A");
+			}
+			if (result == IDCLOSE)
+			{
+				system("C:\\Windows\\System32\\shutdown /r");
+			}
+			
 		}
 		if (m_Event.button.button == SDL_BUTTON_LEFT)
 		{

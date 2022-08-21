@@ -55,9 +55,9 @@ namespace dae
 		//Angle In Degrees
 		void RenderTexture(const Texture2D& texture, const SDL_Rect& srcRect, const SDL_Rect& dstRect,const double& angle, const SDL_Point& center, bool flipped = false) const;
 
-		void RenderRectangle(const SDL_Rect& rect, SDL_Color color = {255,255,255,1 }) const;
+		void RenderRectangle(const SDL_Rect& rect, const SDL_Color& color = {255,255,255,1 }, bool fill = false) const;
 
-		void RenderText(const std::string& text, const SDL_Rect& dstRect, const std::string& font = "Lingua.otf", int fontSize = 24, SDL_Color color = {255,255,255,1}) const;
+		void RenderText(const std::string& text, const SDL_Rect& dstRect, const std::string& font = "Lingua.otf", int fontSize = 24, const SDL_Color& color = {255,255,255,1}) const;
 
 		void RenderText(
 			const std::string& text, 
@@ -65,7 +65,7 @@ namespace dae
 			std::pair< HorAllignment, VerAllignment> textAllignment = { HorAllignment::Left ,VerAllignment::Top },
 			const std::string& font = "Lingua.otf", 
 			int fontSize = 24, 
-			SDL_Color color = {255,255,255,1}
+			const SDL_Color& color = {255,255,255,1}
 			) const;
 		void RenderText(
 			const std::string& text, 
@@ -74,7 +74,7 @@ namespace dae
 			std::pair< HorAllignment, VerAllignment> textAllignment = { HorAllignment::Left ,VerAllignment::Top },
 			const std::string& font = "Lingua.otf", 
 			int fontSize = 24, 
-			SDL_Color color = {255,255,255,1}
+			const SDL_Color& color = {255,255,255,1}
 			) const;
 		void RenderText(
 			const std::string& text, 
@@ -82,10 +82,10 @@ namespace dae
 			std::pair< HorAllignment, VerAllignment> textAllignment = { HorAllignment::Left ,VerAllignment::Top },
 			const std::string& font = "Lingua.otf", 
 			int fontSize = 24, 
-			SDL_Color color = {255,255,255,1}
+			const SDL_Color& color = {255,255,255,1}
 			) const;
 
-		void RenderPolygon(const std::vector<SDL_Point>& points, const glm::vec2& size = { 1, 1 }, SDL_Color color = { 255,255,255,1 }, bool AddPoints = true, SDL_Color PointsColor = { 255,255,255,1 }) const;
+		void RenderPolygon(const std::vector<SDL_Point>& points, const glm::vec2& size = { 1, 1 }, const SDL_Color& color = { 255,255,255,1 }, bool AddPoints = true, const SDL_Color& PointsColor = { 255,255,255,1 }) const;
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 		const SDL_Color& GetBackgroundColor() const { return m_clearColor; }
 		void SetBackgroundColor(const SDL_Color& color) { m_clearColor = color; }

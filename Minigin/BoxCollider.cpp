@@ -5,16 +5,22 @@
 #include "PhysicsManager.h"
 #include "Renderer.h"
 
-BoxCollider::BoxCollider(dae::GameObject* pGO, SDL_Rect rect)
+
+BoxCollider::BoxCollider(dae::GameObject* pGO, const SDL_Rect& rect, const SDL_Color& color, bool fillRect)
     :Component(pGO)
-	,m_Collider(rect)
+    ,m_Collider(rect)
+    ,m_Color{ color }
+    ,m_FillRect(fillRect)
 {
     PhysicsManager::GetInstance().AddBoxCollider(this);
+
 }
 
-BoxCollider::BoxCollider(dae::GameObject* pGO, int size)
+BoxCollider::BoxCollider(dae::GameObject* pGO, int size, const SDL_Color& color, bool fillRect)
     :Component(pGO)
-    , m_Collider({ 0, 0,size,size })
+    ,m_Collider({ 0, 0,size,size })
+    ,m_Color{ color }
+    ,m_FillRect(fillRect)
 {
     PhysicsManager::GetInstance().AddBoxCollider(this);
 }
@@ -36,7 +42,7 @@ void BoxCollider::Render() const
 {
     const auto objPos = GetGameObject()->GetLocalPosition();
     const SDL_Rect colWorldPos { static_cast<int>(m_Collider.x + objPos.x),static_cast<int>(m_Collider.y + objPos.y),m_Collider.w,m_Collider.h };
-    dae::Renderer::GetInstance().RenderRectangle(colWorldPos,m_Color);
+    dae::Renderer::GetInstance().RenderRectangle(colWorldPos,m_Color,m_FillRect);
 }
 
 bool BoxCollider::IsOverlapping(const BoxCollider* collider, bool includeBorder) const

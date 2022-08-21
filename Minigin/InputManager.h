@@ -40,6 +40,8 @@ namespace dae
 	{
 	public:
 		InputManager() = default;
+
+		void SetWindow(SDL_Window* window) { m_Window = window; }
 		bool ProcessInput();
 		void Update() const;
 
@@ -89,6 +91,9 @@ namespace dae
 		std::vector<std::unique_ptr<KeyBoardController>> m_pKeyBoards{};
 
 		SDL_Event m_Event{};
+
+
+		SDL_Window* m_Window{ nullptr };
 
 	};
 

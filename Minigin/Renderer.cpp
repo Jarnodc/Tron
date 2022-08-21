@@ -112,13 +112,20 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const SDL_Rect& srcR
 		SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &srcRect, &dstRect, angle, &center, SDL_FLIP_NONE);
 }
 
-void dae::Renderer::RenderRectangle(const SDL_Rect& rect,SDL_Color color) const
+void dae::Renderer::RenderRectangle(const SDL_Rect& rect, const SDL_Color& color, bool fill) const
 {
 	SDL_SetRenderDrawColor(GetSDLRenderer(), color.r, color.g, color.b, color.a);
-	SDL_RenderDrawRect(GetSDLRenderer(), &rect);
+	if(fill)
+	{
+		SDL_RenderFillRect(GetSDLRenderer(), &rect);
+	}
+	else 
+	{
+		SDL_RenderDrawRect(GetSDLRenderer(), &rect);
+	}
 }
 
-void dae::Renderer::RenderText(const std::string& text, const SDL_Rect& dstRect, const std::string& font, int fontSize, SDL_Color color) const
+void dae::Renderer::RenderText(const std::string& text, const SDL_Rect& dstRect, const std::string& font, int fontSize, const SDL_Color& color) const
 {
 	TTF_Font* Sans = TTF_OpenFont(("../Data/" + font).c_str(), fontSize);
 	
@@ -141,7 +148,7 @@ void dae::Renderer::RenderText(
 	std::pair< HorAllignment, VerAllignment> textAllignment,
 	const std::string& font,
 	int fontSize,
-	SDL_Color color 
+	const SDL_Color& color
 	) const
 {
 	TTF_Font* Sans = TTF_OpenFont(("../Data/" + font).c_str(), fontSize);
@@ -188,7 +195,7 @@ void dae::Renderer::RenderText(
 	std::pair< HorAllignment, VerAllignment> textAllignment,
 	const std::string& font,
 	int fontSize,
-	SDL_Color color
+	const SDL_Color& color
 ) const
 {
 	SDL_Point Message_rect;
@@ -218,7 +225,7 @@ void dae::Renderer::RenderText(
 	std::pair< HorAllignment, VerAllignment> textAllignment,
 	const std::string& font,
 	int fontSize,
-	SDL_Color color
+	const SDL_Color& color
 ) const
 {
 	SDL_Point Message_rect;
@@ -254,7 +261,7 @@ void dae::Renderer::RenderText(
 	RenderText(text, Message_rect, textAllignment, font, fontSize, color);
 }
 
-void dae::Renderer::RenderPolygon(const std::vector<SDL_Point>& points, const glm::vec2& size, SDL_Color color, bool AddPoints, SDL_Color PointsColor) const
+void dae::Renderer::RenderPolygon(const std::vector<SDL_Point>& points, const glm::vec2& size, const SDL_Color& color, bool AddPoints, const SDL_Color& PointsColor) const
 {
 	if (points.size() == 0)
 		return;

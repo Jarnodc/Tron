@@ -47,6 +47,7 @@ void dae::Minigin::Initialize()
 
 	Renderer::GetInstance().Init(m_Window);
 	ResourceManager::GetInstance().Init("../Data/");
+	dae::InputManager::GetInstance().SetWindow(m_Window);
 }
 
 /**

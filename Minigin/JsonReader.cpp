@@ -28,8 +28,12 @@ void JsonReader::ReadFile(dae::Scene& scene,const std::string& path)
 				arr[i] = dimensions[i].GetInt();
 			}
 			SDL_Rect col{ arr[0] ,arr[1] ,arr[2] ,arr[3] };
+
+			const auto fillcolor{ p["FillColor"].GetObj() };
+			const SDL_Color color{ static_cast<Uint8>(fillcolor["r"].GetInt()),static_cast<Uint8>(fillcolor["g"].GetInt()),static_cast<Uint8>(fillcolor["b"].GetInt()) };
+			
 			const auto obj = std::make_shared<dae::GameObject>(tag);
-			obj->AddComponent(new BoxCollider(obj.get(), col));
+			obj->AddComponent(new BoxCollider(obj.get(), col, color,true));
 			scene.Add(obj);
 		}
 	}

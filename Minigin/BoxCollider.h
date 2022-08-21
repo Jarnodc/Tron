@@ -9,8 +9,8 @@ enum class Side{
 class BoxCollider final: public Component
 {
 	public:
-		BoxCollider(dae::GameObject* pGO, SDL_Rect rect) ;
-		BoxCollider(dae::GameObject* pGO,int size);
+		BoxCollider(dae::GameObject* pGO, const SDL_Rect& rect, const SDL_Color& color = { 255,255,255,1 }, bool fillRect = false);
+		BoxCollider(dae::GameObject* pGO,int size, const SDL_Color& color = { 255,255,255,1 }, bool fillRect = false);
 		~BoxCollider() override;
 
 		BoxCollider(const BoxCollider& other) = delete;
@@ -37,6 +37,7 @@ class BoxCollider final: public Component
 		void SetColor(const SDL_Color& color) { m_Color = color; }
 	private:
 		SDL_Rect m_Collider{};
-		SDL_Color m_Color{ 255,255,255,1 };
+		SDL_Color m_Color;
+		bool m_FillRect{ false };
 };
 

@@ -247,6 +247,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="cstmbtn.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FpsCounter.h" />
     <ClInclude Include="GameObject.h" />
@@ -337,6 +338,7 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="cstmbtn.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FpsCounter.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -374,6 +376,9 @@ xcopy $(SolutionDir)3rdParty\SDL_Mixer\lib\$(PlatformTarget)\*.dll $(OutputPath)
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="Xbox360Controller.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
